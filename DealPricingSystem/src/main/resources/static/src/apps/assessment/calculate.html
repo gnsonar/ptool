@@ -1,0 +1,168 @@
+<!--Application services Calculate  -->
+<div> <label><i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label></div>
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left: 32.6em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 appsCal">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!appInfo.total.open"></i><hr class="iconsideline" ng-if="!appInfo.total.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="appInfo.total.open"></i><hr class="iconsideline" ng-if="appInfo.total.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database appslevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{appInfo.total.levelName}}</label>
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left: 16.5em;">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="appslevel1-1_div" ng-if="appInfo.total.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle appslevel1-1_expandcollapse"   ng-if="!appInfo.total.children[0].open" font-size="16px;"></i>
+				<i class="fa fa-minus-circle appslevel1-1_expandcollapse"  ng-if="appInfo.total.children[0].open" font-size="16px;"></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader total"> {{appInfo.total.children[0].levelName}}</label>
+				</span>
+				<div style="display:inline-flex;padding-left:9.79em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in appInfo.total.children[0]"
+							 ng-class="{'appsCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="childVolumeapps" style="margin-left: 1em;"
+								 ng-model="appInfo.total.children[0].selectedRadio"
+								 value="{{$index}}"
+								 ng-disabled="appInfo.total.children[0][key]=='NA' || appInfo.total.children[0].open"
+								 ng-required="calculateAppInfo.totalApplicationCalculateDto!=null"
+								 ng-click="createUnitPrice(appInfo.total.children[0],key)"
+								 >
+								<label class="level-name" >
+								<a ng-if="appInfo.total.children[0][key]!='NA'" ng-click="getNearestDeal(appInfo.total.children[0],key)">{{appInfo.total.children[0][key]}}</a>
+								<p ng-if="appInfo.total.children[0][key]=='NA' || appInfo.total.children[0].open == true">{{appInfo.total.children[0][key]}}</p></label>
+							</div>
+						</div>
+				<ul ng-if="appInfo.total.children[0].open">
+					<li>
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader totalchild">{{appInfo.total.children[0].children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in appInfo.total.children[0].children[0]"
+							 ng-class="{'appsCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"
+								ng-model="appInfo.total.children[0].children[0].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(appInfo.total.children[0].children[0],key)"
+								  ng-disabled="appInfo.total.children[0].children[0][key]=='NA'"
+								  ng-required="calculateAppInfo.simpleApplicationCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="appInfo.total.children[0].children[0][key]!='NA'" ng-click="getNearestDeal(appInfo.total.children[0].children[0],key)">{{appInfo.total.children[0].children[0][key]}}</a>
+								<p ng-if="appInfo.total.children[0].children[0][key]=='NA'">{{appInfo.total.children[0].children[0][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+					<li>
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader totalchild">{{appInfo.total.children[0].children[1].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in appInfo.total.children[0].children[1]"
+							 ng-class="{'appsCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"
+								ng-model="appInfo.total.children[0].children[1].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(appInfo.total.children[0].children[1],key)"
+								  ng-disabled="appInfo.total.children[0].children[1][key]=='NA'"
+								  ng-required="calculateAppInfo.mediumApplicationCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="appInfo.total.children[0].children[1][key]!='NA'" ng-click="getNearestDeal(appInfo.total.children[0].children[1],key)">{{appInfo.total.children[0].children[1][key]}}</a>
+								<p ng-if="appInfo.total.children[0].children[1][key]=='NA'">{{appInfo.total.children[0].children[1][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+					<li>
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader totalchild">{{appInfo.total.children[0].children[2].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in appInfo.total.children[0].children[2]"
+							 ng-class="{'appsCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"
+								ng-model="appInfo.total.children[0].children[2].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(appInfo.total.children[0].children[2],key)"
+								  ng-disabled="appInfo.total.children[0].children[2][key]=='NA'"
+								  ng-required="calculateAppInfo.complexApplicationCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="appInfo.total.children[0].children[2][key]!='NA'" ng-click="getNearestDeal(appInfo.total.children[0].children[2],key)">{{appInfo.total.children[0].children[2][key]}}</a>
+								<p ng-if="appInfo.total.children[0].children[2][key]=='NA'">{{appInfo.total.children[0].children[2][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+					<li>
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader totalchild">{{appInfo.total.children[0].children[3].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in appInfo.total.children[0].children[3]"
+							 ng-class="{'appsCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"
+								ng-model="appInfo.total.children[0].children[3].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(appInfo.total.children[0].children[3],key)"
+								  ng-disabled="appInfo.total.children[0].children[3][key]=='NA'"
+								  ng-required="calculateAppInfo.veryComplexApplicationCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="appInfo.total.children[0].children[3][key]!='NA'" ng-click="getNearestDeal(appInfo.total.children[0].children[3],key)">{{appInfo.total.children[0].children[3][key]}}</a>
+								<p ng-if="appInfo.total.children[0].children[3][key]=='NA'">{{appInfo.total.children[0].children[3][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+</div>
+<!--End Server Volume -->
+<!-- <div class="col-lg-offset-10  col-md-offset-10 col-lg-2 col-md-2"><br/> -->
+<!-- 	<button type="button" class="btn btn-danger genericbtn"  ng-click="backToInput()"> Back </button> -->
+<!-- 	<button type="button" class="btn btn-danger genericbtn" ng-disabled="appscalculateForm.$invalid" ng-click="goToResult()"> Next </button> -->
+<!-- </div> -->

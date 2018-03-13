@@ -1,0 +1,123 @@
+<!--Storage result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 storage">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!storageInfo.storage.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="storageInfo.storage.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database storagelevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{storageInfo.storage.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index" ng-if="storageInfo.storage.open || storageInfo.backup.open" >
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+	      	</div>
+	      	<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index" ng-if="storageInfo.storage.open || storageInfo.backup.open" >
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+	      	</div>
+		</div>
+	</div>
+	<div class="storagelevel1-1_div" ng-if="storageInfo.storage.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle storagelevel1-1_expandcollapse"   ng-if="!storageInfo.storage.children[0].open" ></i>
+				<i class="fa fa-minus-circle storagelevel1-1_expandcollapse"  ng-if="storageInfo.storage.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader vol"  style="width:20.9em;"> {{storageInfo.storage.children[0].levelName}}</label>
+					<input ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index"
+						class="form-control input-box storagelevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true
+						ng-model="storageInfo.storage.children[0].distributedVolume[$index].volume"/>
+
+					<label class="levelheader pricing-header"> Storage pricing </label>
+					<input ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box storagelevel1-1_input"
+						ng-model="storageInfo.storage.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+
+					<input ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box storagelevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"
+						ng-model="storageInfo.storage.children[0].distributedVolume[$index].unit" />
+				</span>
+				<ul ng-if="storageInfo.storage.children[0].open">
+					<li ng-repeat="child in storageInfo.storage.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader volChild">{{child.levelName}}</label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em"
+						   		ng-model="dv.volume" ng-readonly="true" />
+
+					   		<label class="levelheader pricing-header"> Storage pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box storagelevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box storagelevel1-1_input"
+								name="unit{{$index}}"" ng-readonly="true"
+								ng-model="child.distributedVolume[$index].unit"/>
+						</span>
+					</li>
+				</ul>
+			</li>
+      	</ul>
+  	</div>
+  	<div>
+   		<div class="backup_div">
+			<div class="backuplevel1" style="background-image: url('../images/quater21.png');">
+				<i class="fa fa-plus-circle backuplevel1_i" ng-if="!storageInfo.backup.open"  ></i>
+				<i class="fa fa-minus-circle backuplevel1_i" ng-if="storageInfo.backup.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database backup_icon"></i>
+				</div>
+				<div class="level1_labeldiv">
+					<label> {{storageInfo.backup.levelName}}</label>
+   				</div>
+			</div>
+		</div>
+		<div class="backuplevel1-1_div" ng-if="storageInfo.backup.open">
+			<ul>
+				<li>
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i>
+					</span>
+					<span class="labelbar">
+						<label class="levelheader vol" style="width:20.9em;"> {{storageInfo.backup.children[0].levelName}}</label>
+						<input ng-repeat="dv in storageInfo.backup.children[0].distributedVolume track by $index"
+							class="form-control input-box storagelevel1-1_input"
+							name="backupVolume{{$index}}" ng-readonly="true"
+							ng-model="storageInfo.backup.children[0].distributedVolume[$index].volume" />
+
+						<label class="levelheader pricing-header"> Storage pricing </label>
+						<input ng-repeat="dv in storageInfo.backup.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box storagelevel1-1_input"
+							ng-model="storageInfo.backup.children[0].distributedVolume[$index].revenue * 12"
+							name="backuprevenue{{$index}}" ng-readonly="true" />
+
+						<input ng-repeat="dv in storageInfo.backup.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box storagelevel1-1_input"
+							name="backupunit{{$index}}" ng-readonly="true"
+							ng-model="storageInfo.backup.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+</div>

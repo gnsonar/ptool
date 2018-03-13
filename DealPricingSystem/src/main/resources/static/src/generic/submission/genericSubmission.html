@@ -1,0 +1,341 @@
+<head>
+	<link rel="stylesheet" href="/src/generic/generic.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<div class="container">
+			<div class="genericSubmission">
+		    	<div class="col-lg-12 col-md-12 portlets" >
+		    		<h3><i class="fa fa-cog" aria-hidden="true"></i> Generic Deal Setting</h3>
+			      	<h5>To add new deal please start with some generic parameters</h5>
+			      	<h5>That will be your default variables across the different inputs</h5>
+		    	</div>
+			   		<form id="genericSubForm" name="genericSubForm" class="form-horizontal">
+			   			 <!--Deal Information start-->
+			   			<div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="pull-left">Deal Information</div>
+				                    <div class="clearfix"></div>
+				                </div>
+				                <div class="panel-body">
+				                	<label><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory </label>
+				                    <div class="genericform">
+				                        <br/>
+				                        <div class="genericform left">
+				                        	<div class="rowContent">
+						                        	<div class="col-lg-3 col-md-3">
+						                              	<div class="form-group">
+						                                	<label for="clientName">Client Name<span class="mandatory">*</span></label>
+						                                	<input type="text" ng-model="dealDetails.clientname" class="form-control genericInputs"  placeholder="Enter the client name" name="clientName" ng-required="true" />
+						                            	</div>
+					                            	</div>
+					                            	<div class="col-lg-3 col-md-3">
+					                            		<div class="form-group">
+						                                	<label for="clientIndustry">Client Industry<span class="mandatory">*</span></label>
+						                                 	<select id="clientIndustry" class="form-control genericInputs" ng-model="dealDetails.clientIndustryDtoSelected" selected="dealDetails.clientIndustryDtoSelected" name="clientIndustry"  ng-required="true">
+						                                       	<option value="" disabled selected hidden>Please Select...</option>
+						                                       	<option ng-repeat="clientIndustries in genericDealInfoDto.clientIndustryDtoList">{{clientIndustries.industryName}}</option>
+						                                    </select>
+						                                </div>
+						                            </div>
+						                            <div class="col-lg-3 col-md-3">
+				                              			<div class="form-group">
+						                                	<label for="title">Deal Name<span class="mandatory">*</span></label>
+						                                     <input type="text" ng-model="dealDetails.dealname" class="form-control genericInputs"  placeholder="Enter the deal name" name="dealName" ng-required="true" />
+						                        		</div>
+				                        			</div>
+				                        			<div class="col-lg-3 col-md-3">
+					                        			<div class="form-group">
+						                                	<label for="dealterm">Deal Term<span class="mandatory">*</span></label>
+						                                    <input name="dealterm" class="form-control genericInputs" ng-model="dealDetails.dealterm" placeholder="Enter the months(1-120)" type="text" ng-required="true" title="Months are between 1 to 120" numbers-only />
+						                            	</div>
+				                        			</div>
+			                        			</div>
+			                        		<div class="rowContent">
+					                        		<div class="col-lg-3 col-md-3">
+						                        		<div class="form-group">
+						                                	<label for="startdate">Start Date<span class="mandatory">*</span></label>
+						                                   <datepicker date-format="yyyy-MM-dd">
+															        <input class="form-control genericInputs" ng-model="dealDetails.startdate" placeholder="yyyy-MM-dd" ng-required="true"/>
+															</datepicker>
+						                            	</div>
+				                            		</div>
+				                            		<div class="col-lg-3 col-md-3">
+						                        		<div class="form-group">
+						                                	<label for="countryandcurrency">Country<span class="mandatory">*</span></label>
+						                                    <select id="country" class="form-control genericInputs" ng-model="dealDetails.countrySelected" selected="dealDetails.countrySelected" ng-change="onChangeCountryName(dealDetails.countrySelected)" name="country" ng-required="true">
+						                                        <option value="" disabled selected hidden>Please Select...</option>
+						                                        <option ng-repeat="countries in genericDealInfoDto.countryCurrencyInfoDtoList">{{countries.countryName}}</option>
+						                                    </select>
+					                                   </div>
+				                                   </div>
+				                        			<div class="col-lg-3 col-md-3">
+					                                   <div class="form-group">
+				                                    		<label for="countryandcurrency">Currency<span class="mandatory">*</span></label>
+					                                    	<select id="currency" class="form-control genericInputs" ng-disabled=true  ng-model="dealDetails.currencySelected" selected="dealDetails.currencySelected" name="currency" ng-required="true">
+					                                        	<option value="" disabled selected hidden>Please Select...</option>
+					                                        	<option ng-repeat="currencies in genericDealInfoDto.countryCurrencyInfoDtoList"">{{currencies.currencyCode}}</option>
+					                                    	</select>
+				                                    	</div>
+					                        		</div>
+					                        		<div class="col-lg-3 col-md-3">
+						                            	<div class="form-group">
+						                                	<label for="dealPhaseList">Deal Phase<span class="mandatory">*</span></label>
+						                                    <select id="dealPhaseList" class="form-control genericInputs" ng-model="dealDetails.dealPhaseSelected" selected="dealDetails.dealPhaseSelected" name="dealPhase" ng-required="true">
+						                                        <option value="" disabled selected hidden>Please Select...</option>
+						                                       	<option ng-repeat="dealPhaseList in genericDealInfoDto.dealPhaseList">{{dealPhaseList.dealPhase}}</option>
+						                                    </select>
+						                        		</div>
+					                        		</div>
+				                        		</div>
+
+		                        			<div class="rowContent" ng-if="role=='Finance' || role=='Admin'">
+				                        		<div class="col-lg-3 col-md-3">
+					                            	<div class="form-group">
+					                                	<label for="thirdPartyFinance">3rd Party Financing<span class="mandatory">*</span></label>
+					                                    <select id="thirdPartyFinance" class="form-control genericInputs" ng-model="dealDetails.thirdPartyFinance" selected="dealDetails.thirdPartyFinance" name="thirdPartyFinance" ng-required="true">
+					                                        <option value="" disabled selected hidden>Please Select...</option>
+					                                        <option value="Yes">Yes</option>
+					                                        <option value="No">No</option>
+					                                    </select>
+					                        		</div>
+				                        		</div>
+				                        		<div class="col-lg-3 col-md-3">
+					                        		<div class="form-group">
+					                                	<label for="openBook">Open Book<span class="mandatory">*</span></label>
+					                                    <select id="openBook" class="form-control genericInputs" ng-model="dealDetails.openBook" selected="dealDetails.openBook" name="openBook" ng-required="true">
+					                                        <option value="" disabled selected hidden>Please Select...</option>
+					                                        <option value="Yes">Yes</option>
+					                                        <option value="No">No</option>
+					                                    </select>
+					                        		</div>
+			                            		</div>
+			                            		<div class="col-lg-3 col-md-3">
+					                        		<div class="form-group">
+					                                	<label for="crossBorderTax">Cross Border Taxation<span class="mandatory">*</span></label>
+					                                    <select id="crossBorderTax" class="form-control genericInputs" ng-model="dealDetails.crossBorderTax" selected="dealDetails.crossBorderTax" name="crossBorderTax" ng-required="true">
+					                                        <option value="" disabled selected hidden>Please Select...</option>
+					                                        <option value="Yes">Yes</option>
+					                                        <option value="No">No</option>
+					                                    </select>
+					                        		</div>
+			                                   	</div>
+			                        			<div class="col-lg-3 col-md-3">
+				                                   <div class="form-group">
+					                                	<label for="nonStandardVariablePricing">Non-Standard Variable Pricing<span class="mandatory">*</span></label>
+					                                    <select id="nonStandardVariablePricing" class="form-control genericInputs" ng-model="dealDetails.nonStandardVariablePricing" selected="dealDetails.nonStandardVariablePricing" name="nonStandardVariablePricing" ng-required="true">
+					                                        <option value="" disabled selected hidden>Please Select...</option>
+					                                        <option value="Yes">Yes</option>
+					                                        <option value="No">No</option>
+					                                    </select>
+					                        		</div>
+		                        				</div>
+		                        			</div>
+	                        			 	<div class="rowContent">
+			                        			<div class="col-lg-12 ">
+			                        				<label for="listofcompetitors" class="listLabel">List of competitors</label>
+			                        				<div class="form-group">
+	        									 		<div class="col-lg-3 col-md-3 listInput" data-ng-repeat="competitor in dealDetails.dealCompetitorInfoDtos">
+												      		<div class="input-group">
+									                       		<input type="text" class="form-control genericInputs"  ng-model="competitor.name" name="" ng-blur="checkDuplicatecompetitor(competitor.name,$index)"  title="Use unique name for competitors">
+									                       		<span class="input-group-addon" ng-show="$last"  ng-click="addNewCompetitor()"><i class="fa fa-plus"></i></span>
+									                       		<span class="input-group-addon" ng-show="!$first && $last"  ng-click="removeCompetitor()"><i class="fa fa-minus"></i></span>
+							 	                       	  	</div>
+													   	</div>
+				                            		</div>
+			                            		</div>
+		                        			</div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <!--Deal Information end-->
+
+				        <!--Solution  defaults start-->
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				            	<div class="panel-heading">
+					                <div class="pull-left">Solution defaults</div>
+					                <div class="clearfix"></div>
+				              	</div>
+				              	<div class="panel-body">
+				              		<label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory </label>
+				                    <div class="genericform">
+			                    	<br/>
+			                        <div class="genericform left">
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+				                                	<label for="offshore">Offshore Allowed<span class="mandatory">*</span></label>
+					                                <select id="offshore" class="form-control genericInputs" ng-model="dealDetails.offshoreSelected" selected="dealDetails.offshoreSelected" name="offshore" ng-required="true">
+							                            <option value="" disabled selected hidden>Please Select...</option>
+							                            <option ng-repeat="offshores in genericDealInfoDto.offshoreAndHardwareIncludedList">{{offshores}}</option>
+							                       </select>
+				                              	</div>
+				                              		<div class="form-group">
+				                                	<label for="serviceGovernance">Service Governance (%)<span class="mandatory">*</span>
+				                                	<a href="#" uib-tooltip-html="' Average: 8% <br>Lower quartile: 6%<br>Higher quartile: 12%'"  tooltip-placement="left" tooltip-class="customClass">
+										       		<i class="fa fa-info-circle"></i>
+										       		</a>
+				                                	</label>
+					                                <input type="text" name="serviceGovernancesubinput" ng-model="dealDetails.serviceGovernance" class="form-control genericInputs" title="Default 8%" maxlength="2" size="2" value="8" ng-required="true" numbers-only />
+				                                </div>
+				                        	</div>
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+				                                	<label for="serviceWindows">Service Window and SLA<span class="mandatory">*</span></label>
+					                                <select id="serviceWindow" class="form-control genericInputs" ng-model="dealDetails.standardwindowInfoSelected" selected="dealDetails.standardwindowInfoSelected" name="serviceWindow" ng-required="true">
+							                            <option value="" disabled selected hidden>Please Select...</option>
+							                            <option ng-repeat="serviceWindows in genericDealInfoDto.standardWindowInfoList" ng-value="serviceWindows.windowName">{{serviceWindows.windowName}} {{serviceWindows.windowRange}}</option>
+							                       </select>
+				                              	</div>
+				                              	<div class="form-group">
+						                           	<label for="transitionFees">Transition Fees (%)<span class="mandatory">*</span>
+						                           	<a href="#" uib-tooltip-html="' Average: 25% <br>Lower quartile: 15%<br>Higher quartile: 20%'"  tooltip-placement="left" tooltip-class="customClass">
+										       		<i class="fa fa-info-circle"></i>
+										       		</a>
+						                           	</label>
+						                            <input type="text" name="transitionFeessubinput" ng-model="dealDetails.transitionFees" class="form-control genericInputs" title="Default 20%" maxlength="2" size="2" value="20" ng-required="true" numbers-only />
+					                            </div>
+				                        	</div>
+				                        	<div class="col-lg-3 col-md-3">
+					                            <div class="form-group">
+				                                	<label for="hardwareIncluded">Hardware Included<span class="mandatory">*</span></label>
+					                                <select id="hardwareIncluded" class="form-control genericInputs" ng-model="dealDetails.hardwareIncludedSelected" selected="dealDetails.hardwareIncludedSelected" name="hardwareIncluded" ng-required="true">
+							                            <option value="" disabled selected hidden>Please Select...</option>
+							                            <option ng-repeat="hardwareIncluded in genericDealInfoDto.offshoreAndHardwareIncludedList">{{hardwareIncluded}}</option>
+							                       </select>
+				                                </div>
+				                                <div class="form-group">
+				                                	<label for="migrationcost">Migration Cost Applicable<span class="mandatory">*</span></label>
+				                                    <select id="migrationcost" class="form-control genericInputs" ng-model="dealDetails.migrationCost"  name="migrationcost" ng-required="true">
+				                                        <option value="" disabled selected hidden>Please Select...</option>
+				                                        <option value="Yes">Yes</option>
+				                                        <option value="No">No</option>
+				                                    </select>
+				                        		</div>
+					                        </div>
+				                       	</div>
+				                    </div>
+				                </div>
+				            </div>
+			          	</div>
+			          	<!--Solution defaults end-->
+
+				        <!--Volumetric defaults start-->
+				      		<div class="col-lg-12 col-md-12 portlets">
+					      		<div class="panel panel-default">
+			                  		<div class="panel-heading">
+			                      		<div class="pull-left">Volumetric defaults</div>
+				                      	<div class="clearfix"></div>
+				                  	</div>
+			                  		<div class="panel-body">
+			                  			<label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+			                      		<div class="col-lg-12 volumetric-Level">
+			                        		<div class="form-group" >
+				                           		<label class="col-lg-2 col-md-2 tabheader-label"> </label>
+				                              	<div class="col-lg-1 col-md-1 yearHead inputDiv" ng-repeat="x in numberArr track by $index">
+				                                	Year {{$index+1}}
+			                           			</div>
+			                           		</div>
+			                       		</div>
+				                       	<div class="col-lg-12 volumetric-Level">
+				                        	<div class="form-group">
+				                           		<label class="col-lg-2 col-md-2 tabheader-label"> Number of users<span class="mandatory">*</span></label>
+				                              	<div class="col-lg-1 col-md-1 inputDiv"  ng-repeat="x in numberArr track by $index">
+				                                	<input class="form-control input-box" name="users{{$index}}" type="text"
+				                       				ng-model="dealDetails.noOfUsers.distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'noOfUsers')" numbers-only ng-required="true"/>
+				                           		</div>
+				                           </div>
+			                       		</div>
+				                       	<div class="col-lg-12 volumetric-Level">
+				                            <div class="form-group">
+				                            	<label class="col-lg-2 col-md-2 tabheader-label"> Number of sites</label>
+				                              	<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="x in numberArr track by $index">
+				                                	<input class="form-control input-box" name="sites{{$index}}" type="text"
+				                    				ng-model="dealDetails.noOfSites.distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'noOfSites')" numbers-only ng-required="true"/>
+				                              </div>
+				                           </div>
+				                      	</div>
+				                     	<div class="col-lg-12 volumetric-Level">
+				                     		<div class="form-group">
+					                    		<label class="col-lg-2 col-md-2 tabheader-label"> Number of datacenters<span class="mandatory">*</span></label>
+					                        	<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="x in numberArr track by $index">
+					                               <input class="form-control input-box" name="dc{{$index}}" type="text"
+					                    			ng-model="dealDetails.noOfDatacenters.distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'noOfDatacenters')" numbers-only ng-required="true"/>
+				                            	</div>
+						              		</div>
+						            	</div>
+		                 	 		</div>
+		              	  		</div>
+		          			</div>
+		      			<!--Volumetric defaults end-->
+
+			      		<!--Contact information end-->
+			      		<div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				            	<div class="panel-heading">
+					                <div class="pull-left">Contact information</div>
+					                <div class="clearfix"></div>
+				              	</div>
+				              	<div class="panel-body">
+				              		<label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory.</label>
+				                    <div class="genericform">
+			                    	<br/>
+			                        	<div class="genericform left">
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+				                                	<label for="salesRepresentative">Sales responsible<span class="mandatory">*</span></label>
+					                                <div class="input-group contactInput">
+												      <input type="text" ng-model="dealDetails.salesRepresentative" class="form-control genericInputs" ng-required="true" placeholder="Enter the name"/>
+												      <span class="input-group-addon" ng-click="edit(dealDetails.salesRepresentative,'salesRepresentative')"><i class="fa fa-search"></i></span>
+													 </div>
+				                              	</div>
+				                        	</div>
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+				                                	<label for="bidManager">Bidmanager<span class="mandatory">*</span></label>
+					                                <div class="input-group contactInput">
+												      	<input type="text" ng-model="dealDetails.bidManager" class="form-control genericInputs" ng-required="true" placeholder="Enter the name"/>
+												      	<span class="input-group-addon" ng-click="edit(dealDetails.bidManager,'bidManager')"><i class="fa fa-search"></i></span>
+					 							 	</div>
+				                              	</div>
+				                        	</div>
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+						                           	<label for="financialEngineer">Financial engineer<span class="mandatory">*</span></label>
+						                            <div class="input-group contactInput">
+						                       			<input type="text" ng-model="dealDetails.financialEngineer" class="form-control genericInputs" ng-required="true" placeholder="Enter the name"/>
+					 	                       			<span class="input-group-addon"  ng-click="edit(dealDetails.financialEngineer,'financialEngineer')"><i class="fa fa-search"></i></span>
+						                   			</div>
+					                            </div>
+					                        </div>
+					                        <div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+						                           	<label for="leadSolutionArch">Lead architect<span class="mandatory">*</span></label>
+						                           <div class="input-group contactInput">
+						 	                       		<input type="text" ng-model="dealDetails.leadSolutionArch" class="form-control genericInputs" ng-required="true" placeholder="Enter the name"/>
+							                       		<span class="input-group-addon" ng-click="edit(dealDetails.leadSolutionArch,'leadSolutionArch')"><i class="fa fa-search"></i></span>
+						                       		</div>
+					                            </div>
+					                        </div>
+				                       	</div>
+				                    </div>
+				                </div>
+				            </div>
+			          	</div>
+			      		<!--Contact information end-->
+
+			      		<div class="col-lg-12 col-md-12 portlets">
+						<button type="submit" id="genericSubmitBtn" class="btn btn-danger genericbtn" ng-disabled="!genericSubForm.$valid " ng-click="saveDealDetails()" style="float:right">Save</button>
+			       		</div>
+			       		<div class="row portlets"> </div><br/><div class="col-lg-12"> </div>
+			   		</form>
+		   	</div>
+		</div>
+	</section>
+</section>
+<!--main content end-->

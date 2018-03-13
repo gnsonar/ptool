@@ -1,0 +1,116 @@
+<html ng-app="pcApp">
+	<head>
+		<!-- common css start-->
+		<link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/css/bootstrap-3.3.6/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/angular-datepicker.css">
+		<!-- common css end-->
+
+		<!-- common plugin start-->
+		<script src="/webjars/angularjs/1.6.4/angular.js"></script>
+		<script src="/webjars/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+		<script src="/common/ui-bootstrap-tpls-0.1.0.js"></script>
+		<script src="/common/ui-bootstrap-tpls-2.5.0.min.js"></script>
+		<script src="/common/lodash.min.js"></script>
+		<script src="/common/jquery-3.2.1.min.js"></script>
+		<script src="/common/chart-loader.js"></script>
+		<script src="/common/moment.js"></script>
+		<script src="/common/sanitize.js"></script>
+    	<script src="/common/chart.js"></script>
+    	<script src="/common/bar-chart.js"></script>
+		<!-- common plugin end-->
+
+		<!-- common js start-->
+		<script src="/src/app.js"></script>
+		<script src="/common/module.js"></script>
+		<script src="/common/restEndPoint.js"></script>
+		<script src="/common/httpinterceptor.js"></script>
+		<script src="/common/angular-datepicker.js"></script>
+		<script src="/common/CommonValidationDirective.js"></script>
+		<script src="/common/angular-confirm.js"></script>
+		<script src="/common/angular-alert.js"></script>
+		<script src="/common/assumptionContent.js"></script>
+		<!-- common js end-->
+
+
+		<!-- controllers start-->
+		<script src="/src/login/LoginCtrl.js"></script>
+		<script src="/src/home/homeDetails/HomeCtrl.js"></script>
+		<script src="/src/home/findDeal/FindDealCtrl.js"></script>
+		<script src="/src/accessRequest/AccessRequestCtrl.js"></script>
+		<script src="/src/admin/AdminCtrl.js"></script>
+		<script src="/src/admin/CurrencyCtrl.js"></script>
+
+		<script src="/modals/dealInformation/DealInformationCtrl.js"></script>
+		<script src="/modals/contactInformation/ContactCtrl.js"></script>
+		<script src="/modals/assumption/AssumptionCtrl.js"></script>
+		<script src="/modals/graph/GraphCtrl.js"></script>
+		<script src="/modals/copy/CopyCtrl.js"></script>
+
+			<!-- controllers for assessment -->
+			<script src="/src/generic/assessment/GenericCtrl.js"></script>
+			<script src="/src/hosting/assessment/HostingCtrl.js"></script>
+			<script src="/src/storage/assessment/StorageCtrl.js"></script>
+			<script src="/src/endUser/assessment/EndUserCtrl.js"></script>
+			<script src="/src/network/assessment/NetworkCtrl.js"></script>
+			<script src="/src/serviceDesk/assessment/ServiceDeskCtrl.js"></script>
+			<script src="/src/apps/assessment/AppsCtrl.js"></script>
+			<script src="/src/retail/assessment/RetailCtrl.js"></script>
+			<script src="/src/totals/assessment/TotalsCtrl.js"></script>
+
+			<!-- controllers for submission -->
+			<script src="/src/generic/submission/GenericSubmissionCtrl.js"></script>
+			<script src="/src/hosting/submission/HostingSubCtrl.js"></script>
+			<script src="/src/storage/submission/StorageSubCtrl.js"></script>
+			<script src="/src/endUser/submission/EndUserSubCtrl.js"></script>
+			<script src="/src/serviceDesk/submission/ServiceDeskSubCtrl.js"></script>
+			<script src="/src/network/submission/NetworkSubCtrl.js"></script>
+			<script src="/src/apps/submission/AppsSubCtrl.js"></script>
+			<script src="/src/retail/submission/RetailSubCtrl.js"></script>
+			<script src="/src/totals/submission/TotalsSubCtrl.js"></script>
+		<!-- controllers end-->
+
+		<!-- common header start-->
+		<script src="/directives/assessment/topHeader/TopHeaderCtrl.js"></script>
+		<script src="/directives/assessment/sideHeader/SideHeaderCtrl.js"></script>
+		<script src="/directives/assessment/sideHeader/sideheader.js"></script>
+		<script src="/directives/assessment/topHeader/topheader.js"></script>
+		<script src="/directives/submission/sideHeader/SideHeaderSubCtrl.js"></script>
+		<script src="/directives/submission/sideHeader/sideheadersubmission.js"></script>
+		<!-- common header end-->
+
+
+		<!-- services start-->
+		<script src="/services/GraphService.js"></script>
+		<script src="/services/DealService.js"></script>
+		<script src="/services/HostingService.js"></script>
+		<script src="/services/StorageService.js"></script>
+		<script src="/services/EndUserService.js"></script>
+		<script src="/services/AppsService.js"></script>
+		<script src="/services/NetworkService.js"></script>
+		<script src="/services/ServiceDeskService.js"></script>
+		<script src="/services/RetailService.js"></script>
+		<script src="/services/FactorService.js"></script>
+		<!-- service end-->
+
+	</head>
+
+	<base href="/">
+
+	<body>
+
+		<!-- <div ng-view> </div> -->
+	 	<div ui-view id = "app-container"></div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer">
+			<span class="version">
+				Release: 1.8.1
+			</span>
+			<div class="copyright">
+				&copy; 2018 FUJITSU. All right reserved. |<a href="#" style="color:skyblue"> Privacy</a>
+			</div>
+		</div>
+
+ 	</body>
+
+ </html>

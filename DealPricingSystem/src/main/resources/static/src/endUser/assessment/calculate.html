@@ -1,0 +1,261 @@
+<!--enduser Calculate  -->
+
+<div> <label><i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label></div>
+
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left: 31.6em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<!--WAN  -->
+<div class="col-lg-12 endUserCal">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!endUserInfo.user.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="endUserInfo.user.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database endUserlevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{endUserInfo.user.levelName}}</label> 
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left: 15.5em;" ng-if="endUserInfo.user.open">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="endUserlevel1-1_div" ng-if="endUserInfo.user.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle endUserlevel1-1_expandcollapse"   ng-if="!endUserInfo.user.children[0].open" font-size="16px;"></i>
+				<i class="fa fa-minus-circle endUserlevel1-1_expandcollapse"  ng-if="endUserInfo.user.children[0].open" font-size="16px;"></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i> 
+				</span>
+				<span class="labelbar">
+					<label class="levelheader"> {{endUserInfo.user.children[0].levelName}}</label>					
+				</span>
+				<div style="display:inline-flex;padding-left:12.7em;">
+					<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0]" 
+						 ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+						<input type="radio" name="parent" style="margin-left: 1em;" 
+							 ng-model="endUserInfo.user.children[0].parent" value="{{$index}}" ng-disabled="endUserInfo.user.children[0][key]=='NA'"
+							 ng-required="endUserCalculateDto.endUserDevicesCalculateDto!=null"
+							 ng-click="createUnitPrice(endUserInfo.user.children[0],key)">
+						<label class="level-name">
+							<a ng-if="endUserInfo.user.children[0][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0],key)">{{endUserInfo.user.children[0][key]}}</a>
+							<p ng-if="endUserInfo.user.children[0][key]=='NA'">{{endUserInfo.user.children[0][key]}}</p>
+						</label>
+					</div>
+				</div>
+				<ul ng-if="endUserInfo.user.children[0].open">
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{endUserInfo.user.children[0].children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.79em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[0]" 
+							 ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="child0" style="margin-left: 1em;"  
+								ng-model="endUserInfo.user.children[0].children[0].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(endUserInfo.user.children[0].children[0],key)"
+								  ng-disabled="endUserInfo.user.children[0].children[0][key]=='NA'"
+								 ng-required="endUserCalculateDto.laptopsCalculateDto!=null">
+								<label class="level-name" >
+								<a ng-if="endUserInfo.user.children[0].children[0][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0].children[0],key)">{{endUserInfo.user.children[0].children[0][key]}}</a>
+								<p ng-if="endUserInfo.user.children[0].children[0][key]=='NA'">{{endUserInfo.user.children[0].children[0][key]}}</p></label>
+							</div>
+						</div>
+							<ul ng-if="endUserInfo.user.children[0].open && endUserInfo.user.children[0].children[0].open">
+						<li  >
+							<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+							<span class="labelbar">
+								<label class="levelheader">{{endUserInfo.user.children[0].children[0].children[0].levelName}}</label>
+							</span>
+							<div style="display:inline-flex; padding-left:6.85em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[0].children[0]" 
+								 ng-class="{'endUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+									<input type="radio" name="level0" style="margin-left: 1em;"  
+									ng-model="endUserInfo.user.children[0].children[0].children[0].perNonPer" 
+									 value="{{$index}}"
+									 ng-click="createUnitPrice(endUserInfo.user.children[0].children[0].children[0],key)"
+									  ng-disabled="endUserInfo.user.children[0].children[0].children[0][key]=='NA'"
+									 ng-required="endUserCalculateDto.highEndLaptopsCalculateDto!=null">
+									<label class="level-name" >
+									<a ng-if="endUserInfo.user.children[0].children[0].children[0][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0].children[0].children[0],key)">{{endUserInfo.user.children[0].children[0].children[0][key]}}</a>
+									<p ng-if="endUserInfo.user.children[0].children[0].children[0][key]=='NA'">{{endUserInfo.user.children[0].children[0].children[0][key]}}</p></label>
+								</div>
+							</div>
+						</li>
+						<li  >
+							<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+							<span class="labelbar">
+								<label class="levelheader">{{endUserInfo.user.children[0].children[0].children[1].levelName}}</label>
+							</span>
+							<div style="display:inline-flex; padding-left:6.85em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[0].children[1]" 
+								 ng-class="{'endUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+									<input type="radio" name="level1" style="margin-left: 1em;"  
+									ng-model="endUserInfo.user.children[0].children[0].children[1].perNonPer" 
+									 value="{{$index}}"
+									 ng-click="createUnitPrice(endUserInfo.user.children[0].children[0].children[1],key)"
+									  ng-disabled="endUserInfo.user.children[0].children[0].children[1][key]=='NA'"
+									 ng-required="endUserCalculateDto.standardLaptopsCalculateDto!=null">
+									<label class="level-name" >
+									<a ng-if="endUserInfo.user.children[0].children[0].children[1][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0].children[0].children[1],key)">{{endUserInfo.user.children[0].children[0].children[1][key]}}</a>
+									<p ng-if="endUserInfo.user.children[0].children[0].children[1][key]=='NA'">{{endUserInfo.user.children[0].children[0].children[1][key]}}</p></label>
+								</div>
+							</div>
+						</li>
+					</ul>
+							<li  ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{endUserInfo.user.children[0].children[1].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.79em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[1]" 
+							 ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="child1" style="margin-left: 1em;"  
+								ng-model="endUserInfo.user.children[0].children[1].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(endUserInfo.user.children[0].children[1],key)"
+								  ng-disabled="endUserInfo.user.children[0].children[1][key]=='NA'"
+								 ng-required="endUserCalculateDto.desktopsCalculateDto!=null">
+								<label class="level-name" >
+								<a ng-if="endUserInfo.user.children[0].children[1][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0].children[1],key)">{{endUserInfo.user.children[0].children[1][key]}}</a>
+								<p ng-if="endUserInfo.user.children[0].children[1][key]=='NA'">{{endUserInfo.user.children[0].children[1][key]}}</p></label>
+							</div>
+						</div>
+							<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{endUserInfo.user.children[0].children[2].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.79em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[2]" 
+							 ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="child2" style="margin-left: 1em;"  
+								ng-model="endUserInfo.user.children[0].children[2].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(endUserInfo.user.children[0].children[2],key)"
+								  ng-disabled="endUserInfo.user.children[0].children[2][key]=='NA'"
+								 ng-required="endUserCalculateDto.thinClientsCalculateDto!=null">
+								<label class="level-name" >
+								<a ng-if="endUserInfo.user.children[0].children[2][key]!='NA'" ng-click="getNearestDeal(child,key)">{{endUserInfo.user.children[0].children[2][key]}}</a>
+								<p ng-if="endUserInfo.user.children[0].children[2][key]=='NA'">{{endUserInfo.user.children[0].children[2][key]}}</p></label>
+							</div>
+						</div>
+							<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{endUserInfo.user.children[0].children[3].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.79em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.user.children[0].children[3]" 
+							 ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="child3" style="margin-left: 1em;"  
+								ng-model="endUserInfo.user.children[0].children[3].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(endUserInfo.user.children[0].children[3],key)"
+								  ng-disabled="endUserInfo.user.children[0].children[3][key]=='NA'"
+								 ng-required="endUserCalculateDto.mobileDevicesCalculateDto!=null">
+								<label class="level-name" >
+								<a ng-if="endUserInfo.user.children[0].children[3][key]!='NA'" ng-click="getNearestDeal(endUserInfo.user.children[0].children[3],key)">{{endUserInfo.user.children[0].children[3][key]}}</a>
+								<p ng-if="endUserInfo.user.children[0].children[3][key]=='NA'">{{endUserInfo.user.children[0].children[3][key]}}</p></label>
+							</div>
+						</div>
+						
+					
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+	  
+	   <!--IMAC-->
+	   <div>
+		   <div class="imac_div">
+				<div class="imaclevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle imaclevel1_i" ng-if="!endUserInfo.userImac.open"  ></i>
+					<i class="fa fa-minus-circle imaclevel1_i" ng-if="endUserInfo.userImac.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database imac_icon"></i> 
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{endUserInfo.userImac.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 15.3em;" ng-if="endUserInfo.userImac.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="imaclevel1-1_div" ng-if="endUserInfo.userImac.open">
+   				<ul>
+					<li>
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i> 
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{endUserInfo.userImac.children[0].levelName}}</label> 
+						</span>
+						<div style="display:inline-flex;padding-left: 12.7em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in endUserInfo.userImac.children[0]" 
+							 	ng-class="{'EndUserCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="imac" style="margin-left: 1em;"  
+									ng-model="endUserInfo.userImac.children[0].imac"
+								 	value="{{$index}}" ng-click="createUnitPrice(endUserInfo.userImac.children[0],key)"
+								 	ng-disabled="endUserInfo.userImac.children[0][key]=='NA'" 
+								 	ng-required="endUserCalculateDto.imacDevicesCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="endUserInfo.userImac.children[0][key]!='NA'" ng-click="getNearestDeal(endUserInfo.userImac.children[0],key)">{{endUserInfo.userImac.children[0][key]}}</a>
+									<p ng-if="endUserInfo.userImac.children[0][key]=='NA'">{{endUserInfo.userImac.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+	  
+</div>
+

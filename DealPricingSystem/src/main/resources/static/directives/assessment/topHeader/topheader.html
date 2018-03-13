@@ -1,0 +1,42 @@
+<header class="header dark-bg">
+	<div class="toggle-nav">
+  		<div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+	</div>
+
+	<ul class="nav navbar-nav navbar-left">
+	   <li><img id="q-logo" src="../images/Q-icon.png"></img></li>
+	   <li><a class="#"  ng-click="redirect('home.details')"><i class="fa fa-home" aria-hidden="true"  style="font-size:28px; color:white; "></i></a></li>
+	   <li ng-if="role=='Admin'" ><a class="#" ng-click="redirect('admin.userRequest')"><i class="fa fa-cogs" aria-hidden="true" style="font-size:28px; color:white;"></i></a></li>
+	   <li><a class="#" ng-click="gotoAss('assumption')"><i class="fa fa-info-circle" aria-hidden="true" style="font-size:28px; color:white;"></i></a></li>
+   </ul>
+
+	<div class="top-nav notification-row">
+
+  	<!-- notificatoin dropdown start-->
+ 	<ul class="nav pull-right top-menu">
+    	<li class="dropdown">
+      		<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            	<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span class="username">Welcome, {{userName}}</span>
+                <b class="caret"></b>
+             </a>
+
+    		<ul class="dropdown-menu extended logout">
+		        <!-- <li class="eborder-top">
+		          <a href="#"><i class="icon_profile"></i> My Profile</a>
+		        </li> -->
+		        <li>
+		          <a ng-click="logout()"><i class="icon_key_alt"></i> Log Out</a>
+		        </li>
+		        <li>
+		    </ul>
+   	 	</li>
+      	<li>
+              <img id="fu-logo" src="../images/Fujitsu-logo.jpg"></img>
+
+        </li>
+    	<!-- user login dropdown end -->
+  	</ul>
+ 	 <!-- notificatoin dropdown end-->
+	</div>
+</header>

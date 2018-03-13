@@ -1,0 +1,300 @@
+/* ------------- Input Tab ------------ */
+.tabbtbn{
+	float:right;
+}
+.solList{
+	width:19.666667%;
+}
+
+.hostingInputs{
+	width: 12em;
+	border-radius: 0px;
+}
+.hostingAssessment{
+	padding-left:4em;
+}
+.tabheader{
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: inherit;
+    box-shadow: 1px 1px 1px 1px;
+    padding: 1em;
+    background-color: #fbfbfb;
+}
+.assessment-tabheader{
+	border: 1px solid;
+    border-radius: 6px;
+    border-color: inherit;
+    box-shadow: 1px 1px 1px 1px;
+    padding: 1em;
+    background-color: #fbfbfb;
+    padding-left:0px;
+    font-size: 12px;
+}
+
+.div-image{
+	background-image: url('../images/quater4.png');
+	height:1em;width:1em;
+}
+
+.savecanceldiv{
+	padding-left: 3em;
+}
+
+.hosting{
+	margin-top:3em;
+}
+
+.level1_div{
+	display: inline-flex;
+}
+
+.level1{
+	height:3em;
+	width:3em;
+}
+
+.platformlevel1{
+		height:3em;
+		width:3em;
+		margin-top:-1em;
+		margin-left:0.17em; 	
+}
+
+.level1_i{
+	margin-left: 0.8em;
+	margin-top: 0.7em;
+	font-size:16px;
+}
+
+.platformlevel1_i{
+	margin-left: 0.8em;
+	margin-top: 0.7em;
+	font-size:16px;
+	margin-top: 2em
+}
+
+.level1_icondiv{
+	width: 2em;
+	background-color: lightgrey;
+	text-align: center;
+	border: 1px solid;
+	border-right-style: none;
+}
+
+.hostinglevel1_icon{
+	padding-top: 0.7em;
+}
+
+.level1_labeldiv{
+	border: 1px solid;
+	border-left-style: none;
+	width: 10em;
+	padding: 0.5em;
+}
+.level1_yearmaindiv{
+	margin-left: 18.5em;
+	display: inline-flex;
+}
+
+.level1_yearmaindiv1{
+	margin-left: 13.5em;
+	display: inline-flex;
+}
+.level1_yearmaindiv2{
+	margin-left: 10em;
+	display: inline-flex;
+}
+.level1_yearmaindiv11{
+	margin-left: 18.5em;
+	display: inline-flex;
+}
+.level1_yearmaindiv22{
+	margin-left: 10em;
+	display: inline-flex;
+}
+
+.hostinglevel1-1_div{
+	border-left:1px solid;
+	margin-left: 1.3em;
+}
+
+.distributionsetting{
+	width: 12em;
+}
+
+.hostinglevel1-1_expandcollapse{
+	margin-left: -2.55em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 2em;
+    font-size: 16px;
+}
+
+.level1-1_icon{
+	padding-top: 0.7em;
+	padding-bottom: 12px;
+}
+
+.hostinglevel1-1_input{
+	margin-top: 0.3em;
+}
+
+.hostinglevel1-1-1_icon{
+	padding-top:15px;
+	padding-bottom:17px;
+}
+
+.platform_div{
+	display:inline-flex;
+	margin-left: -1px;
+}
+
+.platform_icon{
+	padding-top: 0.7em;
+}
+
+.platformlevel1-1_div{
+	margin-left: 1.3em;
+}
+
+
+.input-euro {
+     position: relative;
+}
+
+.input-euro:before {
+     position: absolute;
+     top: 0.2em;
+     content:"%";
+}
+
+.input-euro.right:before {
+     right: -4.6em;
+}
+
+
+.database{
+	width:14em;
+}
+
+.virtualchild{
+	width:10em;
+}
+
+/* ----------- Calculate Tab ------------ */
+
+
+.checkbox_div{
+	border: 1px solid #DBDBDB;
+	padding-top: 1.9em;
+	height: 5em;
+	width: 7em;
+
+}
+.column_div{
+	border: 1px solid #DBDBDB;
+	background-color:#d3d3d3;
+	width: 7em;
+	color:black;
+}
+
+.column-head_div{
+	border: 1px solid #DBDBDB;
+	background-color:#f7f7f7; 
+	height: 2em;
+	width: 7em;
+	color:black;
+}
+.column-head-bench_div{
+	border: 1px solid #DBDBDB;
+	background-color:#f7f7f7; 
+	height: 2em;
+	width: 14em;
+	color:black;
+}
+
+
+.hostingCalculateMargin{
+	margin-left: 1em;
+}
+
+.hostingCalculatedisable{
+	background-color:#e0e1e2;
+}
+
+
+/* --- Deal information modal   --- */
+
+.dealdetails{
+	margin-left: 3em;
+    margin-top: 1em;
+}
+
+.mainmenuBtn{
+	width:100%
+}
+
+.barsIcon{
+	float:left;
+}
+.dropIcon{
+	float:right;
+}
+.menulabel{
+	font-weight:bold;
+}
+
+
+/* ----------- submission ------------ */
+
+.hostingSubInputs{
+	width: 14em;
+	border-radius: 0px;
+}
+.hostingSubmission{
+	padding-left:4em;
+}
+.pricing-header{
+	width: 8em;
+	margin-left:2em;
+}
+.tabheader-radio{
+    border: 1px solid #999;
+    border-radius: 6px;
+/*  border-color: inherit; */
+/*  box-shadow: 1px 1px 1px 1px; */
+/*  padding: 1em; */
+    background-color: #fbfbfb;
+/*  margin-top:1em; */
+    margin-left:16em;
+}
+
+
+
+/*  label[title1]:hover:after {
+  content: attr(title1);
+  padding: 2px 8px;
+  margin-top: 2px;
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  width:250%;
+  white-space: wrap;
+  z-index: 5;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 0px 0px 0px #000000;
+  -webkit-box-shadow: 0px 0px 0px #000000;
+  box-shadow: 0px 0px 0px #000000;
+  background-image: -moz-linear-gradient(top, #000000, #000000);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #000000),color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(top, #000000, #000000);
+  background-image: -moz-linear-gradient(top, #000000, #000000);
+  background-image: -ms-linear-gradient(top, #000000, #000000);
+  background-image: -o-linear-gradient(top, #000000, #000000);
+}
+
+ */
+

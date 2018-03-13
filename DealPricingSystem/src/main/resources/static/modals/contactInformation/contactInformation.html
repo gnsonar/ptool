@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h3>Search Result</h3>
+</div>
+<div class="lds-spinner" ng-show="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="modal-body">
+
+	<div class="form-group col-lg-12"> 
+            <label for="dealname" class="col-lg-2">Name</label>
+            <div class="col-lg-6"><input type="text" class="form-control" id="dealname" ng-model="conatactName"></div>
+    </div> 
+	<br>
+	<div class="form-group col-lg-12" style="width:37em; height:17em; overflow: auto; border:1px solid;">
+	<br>
+	<center><div ng-if="conatactNames.length==0"> No result found.</div></center>
+	<div class="form-group col-lg-12" ng-repeat="conatactName in conatactNames" >
+		
+	 	<i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp; <span>
+	 	<a id="link" ng-click="select(conatactName.fullName)">{{conatactName.fullName}} </a></span>
+	</div>
+	</div>
+</div>
+<div class="modal-footer">
+  <button ng-click="getContact(conatactName)" class="btn btn-danger" ng-disabled="conatactName=='' || conatactName==undefined" >Search</button>
+  <button ng-click="close()" class="btn" >close</button>
+</div>

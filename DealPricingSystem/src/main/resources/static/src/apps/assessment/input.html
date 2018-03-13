@@ -1,0 +1,84 @@
+<!--apps input -->
+
+<label><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+
+<div class="col-lg-12 apps">
+	<div class="alert alert-danger" ng-if="showErr">
+	<strong>Error!</strong> Sum of percentages should be 100!</div>
+	<div class="alert alert-danger" ng-if="showVolumeErr">
+	<strong>Error!</strong> Sum of all App types should be equal to Total in there respective year!</div>
+	
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!appInfo.total.open" ng-click="togglePanel(appInfo.total)" ></i><hr class="iconsideline" ng-if="!appInfo.total.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="appInfo.total.open" ng-click="togglePanel(appInfo.total)"></i><hr class="iconsideline" ng-if="appInfo.total.open" >
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database appslevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{appInfo.total.levelName}}</label> 
+			</div>
+			<div class="level1_yearmaindiv">
+				<div ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index" ng-if="appInfo.total.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="appslevel1-1_div" ng-if="appInfo.total.open">
+		<ul>
+		    <li>
+		        <div class="level1_div">
+					<label for="clientIndustry" class="distributionsetting">App Distribution<em class="mandatory" style="display:initial;">*</em></label>
+					<select ng-if="custom==true" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" required>
+						<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+					<select ng-if="custom==false" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" required>
+						<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+				</div>
+		    </li>
+		    <li>
+		        <i class="fa fa-plus-circle appslevel1-1_expandcollapse"  ng-click="togglePanel(appInfo.total.children[0])" ng-if="!appInfo.total.children[0].open" ></i>
+				<i class="fa fa-minus-circle appslevel1-1_expandcollapse" ng-click="togglePanel(appInfo.total.children[0])" ng-if="appInfo.total.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i> 
+				</span>
+				<span class="labelbar">
+					<label class="levelheader total" style="width:18em;"> {{appInfo.total.children[0].levelName}}<em class="mandatory" style="display:initial;">*</em></label>
+					<div ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index">
+						<input 	class="form-control input-box appslevel1-1_input"
+							name="volume" ng-readonly="appInfo.total.children[0].open == true" ng-blur="calcVolume(appInfo.total.children[0])" 								
+							ng-model="appInfo.total.children[0].distributedVolume[$index].volume" 
+							ng-required="true"ng-keydown="tabEvent($event,$index)" numbers-only/>
+                    </div>
+				
+				
+				  </span>
+				<ul ng-if="appInfo.total.children[0].open"> 
+					<li ng-repeat="child in appInfo.total.children[0].children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelHeader totalchild input-euro right" ng-if="!child.tooltip">{{child.levelName}}<em class="mandatory" style="display:initial;">*</em></label>
+							<label class="levelheader totalchild input-euro right" ng-if="child.tooltip"  title='{{child.tooltip}}';>{{child.levelName}}<em class="mandatory" style="display:initial;">*</em></label>
+							
+							<input class="form-control input-box perInput" name="childinput{{$index}}" style="margin-top: 0.2em"
+								  	ng-change="onChangeAppPercentage(appInfo.total.children[0].children)"  placeholder="<100"
+								  	ng-model="appInfo.total.children[0].children[childIndex].percentage" numbers-only/>
+								  	
+						  	<span ng-show="appInputForm.childinput0.$error.pattern">Not a valid number!</span>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+									class="form-control input-box" style="margin-top: 0.2em" 
+									name="childVolume{{childIndex}}{{$index}}" 
+									ng-change="onChangechildVolume()"
+									ng-required="true"
+							   		ng-model="dv.volume" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+</div>

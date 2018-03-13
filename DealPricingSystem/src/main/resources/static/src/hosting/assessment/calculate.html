@@ -1,0 +1,257 @@
+<!--Hosting Calculate  -->
+
+<div>
+	<label>
+	<i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label>
+</div>
+
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left:34.3em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<!--Server Hosting  -->
+<div class="col-lg-12 hostingCal" style="padding-left:0px;">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!hostingInfo.serverHosting.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="hostingInfo.serverHosting.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database hostinglevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{hostingInfo.serverHosting.levelName}}</label>
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left:19.3em;" ng-if="hostingInfo.serverHosting.open">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="hostinglevel1-1_div" ng-if="hostingInfo.serverHosting.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle hostinglevel1-1_expandcollapse"   ng-if="!hostingInfo.serverHosting.children[0].open" font-size="16px;"></i>
+				<i class="fa fa-minus-circle hostinglevel1-1_expandcollapse"  ng-if="hostingInfo.serverHosting.children[0].open" font-size="16px;"></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader">{{hostingInfo.serverHosting.children[0].levelName}}</label>
+				</span>
+				<!-- Server Volume -->
+				<div style="display:inline-flex;padding-left:16.5em;">
+					<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.serverHosting.children[0]"
+						 ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+						<input type="radio" name="Server" style="margin-left: 1em;"
+							 ng-model="hostingInfo.serverHosting.children[0].childVolumehosting"
+							 value="{{$index}}" ng-disabled="hostingInfo.serverHosting.children[0][key]=='NA'"
+							 ng-required="!hostingInfo.serverHosting.children[0].dataValidation"
+							 ng-click="createUnitPrice(hostingInfo.serverHosting.children[0],key)">
+						<label class="level-name">
+							<a ng-if="hostingInfo.serverHosting.children[0][key]!='NA'" ng-click="getNearestDeal(hostingInfo.serverHosting.children[0],key)">{{hostingInfo.serverHosting.children[0][key]}}</a>
+							<p ng-if="hostingInfo.serverHosting.children[0][key]=='NA'">{{hostingInfo.serverHosting.children[0][key]}}</p>
+						</label>
+					</div>
+				</div>
+
+				<ul ng-if="hostingInfo.serverHosting.children[0].open">
+					<li ng-repeat="child in hostingInfo.serverHosting.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{child.levelName}}</label>
+						</span>
+						<!-- Physical Server -->
+						<div style="display:inline-flex;padding-left:13.52em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.serverHosting.children[0].children[childIndex]"
+							 	ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{child.id}}" style="margin-left: 1em;"
+									ng-model="hostingInfo.serverHosting.children[0].children[childIndex].perNonPer"
+								 	value="{{$index}}" ng-click="createUnitPrice(child,key)"
+								  	ng-disabled="hostingInfo.serverHosting.children[0].children[childIndex][key]=='NA'"
+								 	ng-required="!child.dataValidation">
+								<label class="level-name">
+								<a ng-if="hostingInfo.serverHosting.children[0].children[childIndex][key]!='NA'" ng-click="getNearestDeal(child,key)">{{hostingInfo.serverHosting.children[0].children[childIndex][key]}}</a>
+								<p ng-if="hostingInfo.serverHosting.children[0].children[childIndex][key]=='NA'">{{hostingInfo.serverHosting.children[0].children[childIndex][key]}}</p></label>
+							</div>
+						</div>
+
+						<ul ng-if="child.open">
+							<li ng-repeat="grandchild in child.children" ng-init="grandchildIndex = $index">
+								<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader virtualchild">{{grandchild.levelName}} </label>
+								</span>
+								<div style="display:inline-flex; padding-left:8.6em;">
+									<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex]"
+									 	ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+
+										<input type="radio" name="{{grandchild.id}}" style="margin-left: 1em;"
+											ng-model="hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex].perNonPer"
+											 value="{{$index}}"
+											 ng-click="createUnitPrice(grandchild,key)"
+										  	ng-disabled="grandchild[key]=='NA'"
+										  	ng-required="!grandchild.dataValidation">
+
+										<label class="level-name" >
+										<a ng-if="grandchild[key]!='NA'" ng-click="getNearestDeal(grandchild,key)">{{grandchild[key]}}</a>
+										<p ng-if="grandchild[key]=='NA'">{{grandchild[key]}}</p></label>
+									</div>
+								</div>
+
+								<ul ng-if="grandchild.open">
+									<li ng-repeat="ggc in grandchild.children" ng-init="ggcIndex = $index">
+										<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+										<span class="labelbar">
+											<label class="levelheader">{{ggc.levelName}}</label>
+										</span>
+										<div style="display:inline-flex;padding-left:7.79em;">
+											<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex].children[ggcIndex]"
+											 	ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+												<input type="radio" name="{{ggc.id}}" style="margin-left: 1em;"
+													ng-model="hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex].children[ggcIndex].perNonPer"
+												 	value="{{$index}}" ng-click="createUnitPrice(ggc,key)"
+												  	ng-disabled="ggc[key]=='NA'"
+												 	ng-required="!ggc.dataValidation">
+												<label class="level-name">
+												<a ng-if="ggc[key]!='NA'" ng-click="getNearestDeal(ggc,key)">{{ggc[key]}}</a>
+												<p ng-if="ggc[key]=='NA'">{{ggc[key]}}</p></label>
+											</div>
+										</div>
+										<ul ng-if="ggc.open">
+											<li ng-repeat="sgc in ggc.children" ng-init="sgcIndex = $index">
+												<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+												<span class="labelbar">
+													<label class="levelheader">{{sgc.levelName}}  </label>
+												</span>
+												<div style="display:inline-flex; padding-left:4.85em;">
+													<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex].children[ggcIndex].children[sgcIndex]"
+													 	ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+
+														<input type="radio" name="{{sgc.id}}" style="margin-left: 1em;"
+															ng-model="hostingInfo.serverHosting.children[0].children[childIndex].children[grandchildIndex].children[ggcIndex].children[sgcIndex].perNonPer"
+
+														 	value="{{$index}}"
+														 	ng-click="createUnitPrice(sgc,key)"
+													 	 	ng-disabled="sgc[key]=='NA'"
+													 	 	 ng-required="!sgc.dataValidation">
+														<label class="level-name" >
+														<a ng-if="sgc[key]!='NA'" ng-click="getNearestDeal(sgc,key)">{{sgc[key]}}</a>
+														<p ng-if="sgc[key]=='NA'">{{sgc[key]}}</p></label>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+
+	   <!--Platform Hosting-->
+	   <div>
+		   <div class="platform_div">
+				<div class="platformlevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle platformlevel1_i" ng-if="!hostingInfo.platformHosting.open"  ></i>
+					<i class="fa fa-minus-circle platformlevel1_i" ng-if="hostingInfo.platformHosting.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database platform_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{hostingInfo.platformHosting.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 19em;" ng-if="hostingInfo.platformHosting.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="platformlevel1-1_div" ng-if="hostingInfo.platformHosting.open">
+   				<ul>
+					<li>
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader database"> {{hostingInfo.platformHosting.children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left:10.3em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.platformHosting.children[0]"
+							 	ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="dbVolume" style="margin-left: 1em;"
+									ng-model="hostingInfo.platformHosting.children[0].platform"
+								 	value="{{$index}}" ng-click="createUnitPrice(hostingInfo.platformHosting.children[0],key)"
+								 	ng-disabled="hostingInfo.platformHosting.children[0][key]=='NA'"
+								 	ng-required="!hostingInfo.platformHosting.children[0].dataValidation" >
+								<label class="level-name">
+									<a ng-if="hostingInfo.platformHosting.children[0][key]!='NA'" ng-click="getNearestDeal(hostingInfo.platformHosting.children[0],key)">{{hostingInfo.platformHosting.children[0][key]}}</a>
+									<p ng-if="hostingInfo.platformHosting.children[0][key]=='NA'">{{hostingInfo.platformHosting.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+					<li>
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader database">{{hostingInfo.platformHosting.children[1].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left:10.3em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in hostingInfo.platformHosting.children[1]"
+							 ng-class="{'hostingCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"
+								ng-model="hostingInfo.platformHosting.children[1].platform"
+								 value="{{$index}}"
+								 ng-required="!hostingInfo.platformHosting.children[1].dataValidation"
+								 ng-click="createUnitPrice(hostingInfo.platformHosting.children[1],key)"
+								  ng-disabled="hostingInfo.platformHosting.children[1][key]=='NA'">
+								<label class="level-name" >
+								<a ng-if="hostingInfo.platformHosting.children[1][key]!='NA'" ng-click="getNearestDeal(hostingInfo.platformHosting.children[1],key)">{{hostingInfo.platformHosting.children[1][key]}}</a>
+								<p ng-if="hostingInfo.platformHosting.children[1][key]=='NA'">{{hostingInfo.platformHosting.children[1][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+</div>
+<!--End -->

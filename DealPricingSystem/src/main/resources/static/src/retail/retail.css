@@ -1,0 +1,235 @@
+/* ------------- Input Tab ------------ */
+.tree li:before{
+	top: -0.1em;
+}
+
+.iconsideline
+{
+    margin-top: -6px;
+    margin-left: 1.7em;
+    margin-bottom: 0px; 
+    border-top: 1px solid #c5afaf;
+}
+.recalbtn{
+	    margin-top: .3em;
+}
+.inputDiv{
+	padding-left: 0px; 
+	padding-right: 0px; 
+	margin-right: 0.94em; 
+	width:7%;
+}
+.tabheader-label{
+	width:17%;
+	padding-right: 0px; 
+}
+
+.retailInputs{
+	width: 14em;
+	border-radius: 0px;
+}
+.retailInputs1{
+	width: 10em;
+	border-radius: 0px;
+}
+
+.retailAssessment{
+	padding-left:4em;
+}
+
+.tabbtbn{
+	float:right;
+}
+
+.tabheader{
+	    border: 1px solid;
+    border-radius: 6px;
+    border-color: inherit;
+    box-shadow: 1px 1px 1px 1px;
+    padding: 1em;
+    background-color: #fbfbfb;
+}
+.assessment-tabheader{
+	border: 1px solid;
+    border-radius: 6px;
+    border-color: inherit;
+    box-shadow: 1px 1px 1px 1px;
+    padding: 1em;
+    background-color: #fbfbfb;
+    padding-left:0px;
+    font-size: 12px;
+}
+
+.div-image{
+	background-image: url('../images/quater4.png');
+	height:1em;width:1em;
+}
+
+.savecanceldiv{
+	padding-left: 3em;
+}
+
+.level1_div{
+	display: inline-flex;
+}
+
+.level1{
+	height:3em;
+	width:3em;
+}
+
+.level1_i{
+	margin-left: 0.8em;
+	margin-top: 0.7em;
+	font-size:16px;
+}
+
+.level1_icondiv{
+	width: 2em;
+	background-color: lightgrey;
+	text-align: center;
+	border: 1px solid;
+	border-right-style: none;
+}
+
+.retaillevel1_icon{
+	padding-top: 0.7em;
+}
+
+.level1_labeldiv{
+	border: 1px solid;
+	border-left-style: none;
+	width: 10em;
+	padding: 0.5em;
+}
+
+.retaillevel1-1_div{
+	
+	margin-left: 1.3em;
+}
+
+.distributionsetting{
+	width:12em;
+}
+
+.retaillevel1-1_expandcollapse{
+	margin-left: -2.3em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 2em;
+    font-size: 16px;
+}
+
+.level1-1_icon{
+	padding-top: 0.7em;
+	padding-bottom: 12px;
+}
+
+.retaillevel1-1_input{
+	margin-top: 0.3em;
+}
+
+.retaillevel1-1-1_icon{
+	padding-top:15px; 
+	padding-bottom:17px;
+}
+
+.input-euro {
+     position: relative;
+}
+
+.input-euro:before {
+     position: absolute;
+     top: 0.2em;
+     content:"%";
+}
+
+.input-euro.right:before {
+     right: -4.6em;
+}
+
+.retailchild {
+	width:12em;	
+}
+
+.pricing-header{
+	width: 7em;
+	margin-left:3em;
+}
+
+.level1_yearmaindiv{
+	margin-left: 5.5em;
+	display: inline-flex;
+}
+.level1_yearmaindiv1{
+	margin-left: 5.5em;
+	display: inline-flex;
+}
+.level1_yearmaindiv2{
+	margin-left: 10em;
+	display: inline-flex;
+}
+.level1_yearmaindiv11{
+	margin-left: 5.5em;
+	display: inline-flex;
+}
+.level1_yearmaindiv22{
+	margin-left: 10em;
+	display: inline-flex;
+}
+
+/* ----------- Calculate Tab ------------ */
+
+
+.checkbox_div{
+	border: 1px solid #DBDBDB;
+	padding-top: 1.9em;
+	height: 5em;
+	width: 7em;
+
+}
+.column_div{
+	border: 1px solid #DBDBDB;
+	background-color:#d3d3d3;
+	width: 7em;
+	color:black;
+}
+
+.column-head_div{
+	border: 1px solid #DBDBDB;
+	background-color:#f7f7f7; 
+	height: 2em;
+	width: 7em;
+	color:black;
+}
+.column-head-bench_div{
+	border: 1px solid #DBDBDB;
+	background-color:#f7f7f7; 
+	height: 2em;
+	width: 14em;
+	color:black;
+}
+
+.RetailCalculateMargin{
+	margin-left: 1em;
+}
+
+/* ----------- submission ------------ */
+
+.retailSubInputs{
+	width: 14em;
+	border-radius: 0px;
+}
+.retailSubmission{
+	padding-left:4em;
+}
+.tabheader-radio{
+    border: 1px solid #999;
+    border-radius: 6px;
+/*  border-color: inherit; */
+/* 	box-shadow: 1px 1px 1px 1px; */
+/*  padding: 1em; */
+    background-color: #fbfbfb;
+/*  margin-top:1em; */
+    margin-left:16em;
+}

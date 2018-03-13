@@ -1,0 +1,414 @@
+<!--Network  input -->
+
+<div class="col-lg-12 assessment-tabheader">
+    <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-3 col-md-3 tabheader-label"><input type="checkbox" ng-model="data"  ng-click="dataChecked(data)" > Number of Datacenters &nbsp;
+       			<a href="#" uib-tooltip-html="'upon checking this box, Q will add 8 WAN devices (routers) for each datacenter.'"  tooltip-placement="bottom" tooltip-class="customClass">
+	       			<i class="fa fa-info-circle"></i>
+	       		</a>
+       		</label>
+          	<div class="col-lg-1 col-md-1 inputDiv"  ng-repeat="dealYearlyData in dealYearlyDataInfoDtoList">
+            	<input class="form-control input-box smallBox" name="users{{$index}}"  ng-model="dealYearlyData.noOfDatacenters" disabled/>
+       		</div>
+        </div>
+ 	</div>
+    <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-3 col-md-3 tabheader-label"><input type="checkbox" ng-model="sites" ng-click="siteChecked(sites)"> Number of Sites &nbsp;
+       			<a href="#" uib-tooltip-html="'upon checking this box, Q will add 2 WAN devices (routers), 2 LAN devices (switches) and 2 WLAN controllers for each site.'"  tooltip-placement="bottom" tooltip-class="customClass">
+	       			<i class="fa fa-info-circle"></i>
+	       		</a>
+       		</label>
+       		<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="dealYearlyData in dealYearlyDataInfoDtoList">
+        		<input class="form-control input-box smallBox" disabled name="users{{$index}}"  ng-model="dealYearlyData.noOfSites"/>
+    		</div>
+    	</div>
+    </div>
+      <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-3 col-md-3  tabheader-label"><input type="checkbox" ng-model="user" ng-click="userChecked(user)"> Number of Users &nbsp;
+       			<a href="#" uib-tooltip-html="'upon checking this box, Q will add 1 LAN device (switch) for every 100 users and 1 WLAN Access Point for every 50 users'"  tooltip-placement="bottom" tooltip-class="customClass">
+	       			<i class="fa fa-info-circle"></i>
+	       		</a>
+	       	</label>
+       		<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="dealYearlyData in dealYearlyDataInfoDtoList">
+        		<input class="form-control input-box smallBox" disabled name="users{{$index}}"   ng-model="dealYearlyData.noOfUsers"/>
+    		</div>
+    	</div>
+    </div>
+      <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-3 col-md-3 tabheader-label"><input type="checkbox" ng-model="server" ng-disabled="disablehosting"  ng-click="serverChecked(server)"> Number of Physical Servers &nbsp;
+       			<a href="#" uib-tooltip-html="'upon checking this box, Q will add 1 LAN device (switch) for every 4 physical servers.'"  tooltip-placement="bottom" tooltip-class="customClass">
+	       			<i class="fa fa-info-circle"></i>
+	       		</a>
+	       	</label>
+       		<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="hostingServer in hostingServerList">
+        		<input class="form-control input-box smallBox" disabled name="users{{$index}}"   ng-model="hostingServer.volume"/>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+<div class="col-lg-12" style="margin-top:1em;">
+<label><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+</div>
+<!--WAN -->
+<div class="col-lg-12 network">
+	<div class="alert alert-danger" ng-if="showErr">
+	<strong>Error!</strong> Sum of percentages should be 100!</div>
+	<div class="alert alert-danger" ng-if="showVolumeErr">
+	<strong>Error!</strong> Sum of all network types should be equal to Network Devices in there respective year!</div>
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!networkInfo.wanDevice.open" ng-click="togglePanel(networkInfo.wanDevice)" ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="networkInfo.wanDevice.open" ng-click="togglePanel(networkInfo.wanDevice)"></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database networklevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{networkInfo.wanDevice.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv">
+				<div ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index"
+					ng-if="networkInfo.wanDevice.open || networkInfo.lanDevice.open || networkInfo.wlanCon.open || networkInfo.wlanAccess.open || networkInfo.loadBalance.open || networkInfo.vpnIp.open || networkInfo.dnsService.open || networkInfo.firewalls.open || networkInfo.reservePro.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="networklevel1-1_div" ng-if="networkInfo.wanDevice.open">
+		<ul>
+		    <li>
+		        <div class="level1_div">
+					<label for="clientIndustry" class="distributionsetting">Distribution Settings<div class="mandatory" style="display:initial;">*</div></label>
+					<select ng-if="customWanSol==false" class="form-control selectDistributionlist" ng-model="selectedSolutionWanId"  ng-options="wanSol.solutionId as wanSol.solutionName disable when wanSol.solutionName=='Custom' for wanSol in wanSolList" ng-change="onChangeWanDistSetting(selectedSolutionWanId)" ng-required="true">
+						<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+					<select ng-if="customWanSol==true"  class="form-control selectDistributionlist" ng-model="selectedSolutionWanId" ng-options="wanSol.solutionId as wanSol.solutionName disable when wanSol.solutionName=='Custom' for wanSol in wanSolList" ng-change="onChangeWanDistSetting(selectedSolutionWanId)" ng-required="true">
+						<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+				</div>
+		    </li>
+		    <li>
+		        <i class="fa fa-plus-circle networklevel1-1_expandcollapse"  ng-click="togglePanel(networkInfo.wanDevice.children[0])" ng-if="!networkInfo.wanDevice.children[0].open" ></i>
+				<i class="fa fa-minus-circle networklevel1-1_expandcollapse" ng-click="togglePanel(networkInfo.wanDevice.children[0])" ng-if="networkInfo.wanDevice.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+
+				<span class="labelbar">
+					<label class="levelheader" style="width:20.4em;"> {{networkInfo.wanDevice.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+					<div ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index">
+						<input class="form-control input-box networklevel1-1_input" type="text"
+						name="volume" ng-readonly="networkInfo.wanDevice.children[0].open == true" ng-blur="calcVolume(networkInfo.wanDevice.children[0])"
+						ng-model="networkInfo.wanDevice.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'WanVolume')" ng-required="true" numbers-only/>
+                     </div>
+                     <div class="error" ng-show="showmsg">All fields are required</div>
+				  </span>
+				<ul ng-if="networkInfo.wanDevice.children[0].open">
+					<li ng-repeat="child in networkInfo.wanDevice.children[0].children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security input-euro right">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input class="form-control input-box perInput" name="childinput{{$index}}" style="margin-top: 0.2em" type="text"
+							  	ng-change="onChangeWanPercentage(networkInfo.wanDevice.children[0].children)"
+							  	ng-model="networkInfo.wanDevice.children[0].children[childIndex].percentage" placeholder="<100"  numbers-only/>
+
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-change="onChangevolume('Wan')"
+						   		ng-model="dv.volume" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+
+      <!--LAN -->
+ 	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.lanDevice.open" ng-click="togglePanel(networkInfo.lanDevice)"></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.lanDevice.open" ng-click="togglePanel(networkInfo.lanDevice)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{networkInfo.lanDevice.levelName}} </label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.lanDevice.open">
+   				<ul>
+					<li>
+						<div class="level1_div">
+							<label for="clientIndustry" class="distributionsetting">Distribution Settings<div class="mandatory" style="display:initial;">*</div></label>
+							<select ng-if="customLanSol==false" class="form-control selectDistributionlist" ng-model="selectedSolutionLanId" placeholder="select" ng-options="lanSol.solutionId as lanSol.solutionName disable when lanSol.solutionName=='Custom' for lanSol in lanSolList" ng-change="onChangeLanDistSetting(selectedSolutionLanId)" ng-required="true">
+								<option value="" disabled selected hidden>Please Select...</option>
+							</select>
+							<select ng-if="customLanSol==true" class="form-control selectDistributionlist" ng-model="selectedSolutionLanId" placeholder="select" ng-options="lanSol.solutionId as lanSol.solutionName disable when lanSol.solutionName=='Custom' for lanSol in lanSolList" ng-change="onChangeLanDistSetting(selectedSolutionLanId)" ng-required="true">
+								<option value="" disabled selected hidden>Please Select...</option>
+							</select>
+						</div>
+					</li>
+					<li>
+					 	<i class="fa fa-plus-circle networklevel1-1_expandcollapse"  ng-click="togglePanel(networkInfo.lanDevice.children[0])" ng-if="!networkInfo.lanDevice.children[0].open" ></i>
+						<i class="fa fa-minus-circle networklevel1-1_expandcollapse" ng-click="togglePanel(networkInfo.lanDevice.children[0])" ng-if="networkInfo.lanDevice.children[0].open" ></i>
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader" style="width:20.4em;"> {{networkInfo.lanDevice.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<div ng-repeat="dv in networkInfo.lanDevice.children[0].distributedVolume track by $index">
+								<input class="form-control input-box networklevel1-1_input" type="text"
+								name="volume" ng-readonly="networkInfo.lanDevice.children[0].open == true" ng-blur="calcVolume(networkInfo.lanDevice.children[0])"
+								ng-model="networkInfo.lanDevice.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'LanVolume')" ng-required="true" numbers-only/>
+		                     </div>
+		                     <div class="error" ng-show="showmsg">All fields are required</div>
+					  	</span>
+						<ul ng-if="networkInfo.lanDevice.children[0].open">
+							<li ng-repeat="child in networkInfo.lanDevice.children[0].children track by $index" ng-init="childIndex = $index">
+								<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader security input-euro right">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+									<input class="form-control input-box perInput" name="childinput{{$index}}" style="margin-top: 0.2em" type="text"
+										  	ng-change="onChangeLanPercentage(networkInfo.lanDevice.children[0].children)"
+										  	ng-model="networkInfo.lanDevice.children[0].children[childIndex].percentage" placeholder="<100"  numbers-only/>
+
+									<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+											class="form-control input-box" style="margin-top: 0.2em"
+											name="childVolume{{childIndex}}{{$index}}" ng-change="onChangevolume('Lan')"
+									   		ng-model="dv.volume" ng-required="true" numbers-only/>
+									   		<!-- <span ng-show="storageInputForm.childinput{{$index+1}}.$error.pattern">Not a valid number!</span> -->
+								</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--WLAN Controller -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanCon.open" ng-click="togglePanel(networkInfo.wlanCon)" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanCon.open" ng-click="togglePanel(networkInfo.wlanCon)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.wlanCon.levelName}}</label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.wlanCon.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.wlanCon.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'WlanVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	   <!--WLAN Access Point -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanAccess.open" ng-click="togglePanel(networkInfo.wlanAccess)"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanAccess.open" ng-click="togglePanel(networkInfo.wlanAccess)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.wlanAccess.levelName}} </label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.wlanAccess.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.wlanAccess.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'WlanAccessVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--Load Balancers -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.loadBalance.open" ng-click="togglePanel(networkInfo.loadBalance)"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.loadBalance.open" ng-click="togglePanel(networkInfo.loadBalance)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.loadBalance.levelName}} </label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.loadBalance.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.loadBalance.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'LoadBalanceVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--VPN/IP -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.vpnIp.open" ng-click="togglePanel(networkInfo.vpnIp)" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.vpnIp.open" ng-click="togglePanel(networkInfo.vpnIp)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.vpnIp.levelName}}</label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.vpnIp.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.vpnIp.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'VPNVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--DNS -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.dnsService.open" ng-click="togglePanel(networkInfo.dnsService)" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.dnsService.open" ng-click="togglePanel(networkInfo.dnsService)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.dnsService.levelName}}</label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.dnsService.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.dnsService.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'DNSVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!-- Firewalls -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.firewalls.open" ng-click="togglePanel(networkInfo.firewalls)" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.firewalls.open" ng-click="togglePanel(networkInfo.firewalls)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.firewalls.levelName}}</label>
+       				</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.firewalls.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.firewalls.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'FirewallVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!-- PROXY -->
+	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.reservePro.open" ng-click="togglePanel(networkInfo.reservePro)"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.reservePro.open" ng-click="togglePanel(networkInfo.reservePro)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security">{{networkInfo.reservePro.levelName}} </label>
+       				</div>
+				</div>
+			</div>
+			<div class="lanlevel1-1_div" ng-if="networkInfo.reservePro.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.reservePro.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security" style="width:20em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+								class="form-control input-box" style="margin-top: 0.2em"
+								name="childVolume{{childIndex}}{{$index}}" ng-model="dv.volume" ng-keydown="tabEvent($event,$index,'ReserveProVolume')" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+</div>

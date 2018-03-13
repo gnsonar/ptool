@@ -1,0 +1,682 @@
+<!--Network Calculate  -->
+
+<div> <label><i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label></div>
+
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left: 31.6em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<!--WAN  -->
+<div class="col-lg-12 networkCal">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!networkInfo.wanDevice.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="networkInfo.wanDevice.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database networklevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{networkInfo.wanDevice.levelName}}</label>
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left: 14.6em;"  ng-if="networkInfo.wanDevice.open">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="networklevel1-1_div" ng-if="networkInfo.wanDevice.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle networklevel1-1_expandcollapse"   ng-if="!networkInfo.wanDevice.children[0].open" font-size="16px;" style="margin-left:-2.7em"></i>
+				<i class="fa fa-minus-circle networklevel1-1_expandcollapse"  ng-if="networkInfo.wanDevice.children[0].open" font-size="16px;"></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader security"> {{networkInfo.wanDevice.children[0].levelName}}</label>
+				</span>
+				<div style="display:inline-flex;padding-left:8.5em;">
+					<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wanDevice.children[0]"
+						 ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+						<input type="radio" name="Wan" style="margin-left: 1em;"
+							 ng-model="networkInfo.wanDevice.children[0].childVolumeNetwork" value="{{$index}}" ng-disabled="networkInfo.wanDevice.children[0][key]=='NA'"
+							 ng-required="networkingCalculateDto.wanDevicesCalculateDto!=null"
+							 ng-click="createUnitPrice(networkInfo.wanDevice.children[0],key)">
+						<label class="level-name">
+							<a ng-if="networkInfo.wanDevice.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.wanDevice.children[0],key)">{{networkInfo.wanDevice.children[0][key]}}</a>
+							<p ng-if="networkInfo.wanDevice.children[0][key]=='NA'">{{networkInfo.wanDevice.children[0][key]}}</p>
+						</label>
+					</div>
+				</div>
+				<ul ng-if="networkInfo.wanDevice.children[0].open">
+				<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security">{{networkInfo.wanDevice.children[0].children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 5.6em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wanDevice.children[0].children[0]"
+							 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="wanS" style="margin-left: 1em;"
+								ng-model="networkInfo.wanDevice.children[0].children[0].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(networkInfo.wanDevice.children[0].children[0],key)"
+								  ng-disabled="networkInfo.wanDevice.children[0].children[0][key]=='NA'"
+								 ng-required="networkingCalculateDto.smallWanDevicesCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="networkInfo.wanDevice.children[0].children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.wanDevice.children[0].children[0],key)">{{networkInfo.wanDevice.children[0].children[0][key]}}</a>
+								<p ng-if="networkInfo.wanDevice.children[0].children[0][key]=='NA'">{{networkInfo.wanDevice.children[0].children[0][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+
+						<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security">{{networkInfo.wanDevice.children[0].children[1].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 5.6em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wanDevice.children[0].children[1]"
+							 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="wanM" style="margin-left: 1em;"
+								ng-model="networkInfo.wanDevice.children[0].children[1].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(networkInfo.wanDevice.children[0].children[1],key)"
+								  ng-disabled="networkInfo.wanDevice.children[0].children[1][key]=='NA'"
+								 ng-required="networkingCalculateDto.mediumWanDevicesCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="networkInfo.wanDevice.children[0].children[1][key]!='NA'"
+								 ng-click="getNearestDeal(networkInfo.wanDevice.children[0].children[1],key)">{{networkInfo.wanDevice.children[0].children[1][key]}}</a>
+								<p ng-if="networkInfo.wanDevice.children[0].children[1][key]=='NA'">{{networkInfo.wanDevice.children[0].children[1][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security">{{networkInfo.wanDevice.children[0].children[2].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 5.6em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wanDevice.children[0].children[2]"
+							 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="WanL" style="margin-left: 1em;"
+								ng-model="networkInfo.wanDevice.children[0].children[2].perNonPer"
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(networkInfo.wanDevice.children[0].children[2],key)"
+								  ng-disabled="networkInfo.wanDevice.children[0].children[2][key]=='NA'"
+								 ng-required="networkingCalculateDto.largeWanDevicesCalculateDto!=null"
+								 >
+								<label class="level-name" >
+								<a ng-if="networkInfo.wanDevice.children[0].children[2][key]!='NA'" ng-click="getNearestDeal(networkInfo.wanDevice.children[0].children[2],key)">{{networkInfo.wanDevice.children[0].children[2][key]}}</a>
+								<p ng-if="networkInfo.wanDevice.children[0].children[2][key]=='NA'">{{networkInfo.wanDevice.children[0].children[2][key]}}</p></label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+
+
+
+      <!--LAN  -->
+ 	  <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.lanDevice.open" style="margin-top:1.5em"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.lanDevice.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{networkInfo.lanDevice.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.lanDevice.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.lanDevice.open">
+   				<ul>
+					<li ng-init="dvIndex = $index">
+						<i class="fa fa-plus-circle networklevel1-1_expandcollapse" ng-if="!networkInfo.lanDevice.children[0].open" style="margin-top:2.2em; margin-left:-2.7em;"></i>
+						<i class="fa fa-minus-circle networklevel1-1_expandcollapse" ng-if="networkInfo.lanDevice.children[0].open"></i>
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{networkInfo.lanDevice.children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.5em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.lanDevice.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="lan" style="margin-left: 1em;"
+									ng-model="networkInfo.lanDevice.children[0].lan"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.lanDevice.children[0],key)"
+								 	ng-disabled="networkInfo.lanDevice.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.lanDevicesCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.lanDevice.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.lanDevice.children[0],key)">{{networkInfo.lanDevice.children[0][key]}}</a>
+									<p ng-if="networkInfo.lanDevice.children[0][key]=='NA'">{{networkInfo.lanDevice.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+						<ul ng-if="networkInfo.lanDevice.children[0].open">
+							<li >
+								<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader security">{{networkInfo.lanDevice.children[0].children[0].levelName}}</label>
+								</span>
+								<div style="display:inline-flex;padding-left:5.6em;">
+								<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.lanDevice.children[0].children[0]"
+									 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+										<input type="radio" name="LanS" style="margin-left: 1em;"
+										ng-model="networkInfo.lanDevice.children[0].children[0].perNonPer"
+										 value="{{$index}}"
+										 ng-click="createUnitPrice(networkInfo.lanDevice.children[0].children[0],key)
+										 "ng-disabled="networkInfo.lanDevice.children[0].children[0][key]=='NA'"
+										 ng-required="networkingCalculateDto.smallLanDevicesCalculateDto!=null">
+										<label class="level-name" >
+										<a ng-if="networkInfo.lanDevice.children[0].children[0][key]!='NA'"
+										 ng-click="getNearestDeal(networkInfo.lanDevice.children[0].children[0],key)">{{networkInfo.lanDevice.children[0].children[0][key]}}</a>
+										<p ng-if="networkInfo.lanDevice.children[0].children[0][key]=='NA'">{{networkInfo.lanDevice.children[0].children[0][key]}}</p></label>
+									</div>
+								</div>
+							</li>
+									<li >
+								<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader security">{{networkInfo.lanDevice.children[0].children[1].levelName}}</label>
+								</span>
+								<div style="display:inline-flex;padding-left:5.6em;">
+								<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.lanDevice.children[0].children[1]"
+									 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+										<input type="radio" name="LanM" style="margin-left: 1em;"
+										ng-model="networkInfo.lanDevice.children[0].children[1].perNonPer"
+										 value="{{$index}}"
+										 ng-click="createUnitPrice(networkInfo.lanDevice.children[0].children[1],key)"ng-disabled="networkInfo.lanDevice.children[0].children[1][key]=='NA'"
+										 ng-required="networkingCalculateDto.mediumLanDevicesCalculateDto!=null">
+										<label class="level-name" >
+										<a ng-if="networkInfo.lanDevice.children[0].children[1][key]!='NA'"
+										ng-click="getNearestDeal(networkInfo.lanDevice.children[0].children[1],key)">{{networkInfo.lanDevice.children[0].children[1][key]}}</a>
+										<p ng-if="networkInfo.lanDevice.children[0].children[1][key]=='NA'">{{networkInfo.lanDevice.children[0].children[1][key]}}</p></label>
+									</div>
+								</div>
+							</li>
+										<li >
+								<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader security">{{networkInfo.lanDevice.children[0].children[2].levelName}}</label>
+								</span>
+								<div style="display:inline-flex;padding-left:5.6em;">
+								<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.lanDevice.children[0].children[2]"
+									 ng-class="{'NetworkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+										<input type="radio" name="lanl" style="margin-left: 1em;"
+										ng-model="networkInfo.lanDevice.children[0].children[2].perNonPer"
+										 value="{{$index}}"
+										 ng-click="createUnitPrice(networkInfo.lanDevice.children[0].children[2],key)
+										 "ng-disabled="networkInfo.lanDevice.children[0].children[2][key]=='NA'"
+										 ng-required="networkingCalculateDto.largeLanDevicesCalculateDto!=null">
+										<label class="level-name" >
+										<a ng-if="networkInfo.lanDevice.children[0].children[2][key]!='NA'"
+										ng-click="getNearestDeal(networkInfo.lanDevice.children[0].children[2],key)">
+										{{networkInfo.lanDevice.children[0].children[2][key]}}</a>
+										<p ng-if="networkInfo.lanDevice.children[0].children[2][key]=='NA'">
+										{{networkInfo.lanDevice.children[0].children[2][key]}}</p></label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	   <!--WLAN Controller -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanCon.open" style="margin-top:1.5em"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanCon.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.wlanCon.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.wlanCon.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.wlanCon.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.wlanCon.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wlanCon.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="wlanControllers" style="margin-left: 1em;"
+									ng-model="networkInfo.wlanCon.children[0].wlanCon"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.wlanCon.children[0],key)"
+								 	ng-disabled="networkInfo.wlanCon.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.wlanControllersCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.wlanCon.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.wlanCon.children[0],key)">{{networkInfo.wlanCon.children[0][key]}}</a>
+									<p ng-if="networkInfo.wlanCon.children[0][key]=='NA'">{{networkInfo.wlanCon.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+
+	  <!--Access Point -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanAccess.open" style="margin-top:1.5em" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanAccess.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.wlanAccess.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.wlanAccess.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.wlanAccess.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.wlanAccess.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.wlanAccess.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="wlanAccesspoint" style="margin-left: 1em;"
+									ng-model="networkInfo.wlanAccess.children[0].acessPoint"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.wlanAccess.children[0],key)"
+								 	ng-disabled="networkInfo.wlanAccess.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.wlanAccesspointCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.wlanAccess.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.wlanAccess.children[0],key)">{{networkInfo.wlanAccess.children[0][key]}}</a>
+									<p ng-if="networkInfo.wlanAccess.children[0][key]=='NA'">{{networkInfo.wlanAccess.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--Load Balancer -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.loadBalance.open" style="margin-top:1.5em" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.loadBalance.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.loadBalance.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.loadBalance.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.loadBalance.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.loadBalance.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.loadBalance.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="loadBalancers" style="margin-left: 1em;"
+									ng-model="networkInfo.loadBalance.children[0].loadBalancer"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.loadBalance.children[0],key)"
+								 	ng-disabled="networkInfo.loadBalance.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.loadBalancersCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.loadBalance.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.loadBalance.children[0],key)">{{networkInfo.loadBalance.children[0][key]}}</a>
+									<p ng-if="networkInfo.loadBalance.children[0][key]=='NA'">{{networkInfo.loadBalance.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--VPN/IP -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.vpnIp.open" style="margin-top:1.5em" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.vpnIp.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.vpnIp.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.vpnIp.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.vpnIp.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.vpnIp.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.vpnIp.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="vpnIp" style="margin-left: 1em;"
+									ng-model="networkInfo.vpnIp.children[0].Vpnlan"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.vpnIp.children[0],key)"
+								 	ng-disabled="networkInfo.vpnIp.children[0][key]=='NA'"
+								 	 ng-required="networkingCalculateDto.vpnIpSecCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.vpnIp.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.vpnIp.children[0],key)">{{networkInfo.vpnIp.children[0][key]}}</a>
+									<p ng-if="networkInfo.vpnIp.children[0][key]=='NA'">{{networkInfo.vpnIp.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--DNS -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.dnsService.open" style="margin-top:1.5em" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.dnsService.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.dnsService.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.dnsService.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.dnsService.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.dnsService.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.dnsService.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="dns" style="margin-left: 1em;"
+									ng-model="networkInfo.dnsService.children[0].dns"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.dnsService.children[0],key)"
+								 	ng-disabled="networkInfo.dnsService.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.dnsDhcpServiceCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.dnsService.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.dnsService.children[0],key)">{{networkInfo.dnsService.children[0][key]}}</a>
+									<p ng-if="networkInfo.dnsService.children[0][key]=='NA'">{{networkInfo.dnsService.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--Firewalls -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.firewalls.open" style="margin-top:1.5em" ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.firewalls.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.firewalls.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.firewalls.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="networklevel1-1_div" ng-if="networkInfo.firewalls.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.firewalls.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.firewalls.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="firewall" style="margin-left: 1em;"
+									ng-model="networkInfo.firewalls.children[0].fireWal"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.firewalls.children[0],key)"
+								 	ng-disabled="networkInfo.firewalls.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.firewallsCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.firewalls.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.firewalls.children[0],key)">{{networkInfo.firewalls.children[0][key]}}</a>
+									<p ng-if="networkInfo.firewalls.children[0][key]=='NA'">{{networkInfo.firewalls.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+	  <!--Reserve Proxy -->
+	   <div>
+		   <div class="lan_div">
+				<div class="lanlevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.reservePro.open"  ></i>
+					<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.reservePro.open"  ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database lan_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label class="security"> {{networkInfo.reservePro.levelName}}</label>
+       				</div>
+				</div>
+				<div style="display:inline-flex; padding-left: 14.4em;" ng-if="networkInfo.reservePro.open">
+					<div class="column_div">
+						<label style="margin-left: 1em;">Low</label>
+					</div>
+					<div class="column_div">
+						<label style="margin-left: 1em;">Target</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+					<div class="column_div" style="margin-left: 1em;">
+						<label style="margin-left: 1em;">Average</label>
+					</div>
+				</div>
+			</div>
+			<div class="lanlevel1-1_div" ng-if="networkInfo.reservePro.open">
+   				<ul>
+					<li ng-repeat="child in networkInfo.reservePro.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader security"> {{child.levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 8.4em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in networkInfo.reservePro.children[0]"
+							 	ng-class="{'networkCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="proxy" style="margin-left: 1em;"
+									ng-model="networkInfo.reservePro.children[0].proxy"
+								 	value="{{$index}}" ng-click="createUnitPrice(networkInfo.reservePro.children[0],key)"
+								 	ng-disabled="networkInfo.reservePro.children[0][key]=='NA'"
+								 	ng-required="networkingCalculateDto.proxiesCalculateDto!=null" >
+								<label class="level-name">
+									<a ng-if="networkInfo.reservePro.children[0][key]!='NA'" ng-click="getNearestDeal(networkInfo.reservePro.children[0],key)">{{networkInfo.reservePro.children[0][key]}}</a>
+									<p ng-if="networkInfo.reservePro.children[0][key]=='NA'">{{networkInfo.reservePro.children[0][key]}}</p>
+								</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+	  </div>
+
+</div>
+<!--End -->

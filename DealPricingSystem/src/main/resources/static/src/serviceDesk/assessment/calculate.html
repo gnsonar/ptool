@@ -1,0 +1,168 @@
+<!--Service Desk Calculate  -->
+<div> <label><i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label> </div>
+
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left: 31.45em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 serviceDeskCal">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!serviceDeskInfo.contact.open"></i><hr class="iconsideline" ng-if="!serviceDeskInfo.contact.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="serviceDeskInfo.contact.open"></i><hr class="iconsideline" ng-if="serviceDeskInfo.contact.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database serviceDesklevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{serviceDeskInfo.contact.levelName}}</label> 
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left: 15.4em;">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="serviceDesklevel1-1_div" ng-if="serviceDeskInfo.contact.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle serviceDesklevel1-1_expandcollapse"   ng-if="!serviceDeskInfo.contact.children[0].open" font-size="16px;"></i>
+				<i class="fa fa-minus-circle serviceDesklevel1-1_expandcollapse"  ng-if="serviceDeskInfo.contact.children[0].open" font-size="16px;"></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i> 
+				</span>
+				<span class="labelbar">
+					<label class="levelheader"> {{serviceDeskInfo.contact.children[0].levelName}}</label>					
+				</span>
+				<div style="display:inline-flex;padding-left:12.7em;">
+							<div class="checkbox_div" ng-repeat="(key, prop) in serviceDeskInfo.contact.children[0]" 
+							 ng-class="{'serviceDeskCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="childVolumeserviceDesk" style="margin-left: 1em;" 
+								 ng-model="serviceDeskInfo.contact.children[0].selectedRadio" 
+								 value="{{$index}}"
+								 ng-disabled="serviceDeskInfo.contact.children[0][key]=='NA'"
+								 ng-required="calculateServiceInfo.totalContactsCalculateDto!=null"
+								 ng-click="createUnitPrice(serviceDeskInfo.contact.children[0],key)"
+								 >
+								<label class="level-name" >
+								<a ng-if="serviceDeskInfo.contact.children[0][key]!='NA'" ng-click="getNearestDeal(serviceDeskInfo.contact.children[0],key)">{{serviceDeskInfo.contact.children[0][key]}}</a>
+								<p ng-if="serviceDeskInfo.contact.children[0][key]=='NA'">NA</p></label>
+							</div>
+						</div>
+				<ul ng-if="serviceDeskInfo.contact.children[0].open">
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{serviceDeskInfo.contact.children[0].children[0].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in serviceDeskInfo.contact.children[0].children[0]" 
+							 ng-class="{'serviceDeskCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"  
+								ng-model="serviceDeskInfo.contact.children[0].children[0].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(serviceDeskInfo.contact.children[0].children[0],key)"
+								 ng-required="calculateServiceInfo.voiceContactsCalculateDto!=null"
+								  ng-disabled="serviceDeskInfo.contact.children[0].children[0][key]=='NA'"
+								 >
+								<label class="level-name" >
+								<a ng-if="serviceDeskInfo.contact.children[0].children[0][key]!='NA'" ng-click="getNearestDeal(serviceDeskInfo.contact.children[0].children[0],key)">{{serviceDeskInfo.contact.children[0].children[0][key]}}</a>
+								<p ng-if="serviceDeskInfo.contact.children[0].children[0][key]=='NA'">NA</p></label>
+							</div>
+						</div>
+					</li>
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{serviceDeskInfo.contact.children[0].children[1].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in serviceDeskInfo.contact.children[0].children[1]" 
+							 ng-class="{'serviceDeskCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"  
+								ng-model="serviceDeskInfo.contact.children[0].children[1].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(serviceDeskInfo.contact.children[0].children[1],key)"
+								  ng-required="calculateServiceInfo.mailContactsCalculateDto!=null"
+								  ng-disabled="serviceDeskInfo.contact.children[0].children[1][key]=='NA'"
+								 >
+								<label class="level-name" >
+								<a ng-if="serviceDeskInfo.contact.children[0].children[1][key]!='NA'" ng-click="getNearestDeal(serviceDeskInfo.contact.children[0].children[1],key)">{{serviceDeskInfo.contact.children[0].children[1][key]}}</a>
+								<p ng-if="serviceDeskInfo.contact.children[0].children[1][key]=='NA'">NA</p></label>
+							</div>
+						</div>
+					</li>
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{serviceDeskInfo.contact.children[0].children[2].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in serviceDeskInfo.contact.children[0].children[2]" 
+							 ng-class="{'serviceDeskCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"  
+								ng-model="serviceDeskInfo.contact.children[0].children[2].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(serviceDeskInfo.contact.children[0].children[2],key)"
+								 ng-required="calculateServiceInfo.chatContactsCalculateDto!=null"
+								  ng-disabled="serviceDeskInfo.contact.children[0].children[2][key]=='NA'"
+								 >
+								<label class="level-name" >
+								<a ng-if="serviceDeskInfo.contact.children[0].children[2][key]!='NA'" ng-click="getNearestDeal(serviceDeskInfo.contact.children[0].children[2],key)">{{serviceDeskInfo.contact.children[0].children[2][key]}}</a>
+								<p ng-if="serviceDeskInfo.contact.children[0].children[2][key]=='NA'">NA</p></label>
+							</div>
+						</div>
+					</li>
+					<li >
+						<span class="iconbar" style="padding-top:15px; padding-bottom:17px;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader">{{serviceDeskInfo.contact.children[0].children[3].levelName}}</label>
+						</span>
+						<div style="display:inline-flex;padding-left: 9.8em;">
+						<div class="checkbox_div" ng-repeat="(key, prop) in serviceDeskInfo.contact.children[0].children[3]" 
+							 ng-class="{'serviceDeskCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+								<input type="radio" name="{{childIndex}}" style="margin-left: 1em;"  
+								ng-model="serviceDeskInfo.contact.children[0].children[3].perNonPer" 
+								 value="{{$index}}"
+								 ng-click="createUnitPrice(serviceDeskInfo.contact.children[0].children[3],key)"
+								 ng-required="calculateServiceInfo.portalContactsCalculateDto!=null"
+								  ng-disabled="serviceDeskInfo.contact.children[0].children[3][key]=='NA'"
+								 >
+								<label class="level-name" >
+								<a ng-if="serviceDeskInfo.contact.children[0].children[3][key]!='NA'" ng-click="getNearestDeal(serviceDeskInfo.contact.children[0].children[3],key)">{{serviceDeskInfo.contact.children[0].children[3][key]}}</a>
+								<p ng-if="serviceDeskInfo.contact.children[0].children[3][key]=='NA'">NA</p></label>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+</div>
+<!--End Server Volume -->
+<div class="col-lg-offset-10  col-md-offset-10 col-lg-2 col-md-2"><br/>
+	
+</div>

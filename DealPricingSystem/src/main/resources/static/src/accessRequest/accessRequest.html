@@ -1,0 +1,99 @@
+<div class="container-fluid">
+
+	<!-- spinner -->
+	<div class="lds-spinner" ng-show="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	
+	<div class="row loginBody">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-3 access-left-pane">
+			<p class="heading">Access Request</p>
+			
+			<div class="well login-well">
+
+				<div class="alert alert-info " ng-if="success">
+					<a href="#" class="close" ng-click="removeClass()"
+						data-dismiss="alert" aria-label="close">&times;</a> <strong>Success!</strong>
+					Access request sent successfully.
+				</div>
+
+				<div class="alert alert-danger" ng-if="error">
+					<a href="#" class="close" ng-click="removeClass()"
+						data-dismiss="alert" aria-label="close">&times;</a> <strong>
+						Error! </strong> There was an error submitting the request. Please contact
+					your administrator.
+				</div>
+
+
+				<form id="accessForm" name="accessForm">
+					<div class="form-group">
+						<label for="fullname" class="control-label accessform">
+							Fullname </label> <input type="text" class="form-control" id="fullName"
+							name="fullName" ng-model="fullName" required maxlength="50"
+							placeholder="Enter full name" size="30" />
+					</div>
+					<div class="form-group">
+						<label for="email" class="control-label accessform"> Email</label>
+						<input type="email" class="form-control" id="email" name="email"
+							ng-model="email" required maxlength="50"
+							placeholder="Enter your email-id" size="30" />
+					</div>
+					<div class="form-group">
+						<label class="accessform" for="region">Region</label> <select
+							id="region" name="region" class="form-control" ng-model="region"
+							required>
+							<option value="">Select</option>
+							<option value="EMEIA">EMEIA</option>
+							<option value="AMERICAS">AMERICAS</option>
+							<option value="ONEASIA">ONE ASIA</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="region" class="control-label accessform">Reason
+							for access</label>
+						<textarea class="form-control textArea" ng-model="reasonForAccess"
+							name="reasonForAccess" required rows="5" cols="100" maxlength="500"></textarea>
+					</div>
+					<button id="submitBtn" type="submit"
+						class="btn btn-danger btn-block"
+						ng-click="accessForm.$valid && register()">Submit</button>
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-1"></div>
+		<div class="col-lg-6 right-pane">
+			<br />
+			<!-- <div style="height:50%"> -->
+			<img id="fujitsulogo" src="../images/fujitsu-logo.png"></img> <br />
+			<br />
+			<div class="row">
+				<div class="pricing pricinglogo">
+					<img id="qlogo" src="../images/Q.png"></img>
+				</div>
+				<div class="pricing pricingheading">
+					<p class="login-text1">Fujitsu Pricing Tool</p>
+				</div>
+				<div class="pricing pricingcontent">
+					<p class="login-text2">This model consists of an online
+						database which is linked to a light-weight web based front end.
+						Once a deal starts, the Q-model can be accessed to assess the
+						target price of the pursuit. The data used relies on benchmark
+						data, past deal data and competitive data. And if a deal is
+						submitted the Q-model is used to normalize and submit the data
+						sent to the client.
+				</div>
+				<div class="accessBlock">
+					<p class="login-text1">New user</p>
+					<p class="login-text2">If you do not have access to this site,
+						please fill out the underlying form to request access.</p>
+					<!-- <button type="submit" class="btn btn-default" disabled="disabled">Request access</button> -->
+					<a ng-href="/login"><button id="submitBtn" type="submit"
+							class="btn btn-default">User Login</button></a>
+				</div>
+			</div>
+			<!-- </div>
+
+	     	<div style="height:60%" class="right-pane"></div> -->
+
+		</div>
+	</div>
+</div>

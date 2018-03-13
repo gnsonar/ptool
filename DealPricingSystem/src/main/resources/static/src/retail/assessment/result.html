@@ -1,0 +1,57 @@
+<!--Retail services result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 retail">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!retailInfo.shops.open"></i><hr class="iconsideline" ng-if="!retailInfo.shops.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="retailInfo.shops.open"></i><hr class="iconsideline" ng-if="retailInfo.shops.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database retaillevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{retailInfo.shops.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" ng-if="retailInfo.shops.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+			<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" ng-if="retailInfo.shops.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="retaillevel1-1_div" ng-if="retailInfo.shops.open">
+			<ul>
+		       <li>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader retailChild"> {{retailInfo.shops.children[0].levelName}}</label>
+					<input ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+						class="form-control input-box retaillevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true
+						ng-model="retailInfo.shops.children[0].distributedVolume[$index].volume"/>
+
+					<label class="levelheader pricing-header"> Retail Pricing </label>
+					<input ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box retaillevel1-1_input"
+						ng-model="retailInfo.shops.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+
+					<input ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box retaillevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"
+						ng-model="retailInfo.shops.children[0].distributedVolume[$index].unit" />
+				</span>
+			</li>
+      	</ul>
+  	</div>
+</div>

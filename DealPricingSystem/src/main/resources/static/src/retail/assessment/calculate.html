@@ -1,0 +1,74 @@
+<!--Retail services Calculate  -->
+<div> <label><i class="fa fa-tags" aria-hidden="true"></i> Please select at least one deal type of each level to view the result.</label></div>
+<div class="calculate-header">
+	<br/>
+	<div style="display:inline-flex; padding-left: 32.6em;">
+		<div class="column-head-bench_div">
+			<label style="margin-left: 4em;">Benchmark</label>
+		</div>
+		<div class="column-head_div" style="margin-left:1em;">
+			<label style="margin-left: 1em;">Past Deal</label>
+		</div>
+		<div class="column-head_div" style="margin-left: 1em;">
+			<label style="margin-left: 1em;">Competition</label>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 retailCal">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!retailInfo.shops.open"></i><hr class="iconsideline" ng-if="!retailInfo.shops.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="retailInfo.shops.open"></i><hr class="iconsideline" ng-if="retailInfo.shops.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database retaillevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{retailInfo.shops.levelName}}</label>
+			</div>
+		</div>
+		<div style="display:inline-flex; padding-left: 16.5em;">
+			<div class="column_div">
+				<label style="margin-left: 1em;">Low</label>
+			</div>
+			<div class="column_div">
+				<label style="margin-left: 1em;">Target</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+			<div class="column_div" style="margin-left: 1em;">
+				<label style="margin-left: 1em;">Average</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="retaillevel1-1_div" ng-if="retailInfo.shops.open">
+		<ul>
+		    <li>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader retailchild"> {{retailInfo.shops.children[0].levelName}}</label>
+				</span>
+				<div style="display:inline-flex;padding-left:9.75em;">
+					<div class="checkbox_div" ng-repeat="(key, prop) in retailInfo.shops.children[0]"
+					 ng-class="{'RetailCalculateMargin' : key=='pastAvg' || key=='compAvg'}" ng-if="key=='benchLow' || key=='benchTarget' || key=='pastAvg' || key=='compAvg'">
+						<input type="radio" name="childVolumeretail" style="margin-left: 1em;"
+						 ng-model="retailInfo.shops.children[0].selectedRadio"
+						 value="{{$index}}"
+						 ng-disabled="retailInfo.shops.children[0][key]=='NA'"
+						 ng-required="calculateReatailInfo.noOfShopsCalculateDto!=null"
+						 ng-click="createUnitPrice(retailInfo.shops.children[0],key)">
+						<label class="level-name" >
+						<a ng-if="retailInfo.shops.children[0][key]!='NA'" ng-click="getNearestDeal(retailInfo.shops.children[0],key)">{{retailInfo.shops.children[0][key]}}</a>
+						<p ng-if="retailInfo.shops.children[0][key]=='NA'">NA</p></label>
+					</div>
+				</div>
+			</li>
+         </ul>
+      </div>
+</div>

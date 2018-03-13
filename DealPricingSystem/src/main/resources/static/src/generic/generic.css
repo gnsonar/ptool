@@ -1,0 +1,73 @@
+/* --- Generic Assessment   --- */
+.inputDiv{
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-right: 0.7em;
+	width:7%;
+}
+.tabheader-label{
+	width:18.5%;
+	padding-right: 0px;
+}
+
+
+.volumediv{
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.savecanceldiv{
+	padding-left:2.8em;
+}
+
+.rowContent{
+	position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left:0;
+    margin-right:0;
+}
+
+.listInput{
+	border-radius: 0px;
+	padding-left:0px;
+
+}
+.listLabel{
+	margin-left: -1em;
+}
+.genericInputs{
+	width: 14em;
+	border-radius: 0px;
+}
+.genericAssessment{
+	padding-left:4em;
+}
+.yearHead{
+	font-size: 13px;
+    margin-top: 1em;
+    text-align: right;
+    padding-left: 1em;
+    padding-right: 0em;
+}
+.volumetric-Level{
+	padding-left:0px;
+}
+
+
+/* --- Generic Submission   --- */
+.contactInput{
+	width: 15em;
+	border-radius: 0px;
+}
+.genericInputs{
+	width: 14em;
+	border-radius: 0px;
+}
+.genericSubmission{
+	padding-left:3em;
+}
+.input-group-addon{
+	cursor:pointer;]
+}

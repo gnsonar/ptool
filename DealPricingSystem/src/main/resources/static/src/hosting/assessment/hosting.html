@@ -1,0 +1,147 @@
+<head>
+	<link rel="stylesheet" href="/src/hosting/hosting.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+	    	<div class="hostingAssessment">
+			  	<div class="row">
+			    	<div class="col-lg-12" >
+				      <h3><i class="fa fa-cloud" aria-hidden="true"></i> Infrastructure and Hosting </h3>
+				      <h5>To add or update hosting details.</h5>
+			    	</div>
+			  	</div>
+ 				<div class="row">
+ 					<form  name="relCalculate" >
+		        	<div class="col-lg-12 col-md-12 portlets">
+		            	<div class="panel panel-default">
+			                <div class="panel-heading">
+			                    <div class="pull-left col-lg-5"> Solution Setting</div>
+			                    <div class="clearfix">
+			                    	<div class="form-group col-lg-7" style="text-align: right" ng-show="tabs[1].class=='active'||tabs[2].class=='active'">
+	                                	<button type="button"  class="btn btn-danger genericbtn recalbtn" ng-disabled="!relCalculate.$dirty" ng-click="reCalculate()"> Re-Calculate </button>
+	                                </div>
+			                    </div>
+			                </div>
+		                	<div class="panel-body">
+			                    <div class="genericform">
+		                        	<div class="genericform left">
+		                        		<div class="col-lg-2 solList">
+		                        			<div class="form-group">
+			                                	<label for="offshore">Offshore Allowed</label>
+				                                <select id="offshore" class="form-control hostingInputs" ng-model="dealDetails.offshoreSelected" selected="dealDetails.offshoreSelected" name="offshore" ng-required="true">
+						                            <option ng-repeat="offshores in genericDealInfoDto.yesNoOptionList">{{offshores}}</option>
+						                       </select>
+			                              	</div>
+	                              		</div>
+		                             	<div class="col-lg-2 solList">
+		                              		<div class="form-group">
+			                                	<label for="serviceWindows">Level of Service</label>
+				                                <select id="serviceWindow" class="form-control hostingInputs" ng-model="dealDetails.standardwindowInfoSelected" selected="dealDetails.standardwindowInfoSelected" name="serviceWindow" ng-required="true">
+						                            <option ng-repeat="serviceWindows in genericDealInfoDto.standardWindowInfoList" ng-value="serviceWindows.windowName">{{serviceWindows.windowName}} {{serviceWindows.windowRange}}</option>
+						                       </select>
+			                              	</div>
+                               			</div>
+										<div class="col-lg-2 solList">
+		                              		<div class="form-group">
+			                                	<label for="hardwareIncluded">Hardware Included</label>
+				                                <select id="hardwareIncluded" class="form-control hostingInputs" ng-model="dealDetails.hardwareIncludedSelected" selected="dealDetails.hardwareIncludedSelected" name="hardwareIncluded" ng-required="true">
+						                            <option ng-repeat="hardwareIncluded in genericDealInfoDto.yesNoOptionList">{{hardwareIncluded}}</option>
+						                       </select>
+			                                </div>
+	                        			</div>
+	                        			<div class="col-lg-2 solList">
+		                              		<div class="form-group">
+			                                	<label for="tooling">Tooling & Monitoring</label>
+				                                <select id="tooling" class="form-control hostingInputs" ng-model="dealDetails.tooling" selected="dealDetails.tooling" name="tooling" ng-required="true">
+						                            <option ng-repeat="tooling in genericDealInfoDto.yesNoOptionList">{{tooling}}</option>
+						                       </select>
+			                                </div>
+	                        			</div>
+	                        			<div class="col-lg-2 solList">
+		                              		<div class="form-group">
+			                                	<label for="colocation">Co-location
+			                                		<a href="#" uib-tooltip-html="'determines where the infrastructure hardware is hosted. If the Servers are located at a client location, then the price output does not include raised floor, HVAC, power, racks, firewalls, cabling, equipment and all support up to the point of the router/switch used to connect to the external LAN/WAN.'"  tooltip-placement="bottom" tooltip-class="customClass">
+										       		<i class="fa fa-info-circle"></i>
+										       		</a>
+			                                	</label>
+				                                <select id="colocation" class="form-control hostingInputs" ng-model="dealDetails.colocation" selected="dealDetails.colocation" name="colocation" ng-required="true">
+						                            <option ng-repeat="colocation in genericDealInfoDto.coLocationDtoList">{{colocation.coLocationName}}</option>
+						                       </select>
+			                                </div>
+	                        			</div>
+		                        	</div>
+		                    	</div>
+		                	</div>
+		            	</div>
+		            	</form>
+		        	</div>
+ 				</div>
+ 				<div class="row">
+	       	 		<div class="col-md-12 col-lg-12 portlets">
+		            	<div class="panel panel-default">
+			                <div class="panel-heading">
+	                     		<ul class="nav nav-tabs col-lg-5">
+								    <li ng-class="tab.class" ng-repeat="tab in tabs">
+							    	<a herf="#" data-toggle="tab" >{{tab.tabname}}</a></li>
+							  	</ul>
+		                    	<div class="clearfix">
+		                    		<div class="col-lg-4 tabheader-radio" ng-show="tabs[2].class=='active'">
+									    <div class="col-lg-6">
+									         <input  id="radioRevenue" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="revenue" ng-click="onchangeprice(viewBy.type)"/>
+									         <label>Annual Price</label>
+									    </div>
+									    <div class="col-lg-6">
+									    	<input  id="radioUnit" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="unit" ng-click="onchangeprice(viewBy.type)"/>
+									       	<label>Unit Price</label>
+									    </div>
+									</div>
+		                    	</div>
+			                </div>
+		               	 	<div class="panel-body">
+			                	<div class="tab-content col-lg-12">
+
+			                		<!-- Input Tab-->
+			                		<div id="inputtab" class="tree col-lg-12 scrollbar-danger" ng-show="tabs[0].class=='active'">
+			                			<form  id="hostingInputForm" name="hostingInputForm" class="form-horizontal">
+		                				<div ng-include="'/src/hosting/assessment/input.html'"></div></form>
+			                		</div>
+
+
+									<!-- Calculate Tab-->
+									<div id="caltab"  class="tree col-lg-12" ng-show="tabs[1].class=='active'">
+										<form  id="hostingcalculateForm" name="hostingcalculateForm">
+										<div ng-include="'/src/hosting/assessment/calculate.html'"></div></form>
+									</div>
+
+									<!-- Result Tab-->
+									<div id="resulttab" class="tree col-lg-12 scrollbar-danger" ng-show="tabs[2].class=='active'">
+										<div ng-include="'/src/hosting/assessment/result.html'"></div>
+									</div>
+
+									<!-- Button on bottom-->
+									<div id="inputtab" class=" col-lg-12" ng-if="tabs[0].class=='active'">
+		                				<button type="button" class="btn btn-danger genericbtn tabbtbn" ng-disabled="(!hostingInfo.serverHosting.open && !hostingInfo.platformHosting.open) || !hostingInputForm.$valid || showErr || showVolumeErr || !relCalculate.$valid"  ng-click="savehostingInfo()"> Next </button>
+			                		</div>
+	                			   	<div id="caltab"  class="col-lg-12" ng-if="tabs[1].class=='active'">
+										<button type="button" class="btn btn-danger genericbtn"  ng-click="backToInput()"> Back </button>
+										<button type="button" class="btn btn-danger genericbtn tabbtbn"  ng-disabled="hostingcalculateForm.$invalid" ng-click="goToResult()"> Next </button>
+									</div>
+									<div id="resulttab" class="col-lg-12" ng-if="tabs[2].class=='active'">
+										<button type="button" class="btn btn-danger genericbtn"  ng-click="backToCal()"> Back </button>
+										<button type="button" class="btn btn-danger genericbtn tabbtbn"  ng-click="gotoTotals()"> Save </button>
+									</div>
+	                			</div>
+		            		</div>
+		            		<div class="currencyLabel">
+		            			<label id="inKCurrencyLabel">(in {{genericDealInfoDto.dealInfoDto.currency}})</label>
+		            		</div>
+		        		</div>
+ 					</div>
+ 				</div>
+			</div>
+		</div>
+	</section>
+</section>

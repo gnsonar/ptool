@@ -1,0 +1,41 @@
+<head>
+	<link rel="stylesheet" href="/src/admin/admin.css">
+</head>
+
+<div class="alert alert-info " ng-if="success" ng-click="removeClass()">
+	<a href="#" class="close"  data-dismiss="alert" aria-label="close">&times;</a>
+	<strong>Success!</strong> Currency has been updated.
+</div>
+
+<div class="alert alert-danger" ng-if="error" ng-click="removeClass()">
+	<a href="#" class="close"  data-dismiss="alert" aria-label="close">&times;</a>
+	<strong> Error! </strong> There is some issue while updating currency. Please try again later.
+</div>
+
+<div class="row currencydiv">
+	<br/>
+	<h4 >
+		Currency Exchange:
+	</h4>
+	<div>
+		<table class="table totals-table currencytable">
+			<thead>
+		  		<tr>
+		  			<th class="headRow tablerow"> From-To </th>
+		      		<th class="headRow" ng-repeat="tableheader in currencyDetail">{{tableheader.currencyFrom}}</th>
+		    	</tr>
+		 	</thead>
+		 	<tbody>
+		 		<tr ng-repeat="tableheader in currencyDetail">
+					<td>{{tableheader.currencyFrom}}</td>
+					 <td ng-repeat="currency in tableheader.fxRatesDtos">
+					<input type="text" ng-disabled="tableheader.currencyFrom==currency.currencyTo" class="form-control currencyInput" ng-model="currency.rate" numbers-only-dec></td>
+		    	</tr>
+		 	</tbody>
+		</table>
+	</div>
+	<div class="col-lg-offset-8 col-lg-2 savebutton" >
+		<button type="button" class="btn btn-danger genericbtn"  ng-click="updateCurrency()"> Save </button>
+		<button type="button" class="btn btn-default genericbtn1"  ng-click="resetCurrency()"> Reset </button>
+	</div>
+</div>

@@ -1,0 +1,140 @@
+ <head>
+	<link rel="stylesheet" href="/src/home/home.css">
+</head>
+ 
+<section id="main-content-home">
+	<section class="wrapper">
+		<div class="container">
+			<div class="row">
+		    	<div class="col-lg-10" >
+			      <h3><i class="fa fa-list-alt" aria-hidden="true"></i> Dashboard </h3>
+			      <h5>For assessment and submission of new deal.</h5>
+			      <h5>New updates and deal section to find any deal.</h5>
+		    	</div>
+		    	<!-- <div ng-if="role=='Admin'" class="col-lg-2" style="margin-top: 3em; padding-left: 7em;">
+			      <h5><a ng-href="/admin" id="homeLink"><button type="button" id="submitBtn"  class="btn btn-danger"><i class="fa fa-cogs" aria-hidden="true"></i>  Admin</button> </a> </h5>
+		    	</div> -->
+		  	</div>
+		  	<br/>
+			<div class="row" ng-if="role=='Admin'"  >
+				<div class="col-lg-3">
+					<button type="submit" class="btn btn-default dashboard-btn" ng-click="linkToGenericDeal()">
+		    			<i class="fa fa-ticket large-icon" aria-hidden="true"></i>
+		    			<br/><p class="home-text2">Pricing Assessment</p>
+			       		<p class="text4">You can do an assessment for a new deal here.</p>
+	    			</button>
+			    </div>
+			    <div class="col-lg-3">
+		    		<button type="submit" class="btn btn-default dashboard-btn" ng-click="linkToGenericSubmissionDeal()"> 
+		    			<i class="fa fa-handshake-o large-icon" aria-hidden="true"></i>
+		    			<br/><p class="home-text2">Deal Submission</p>
+			       		<p class="text4">You can assess and submit a new deal here.</p>
+		    		</button>
+			    </div>
+			    <div class="col-lg-6">
+		   			<div class="panel panel-default" style="box-shadow: 1px 1px 1px 1px grey;">
+			   			<div class="row findpanel">
+			    			<br/><br/>
+			    			<div class="col-lg-2">
+		    					<i class="fa fa-search large-icon" aria-hidden="true"></i>
+		               		</div>
+		                	<div class="col-lg-8">
+		                		<br/>  
+		                    	<input class="form-control" type="text" name="search" ng-model="dealName" placeholder="Enter the Deal name" required/>
+		                	</div>
+		               		<div class="col-lg-2"> 
+		                		<br/> 
+		                		<button id="submitBtn" class="btn btn-danger" type="submit" ng-click="edit(dealName)" >Go</button>
+		                	</div>
+		                </div>
+		               	<div class="row">
+		           			<div class="col-lg-12 homesearch">      
+		    					<p class="home-text2">Find Existing Deal</p>
+		       					<p class="text4">You can find an existing deal here.</p>
+		      				</div>
+			    		</div>
+			    		<div class="row">
+		           			<div class="col-lg-12">      
+		    					<p></p>
+		       					<p></p>
+		      				</div>
+			    		</div>
+			    		<div class="row">
+		           			<div class="col-lg-12">      
+		    					<p></p>
+		       					<p></p>
+		      				</div>
+			    		</div>
+			    	</div>
+		    	</div>
+			</div>
+			<div class="row" ng-if="(role=='Regular'|| role=='Finance')"   >
+				<div class="col-lg-6">
+					<button type="submit" class="btn btn-default dashboard-btn-role" ng-click="linkToGenericDeal()"> 
+		    			<i class="fa fa-ticket large-icon" aria-hidden="true"></i>
+		    			<br/><p class="home-text2">Pricing Assessment</p>
+			       		<p class="text4">You can do an assessment for a new deal here.</p>
+	    			</button>
+			    </div>
+			    <div class="col-lg-6">
+		    		<button type="submit" class="btn btn-default dashboard-btn-role"  ng-disabled="role== 'Regular'" ng-click="linkToGenericSubmissionDeal()">
+		    			<i class="fa fa-handshake-o large-icon" aria-hidden="true"></i>
+		    			<br/><p class="home-text2">Deal Submission</p>
+			       		<p class="text4">You can assess and submit a new deal here.</p>
+		    		</button>
+			    </div>
+		    </div>
+			<br/>
+			<div class="row">
+				<div class="col-lg-6">
+			      	<table class="table dashboard-table"> 
+			      		<tr>
+							<td class="dashboard-header-date"><i class="fa fa-history"></i>&nbsp; Date</td>
+			      			<td class="dashboard-header-desc">&nbsp; What's new</td>
+			      			<td class="dashboard-header-status">Status/Update</td>
+						</tr>
+				     	<tr ng-repeat="message in filteredLatestUpdates"  ng-if="message.messageName">
+				     		<td class="text3 dateColumn"><i class="fa fa-calendar"></i> &nbsp; {{message.modificationDate}}</td>
+				     		<td class="text3">{{message.messageName}}</td>
+				     		<td><span class="badge Message" >Message</span></td>
+				     	</tr>
+				     	<tr ng-if="filteredLatestUpdates.length==0"><td style="border:none"></td><td style="border:none"><label> No new update.</label></td></tr>
+				     	<tr ng-repeat="deal in filteredLatestUpdates" ng-if="deal.dealName"><!-- ng-if="$index<=4" -->
+				     		<td class="text3 dateColumn"><i class="fa fa-calendar"></i> &nbsp; {{deal.modificationDate}}</td>
+				     		<td class="text3">{{deal.dealName}} -- {{deal.clientName}}</td>
+				     		<td><span class="badge" ng-class="{Open: deal.dealStatus == 'Open',Published: deal.dealStatus == 'Published',Submitted: deal.dealStatus == 'Submitted',Stored: deal.dealStatus == 'Stored',Discarded: deal.dealStatus == 'Discarded'}">
+				     		{{deal.dealStatus}}</span></td>
+				     	</tr>
+				     </table>
+				</div>
+				<div class="col-md-6">
+			      	<table class="table dashboard-table"> 
+			      		<tr><td class="dashboard-header-date"><i class="fa fa-history" aria-hidden="true"></i>&nbsp; Date</td>
+			      			<td class="dashboard-header-description">&nbsp; Recent deals</td>
+			      		</tr>
+			      		<tr ng-if="recentDeals.length==0"><td style="border:none"></td><td style="border:none"><label> No recent deal found.</label></td></tr>
+				     	<tr ng-repeat="recentDeal in recentDeals">
+				     		
+				     	<td class="text3 description-column"><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp; {{recentDeal.modificationDate | date:'yyyy/MM/dd'}}</td>
+				     		<td class="text3">
+				     			<a id="link-1"  ng-click="linkToDeal(recentDeal)">{{recentDeal.dealName}} -- {{recentDeal.clientName}}
+				     			</a>
+				     		</td>
+				     	</tr>
+				     </table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					 <div data-pagination="" data-num-pages="numPages" data-current-page="currentPage" data-max-size="maxSize" data-boundary-links="true"></div>
+				    <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" ></ul> 
+	       		</div>
+	       		<div class="col-lg-6">
+	       			<div  data-pagination="" data-num-pages="numPagesRd" data-current-page="currentPageRd" data-max-size="maxSize" data-boundary-links="true"></div>
+				 	<ul uib-pagination total-items="numPagesRd" ng-model="currentPageRd" max-size="5" class="pagination-sm" boundary-links="true" ></ul> 
+	       		</div>
+	   		</div>
+		</div>
+	</section>
+</section>
+

@@ -1,0 +1,39 @@
+ <head>
+	<link rel="stylesheet" href="/modals/assumption/assumption.css">
+</head>
+<div topheader></div>
+
+<!--sidebar start-->
+<aside>
+	<div id="sidebar" class="nav-collapse">
+ 		<!-- sidebar menu start-->
+	  	<ul class="sidebar-menu">
+		     <li ng-repeat="towerName in towers" ng-class="{active: activeRowIndex==$index}">
+		      <a ng-click="getData($index)">
+		         <span> {{towerName}} &nbsp;&nbsp;</span>
+		      </a>
+		    </li>
+		    
+		</ul>
+ 	 	<!-- sidebar menu end-->
+	</div>
+</aside>
+<!--sidebar end-->
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+		    <div>
+			  	<div class="row">
+			    	<div class="col-lg-10" >
+				      <h3><i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp; Definitions and Assumptions for the Q Glossary</h3>
+				      <h5></h5>
+				      <h5></h5>
+			    	</div>
+			  	</div>
+			  	<div ng-include="path"></div> 	
+			</div>
+		</div>
+	</section>
+</section>

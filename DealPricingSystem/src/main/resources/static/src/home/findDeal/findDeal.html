@@ -1,0 +1,46 @@
+ <head>
+	<link rel="stylesheet" href="/src/home/home.css">
+</head>
+ 
+
+<div class="modal-header">
+  <h3>Search Result{{searchModel.name}}</h3>
+</div>
+<div class="modal-body">
+
+	<div class="form-group col-lg-12">
+            <label for="dealname" class="col-lg-2">Deal Name</label>
+            <div class="col-lg-4"><input type="text" class="form-control" id="dealname" ng-model="dealName"></div>
+
+            <label for="clientname" class="col-lg-2">Client Name</label>
+        <div class="col-lg-4"><input type="text" class="form-control" id="clientname" ng-model="clientName"></div>
+    </div>
+   	<div class="form-group col-lg-12">
+        <label for="all" class="col-lg-2">All &nbsp;<a href="#" uib-tooltip-html="'Check to find published deals'"  tooltip-placement="top-left" tooltip-class="customClass"> <i class="fa fa-info-circle"></i></a></label>
+   	    <div class="col-lg-4"><input type="checkbox" id="all" ng-model="all"></div>
+   	</div>
+	<br>
+	
+	
+	<div class="form-group col-lg-12">
+	<center><label ng-if="dealNames.length==0"> No result found.</label></center>
+	<table class="table find-deal-result-table" ng-if="dealNames.length!=0"> 
+    	 <tr>
+			<td class="finddeal-header">Deal Name</td>
+   			<td class="finddeal-header">Client Name</td>
+   			<td class="finddeal-header">Status</td>
+   			<td class="finddeal-header">Created By</td>
+		</tr> 
+    	<tr ng-repeat="dealName in dealNames">
+    		<td> <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp; <span><a id="link" ui-sref="home.submission.genericSubmission.detail" ng-click="linkToDeal(dealName)">  {{dealName.dealName}}</a></td>
+    		<td>{{dealName.clientName}}</td>
+    		<td> {{dealName.dealStatus}}</td>
+    		<td>{{dealName.fullName}}</td>
+    	</tr>
+    </table>
+	</div>
+</div>
+<div class="modal-footer">
+  <button ng-click="search()" ng-disabled="dealName=='' && clientName==''" class="btn btn-danger" >Search</button>
+  <button ng-click="close()" class="btn" >close</button>
+</div>

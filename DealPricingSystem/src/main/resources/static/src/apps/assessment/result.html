@@ -1,0 +1,85 @@
+<!--Application services result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 apps">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!appInfo.total.open"></i><hr class="iconsideline" ng-if="!appInfo.total.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="appInfo.total.open"></i><hr class="iconsideline" ng-if="appInfo.total.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database appslevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{appInfo.total.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index" ng-if="appInfo.total.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+			<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index" ng-if="appInfo.total.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="appslevel1-1_div" ng-if="appInfo.total.open">
+			<ul>
+		       <li>
+		        <i class="fa fa-plus-circle appslevel1-1_expandcollapse"   ng-if="!appInfo.total.children[0].open" ></i>
+				<i class="fa fa-minus-circle appslevel1-1_expandcollapse"  ng-if="appInfo.total.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader total" style="width:13em;"> {{appInfo.total.children[0].levelName}}</label>
+					<input ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index"
+						class="form-control input-box appslevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true
+						ng-model="appInfo.total.children[0].distributedVolume[$index].volume"/>
+
+					<label class="levelheader pricing-header"> App Pricing </label>
+					<input ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box appslevel1-1_input"
+						ng-model="appInfo.total.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+
+					<input ng-repeat="dv in appInfo.total.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box appslevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"
+						ng-model="appInfo.total.children[0].distributedVolume[$index].unit" />
+				</span>
+				<ul ng-if="appInfo.total.children[0].open">
+					<li ng-repeat="child in appInfo.total.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader totalchild">{{child.levelName}}</label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em"
+						   		ng-model="dv.volume" ng-readonly="true" />
+
+					   		<label class="levelheader pricing-header"> App Pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box appslevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box appslevel1-1_input"
+								name="unit{{$index}}" ng-readonly="true"
+								ng-model="child.distributedVolume[$index].unit"/>
+						</span>
+					</li>
+				</ul>
+			</li>
+      	</ul>
+  	</div>
+</div>
+<!--End Server Volume -->
+
+<!-- <div class="col-lg-offset-10  col-md-offset-10 col-lg-2 col-md-2"><br/> -->
+<!-- 	<button type="button" class="btn btn-danger genericbtn"  ng-click="backToCalculate()"> Back </button> -->
+<!-- </div> -->

@@ -1,0 +1,229 @@
+<head>
+	<link rel="stylesheet" href="/src/serviceDesk/serviceDesk.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+	    	<div class="serviceDeskSubmission">
+			    	<div class="col-lg-12 col-md-12 portlets" >
+				      <h3><i class="fa fa-user-circle-o" aria-hidden="true"></i>  Service Desk</h3>
+				      <h5>To add or update service desk details.</h5>
+			    	</div>
+		 		<form  id="serviceDeskSubForm" name="serviceDeskSubForm" class="form-horizontal">
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="pull-left"> Solution Setting</div>
+				                    <div class="clearfix"></div>
+				                </div>
+				                <div class="panel-body">
+				                    <div class="serviceDeskSubForm">
+				                        <div class="first-section">
+				                        	<div class="col-lg-3">
+			                        			<div class="form-group">
+				                                	<label for="offshore">Offshore Allowed
+				                                		<a href="#" uib-tooltip-html="'In case of offshoring service desk activities, Q assumes a full offshored model where incidents are handled fully from an offshore location'"  tooltip-placement="bottom" tooltip-class="customClass">
+											       			<i class="fa fa-info-circle"></i>
+											       		</a>
+				                                	</label>
+					                                <select id="offshore" class="form-control serviceDeskInputs" ng-model="dealDetails.offshoreSelected" selected="dealDetails.offshoreSelected" name="offshore" ng-required="true">
+							                            <option ng-repeat="offshores in genericDealInfoDto.yesNoOptionList">{{offshores}}</option>
+							                       </select>
+				                              	</div>
+		                              		</div>
+			                             	<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="serviceWindows">Service Window and SLA
+				                                		<a href="#" uib-tooltip-html="'The SLA difference primarily impacts the handle time (moving from 8 to 12 minutes) and first call resolution rates (moving from 70-85%).'"  tooltip-placement="bottom" tooltip-class="customClass">
+											       			<i class="fa fa-info-circle"></i>
+											       		</a>
+				                                	</label>
+					                                <select id="serviceWindow" class="form-control serviceDeskInputs" ng-model="dealDetails.standardwindowInfoSelected" selected="dealDetails.standardwindowInfoSelected" name="serviceWindow" ng-required="true">
+							                            <option ng-repeat="serviceWindows in genericDealInfoDto.standardWindowInfoList" ng-value="serviceWindows.windowName">{{serviceWindows.windowName}} {{serviceWindows.windowRange}}</option>
+							                       </select>
+				                              	</div>
+	                               			</div>
+											<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="multi">Multi-Lingual</label>
+					                                <select id="multi" class="form-control serviceDeskInputs" ng-model="serviceDeskInfo.multiLingual" selected="serviceDeskInfo.multiLingual" name="multiLingual" ng-required="true">
+							                       		<option value="" disabled selected hidden>Please Select...</option>
+							                       		<option ng-repeat="Multi in genericDealInfoDto.yesNoOptionList">{{Multi}}</option>
+							                       </select>
+				                                </div>
+		                        			</div>
+		                        			<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="tooling">Tooling
+				                                		<a href="#" uib-tooltip-html="'Determines whether the toolset (e.g. ServiceNow) is included in the contact pricing.'"  tooltip-placement="bottom" tooltip-class="customClass">
+											       			<i class="fa fa-info-circle"></i>
+											       		</a>
+				                                	</label>
+					                                <select id="tooling" class="form-control serviceDeskInputs" ng-model="serviceDeskInfo.tooling" selected="serviceDeskInfo.tooling" name="tooling" ng-required="true">
+							                            <option value="" disabled selected hidden>Please Select...</option>
+							                            <option ng-repeat="tooling in genericDealInfoDto.yesNoOptionList">{{tooling}}</option>
+							                       </select>
+				                                </div>
+		                        			</div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="clearfix">
+				                    	<div class="col-lg-5">
+				                    		<label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+			                    		</div>
+				                    	<div class="col-lg-4 tabheader-radio">
+										    <div class="col-lg-6">
+										         <input  id="radioRevenue" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="revenue" ng-click="onchangeprice(viewBy.type)"/>
+										         <label>Annual Price</label>
+										    </div>
+										    <div class="col-lg-6">
+										    	<input  id="radioUnit" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="unit" ng-click="onchangeprice(viewBy.type)"/>
+										       	<label>Unit Price</label>
+										    </div>
+										</div>
+			                    	</div>
+				                </div>
+				                <div class="panel-body">
+				                	<div class="tab-content col-lg-12 col-md-12">
+				                		<div id="inputtab" class="tree col-lg-12 col-md-12 scrollbar-danger" >
+			                				<!--serviceDesk input -->
+		                				<div class="col-lg-12 col-md-12">
+				                			<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group tower-architect">
+				                                	<label for="offshore">Tower Architect<div class="mandatory" style="display:initial;">*</div></label>
+					                                <div class="input-group contactInput">
+												      <input type="text" ng-model="dealDetails.towerArchitect" class="form-control genericInputs" ng-required="true">
+												      <span class="input-group-addon" ng-click="edit(dealDetails.towerArchitect,'towerArchitect')" ><i class="fa fa-search" ></i></span>
+													 </div>
+				                              	</div>
+				                        	</div>
+										</div>
+										<div class="col-lg-12 col-md-12">
+											<br/>
+											<div class="alert alert-danger" ng-if="showErr">
+											<strong>Error!</strong> Sum of percentages should be 100!</div>
+											<div class="alert alert-danger" ng-if="showVolumeErr">
+											<strong>Error!</strong> Sum of all Contact types should be equal to Total Contact in there respective year!</div>
+											<div class="alert alert-danger" ng-if="showmsg">
+											<strong>Error!</strong> All fields are required!</div>
+										</div>
+										<div class="col-lg-12 col-md-12 serviceDesk">
+											<div class="level1_div">
+												<div class="level1">
+													<i class="fa fa-plus-circle level1_i" ng-if="!serviceDeskInfo.contact.open" ng-click="togglePanel(serviceDeskInfo.contact)" ></i><hr class="iconsideline" ng-if="!serviceDeskInfo.contact.open">
+													<i class="fa fa-minus-circle level1_i" ng-if="serviceDeskInfo.contact.open" ng-click="togglePanel(serviceDeskInfo.contact)"></i><hr class="iconsideline" ng-if="serviceDeskInfo.contact.open">
+												</div>
+												<div class="level1_div">
+													<div class="level1_icondiv">
+														<i class="fa fa-database serviceDesklevel1_icon"></i>
+													</div>
+													<div class="level1_labeldiv">
+														<label> {{serviceDeskInfo.contact.levelName}}</label>
+													</div>
+													<div class="level1_yearmaindiv11">
+														<div ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index" ng-if="serviceDeskInfo.contact.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+														</div>
+													</div>
+													<div class="level1_yearmaindiv22">
+														<div ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index" ng-if="serviceDeskInfo.contact.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="serviceDesklevel1-1_div" ng-if="serviceDeskInfo.contact.open">
+												<ul>
+												    <li>
+												        <div class="level1_div">
+															<label for="distSetting" class="distributionsetting">Distribution Setting<em class="mandatory" style="display:initial;">*</em></label>
+															<select ng-if="custom==true" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+																<option value="" disabled selected hidden>Please Select...</option>
+															</select>
+															<select ng-if="custom==false" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+																<option value="" disabled selected hidden>Please Select...</option>
+															</select>
+														</div>
+												    </li>
+												    <li>
+												        <i class="fa fa-plus-circle serviceDesklevel1-1_expandcollapse"  ng-click="togglePanel(serviceDeskInfo.contact.children[0])" ng-if="!serviceDeskInfo.contact.children[0].open" ></i>
+														<i class="fa fa-minus-circle serviceDesklevel1-1_expandcollapse" ng-click="togglePanel(serviceDeskInfo.contact.children[0])" ng-if="serviceDeskInfo.contact.children[0].open" ></i>
+														<span class="iconbar">
+															<i class="fa fa-bars level1-1_icon"></i>
+														</span>
+														<span class="labelbar">
+															<label class="levelheader" style="width:13.1em;"> {{serviceDeskInfo.contact.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+															<input type="text" ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+																class="form-control input-box serviceDesklevel1-1_input"
+																name="volume{{$index}}" ng-disabled="serviceDeskInfo.contact.children[0].open == true" ng-blur="calcVolume(serviceDeskInfo.contact.children[0])"
+																ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'contact')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<label class="levelheader pricing-header"> Service Desk Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+															<input type="text" ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'revenue'" class="form-control input-box serviceDesklevel1-1_input"
+																ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].revenue * 12"
+																name="revenue{{$index}}" ng-disabled="serviceDeskInfo.contact.children[0].open == true"
+																ng-blur="onchangeparentpricing(serviceDeskInfo.contact.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'parentpricingrevenue','')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<input type="text" ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'unit'" class="form-control input-box serviceDesklevel1-1_input"
+																name="unit{{$index}}" ng-disabled="serviceDeskInfo.contact.children[0].open == true"
+																ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].unit"
+																ng-blur="onchangeparentpricing(serviceDeskInfo.contact.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'parentpricingunit','')" ng-required="true" numbersOnlyDec />
+														</span>
+														<ul ng-if="serviceDeskInfo.contact.children[0].open">
+															<li ng-repeat="child in serviceDeskInfo.contact.children[0].children track by $index" ng-init="childIndex = $index">
+																<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+																<span class="labelbar">
+																	<label class="levelheader levelservice input-euro right" ng-if="!child.tooltip">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+																	<label class="levelheader levelservice input-euro right" ng-if="child.tooltip"  title='{{child.tooltip}}'>{{child.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+
+																	<input type="text" class="form-control input-box perInput " name="childinput{{$index}}" style="margin-top: 0.2em"
+																	  	ng-change="onChangeServiceDeskPercentage(serviceDeskInfo.contact.children[0].children)"
+																	  	ng-model="child.percentage" placeholder="<100" numbers-only/>
+
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+																		class="form-control input-box" style="margin-top: 0.2em" ng-change="onChangevolume()"
+																		name="childVolume{{childIndex}}{{$index}}"
+																   		ng-model="dv.volume" maxlength="6" size="6" ng-required="true" numbers-only/>
+
+															   		<label class="levelheader pricing-header"> Service Desk Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index"
+																		ng-if="viewBy.type == 'revenue'" class="form-control input-box serviceDesklevel1-1_input"
+																		ng-model="dv.revenue * 12" ng-blur="calcServerPrice();"
+																		name="revenue{{$index}}" ng-keydown="tabEvent($event,$index,'childpricingrevenue',childIndex)" maxlength="6" size="6" ng-required="true" numbers-only />
+
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index"
+																		ng-if="viewBy.type == 'unit'" class="form-control input-box serviceDesklevel1-1_input"
+																		name="unit{{$index}}"" ng-disabled="child.open == true"
+																		ng-model="child.distributedVolume[$index].unit" ng-blur="calcServerPrice();"
+																		ng-keydown="tabEvent($event,$index,'childpricingunit',childIndex)" maxlength="10" size="10" ng-required="true" numbers-only-dec />
+																</span>
+															</li>
+														</ul>
+													</li>
+										         </ul>
+										    </div>
+										</div>
+										<!--End Server Volume -->
+				                		</div>
+									</div>
+									<div class="col-lg-12  col-md-12 portlets">
+										<button type="submit" id="serviceDeskSubSubmitBtn" class="btn btn-danger genericbtn" ng-disabled="!serviceDeskInfo.contact.open || !serviceDeskSubForm.$valid" ng-click="saveServiceSubInfo()" style="float:right">Save</button>
+						        	</div>
+				                </div>
+				            </div>
+				        </div>
+		 		</form>
+			</div>
+		</div>
+	</section>
+</section>

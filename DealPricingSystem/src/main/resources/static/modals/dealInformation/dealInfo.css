@@ -1,0 +1,23 @@
+/* --- Deal information modal   --- */
+
+.dealdetails{
+	margin-left: 3em;
+    margin-top: 1em;
+}
+
+.mainmenuBtn{
+	width:100%
+}
+
+.barsIcon{
+	float:left;
+}
+.dropIcon{
+	float:right;
+}
+.menulabel{
+	font-weight:bold;
+}
+.notFound{
+	color: #d9534f;
+}

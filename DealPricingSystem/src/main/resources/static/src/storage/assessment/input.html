@@ -1,0 +1,147 @@
+<!--Storage input -->
+<div class="col-lg-12 assessment-tabheader">
+	<label class="dirState"><i class="fa fa-tags" aria-hidden="true"></i> Use these options to add storage, based upon this deals' existing volumes.</label>
+    <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-2 col-md-2 tabheader-label"><input type="checkbox" ng-model="hosting" ng-disabled="disablehosting" ng-click="hostingChecked(hosting)"> Hosting Storage &nbsp &nbsp;
+       		<a ng-if="dynamicTooltipTextHosting" href="#" uib-tooltip-html="'{{dynamicTooltipTextHosting}}'"  tooltip-placement="bottom" tooltip-class="customClass">
+       		<i class="fa fa-info-circle"></i>
+       		</a>
+       		</label>
+          	<div class="col-lg-1 col-md-1 inputDiv"  ng-repeat="hostingserver in hostingServerList" >
+            	<input class="form-control input-box smallBox" name="hosting{{$index}}" ng-model="hostingserver.volume" disabled/>
+       		</div>
+        </div>
+ 	</div>
+    <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-2 col-md-2 tabheader-label"><input type="checkbox" ng-model="user" ng-click="userChecked(user)"> Number of Users &nbsp;
+       		<a ng-if="dynamicTooltipTextUser" href="#" uib-tooltip-html="'{{dynamicTooltipTextUser}}'"  tooltip-placement="bottom" tooltip-class="customClass">
+       		<i class="fa fa-info-circle"></i>
+       		</a>
+       		</label>
+       		<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="dealYearlyDataInfo in dealYearlyDataInfoDtoList">
+        		<input class="form-control input-box smallBox" name="users{{$index}}" ng-model="dealYearlyDataInfo.noOfUsers" disabled/>
+    		</div>
+    	</div>
+    </div>
+</div>
+<br>
+<label class="mandState"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+<div class="col-lg-12 storage">
+	<div class="alert alert-danger" ng-show="showVolumeErr">
+	<strong>Error!</strong> Sum of Performance and Standard Should be equal to Storage Volume in there respective year!</div>
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!storageInfo.storage.open" ng-click="togglePanel(storageInfo.storage)" ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="storageInfo.storage.open" ng-click="togglePanel(storageInfo.storage)"></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database storagelevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{storageInfo.storage.levelName}}</label>
+			</div>
+		</div>
+		<div class="level1_yearmaindiv">
+			<div ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index" ng-if="storageInfo.storage.open || storageInfo.backup.open" >
+				<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+	        </div>
+      	</div>
+	</div>
+	<div class="storagelevel1-1_div" ng-if="storageInfo.storage.open">
+		<ul>
+		    <li>
+		        <div class="level1_div">
+					<label for="clientIndustry" class="distributionsetting">Distribution Settings<div class="mandatory" style="display:initial;">*</div></label>
+					<select ng-if="customSol==false" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+					<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+					<select ng-if="customSol==true"  class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+					<option value="" disabled selected hidden>Please Select...</option>
+					</select>
+				</div>
+		    </li>
+		    <li>
+		        <i class="fa fa-plus-circle storagelevel1-1_expandcollapse"  ng-click="togglePanel(storageInfo.storage.children[0])" ng-if="!storageInfo.storage.children[0].open" ></i>
+				<i class="fa fa-minus-circle storagelevel1-1_expandcollapse" ng-click="togglePanel(storageInfo.storage.children[0])" ng-if="storageInfo.storage.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+
+				<span class="labelbar">
+
+					<label class="levelheader vol" style="width: 26em;"> {{storageInfo.storage.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+					<div ng-repeat="dv in storageInfo.storage.children[0].distributedVolume track by $index">
+						<input class="form-control input-box storagelevel1-1_input" type="text"
+						name="volume" ng-readonly="storageInfo.storage.children[0].open == true" ng-blur="calcVolume(storageInfo.storage.children[0])"
+						ng-model="storageInfo.storage.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,storageInfo.storage.children[0].distributedVolume[$index].volume)" ng-required="true" numbers-only/>
+                     </div>
+				  </span>
+				<ul ng-if="storageInfo.storage.children[0].open">
+					<li ng-repeat="child in storageInfo.storage.children[0].children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader input-euro right volChild" ng-if="!child.tooltip">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<label class="levelheader input-euro right volChild" ng-if="child.tooltip"  title='{{child.tooltip}}'>{{child.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+							<input class="form-control input-box perInput" name="childinput{{$index}}" style="margin-top: 0.2em" type="text"
+									ng-pattern="/^[0-9][0-9]?$|^100$/"
+								  	ng-change="onChangeStoragePercentage(storageInfo.storage.children[0].children[childIndex],$index)"
+								  	ng-model="storageInfo.storage.children[0].children[childIndex].percentage" placeholder="<100"  numbers-only/>
+
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}" type="text"
+									class="form-control input-box" style="margin-top: 0.2em"
+									name="childVolume{{childIndex}}{{$index}}"
+									ng-change="changeChildVolume()"
+							   		ng-model="dv.volume" ng-required="true" numbers-only/>
+							   		<!-- <span ng-show="storageInputForm.childinput{{$index+1}}.$error.pattern">Not a valid number!</span> -->
+						</span>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+ 	  <div>
+		   <div class="backup_div">
+				<div class="backuplevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle backuplevel1_i" ng-if="!storageInfo.backup.open" ng-click="togglePanel(storageInfo.backup)" ></i>
+					<i class="fa fa-minus-circle backuplevel1_i" ng-if="storageInfo.backup.open" ng-click="togglePanel(storageInfo.backup)" ></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database backup_icon"></i>
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{storageInfo.backup.levelName}}</label>
+       				</div>
+				</div>
+			</div>
+			<div class="backuplevel1-1_div" ng-if="storageInfo.backup.open">
+   				<ul>
+					<li>
+						<div class="level1_div">
+                           	<label for="clientIndustry" class="distributionsetting">Backup Frequency<div class="mandatory" style="display:initial;">*</div></label>
+    							<select ng-if="custom==true" class="form-control selectDistributionlist" ng-model="selectedBackUp" ng-options="backUp.backupId as backUp.backupFrequencyName disable when backUp.backupFrequencyName=='Custom' for backUp in backUpList" ng-change="onChangebackUp(selectedBackUp)" ng-required="true">
+                                  	<option value="" disabled selected hidden>Please Select...</option>
+                                </select>
+                                <select ng-if="custom==false" class="form-control selectDistributionlist" ng-model="selectedBackUp" ng-options="backUp.backupId as backUp.backupFrequencyName disable when backUp.backupFrequencyName=='Custom' for backUp in backUpList" ng-change="onChangebackUp(selectedBackUp)" ng-required="true">
+                                  <option value="" disabled selected hidden>Please Select...</option>
+                                </select>
+                        </div>
+					</li>
+					<li>
+						<span class="iconbar">
+							<i class="fa fa-bars level1-1_icon" ></i>
+						</span>
+						<span class="labelbar">
+							<label class="levelheader vol" style="width:26em;"> {{storageInfo.backup.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in storageInfo.backup.children[0].distributedVolume track by $index" type="text"
+								class="form-control input-box" name="backupVolume{{$index}}" ng-model="storageInfo.backup.children[0].distributedVolume[$index].volume" ng-keydown="tabEventBackup($event,$index)"
+								ng-change="setBackUp()" ng-required="true" numbers-only/>
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+</div>

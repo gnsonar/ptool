@@ -1,0 +1,145 @@
+<head>
+	<link rel="stylesheet" href="/src/totals/totals.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+	    	<div class="totalAssessment">
+		    	<div class="col-lg-12 col-md-12 portlets">
+			      <h3><i class="fa fa-tumblr-square" aria-hidden="true"></i> Governance, Transition, Transformation and Totals </h3>
+			      <h5>To see the result based on your filled data. </h5>
+			      <h5>That will be different across the all towers for your different inputs</h5>
+   	            <br>
+
+		    	</div>
+		 		<div class="col-lg-12 col-md-12 portlets">
+					<table class="table totals-table" id="tableToExport">
+					    <thead>
+				      		<tr class="head">
+					        	<th>
+					        		&nbsp; Tower
+					        	</th>
+					       		<th ng-repeat="x in numberArr track by $index" ng-init="year = $index" style="text-align:right;">
+					       			Year {{$index+1}}
+					       		</th>
+					      	</tr>
+					    </thead>
+					    <tbody>
+					      	<tr>
+						        <td>
+						        	&nbsp;&nbsp;Infrastructure & hosting
+						        </td>
+						        <td ng-repeat="dv in hostingYearlyRevenue" style="text-align:right;">
+					       			{{dv.totalRevenue|currency:''}}
+					       		</td>
+					      	</tr>
+					      	<tr>
+					        	<td>
+					        		&nbsp;&nbsp; Storage & backup </td>
+					       		<td ng-repeat="dv in storageInfo" style="text-align:right;">
+					       			{{dv.totalRevenue|currency:''}}
+					       		</td>
+					       		<td ng-repeat="x in numberArr track by $index" ng-if="!storageInfo" style="text-align:right;">
+					       			0.00
+					       		</td>
+					      	</tr>
+					      		<tr>
+						        <td>
+						        	&nbsp; End user services</td>
+						        <td ng-repeat="dv in endUserYearlyRevenue" style="text-align:right;">
+						       		{{dv.totalRevenue|currency:''}}
+						       </td>
+
+					      	</tr>
+					     <tr>
+			        			<td>
+			        				&nbsp; Network services </td>
+					       		  <td ng-repeat="network in networkYearlyRevenue" style="text-align:right;">
+						     	   {{network.totalRevenue|currency:''}}
+						     	</td>
+					      	</tr>
+					      	<tr>
+						        <td>
+						        	&nbsp; Service desk</td>
+						        <td ng-repeat="service in serviceDeskYearlyRevenue" style="text-align:right;">
+						     	   {{service.totalContactsRevenue|currency:''}}
+						     	</td>
+					      	</tr>
+					      	<tr>
+					        	<td>
+					        		&nbsp; Application Services</td>
+						       	<td ng-repeat="appInfo in appYearlyRevenue" style="text-align:right;">
+						       		{{appInfo.totalAppsRevenue|currency:''}}
+						       	</td>
+								<td ng-repeat="x in numberArr track by $index" ng-if="appYearlyRevenue.length==0" style="text-align:right;">
+						       		0.00
+						       </td>
+					      	</tr>
+					      	<tr>
+						        <td>
+						        	&nbsp; Retail Services</td>
+						        <td ng-repeat="retail in retailInfo" style="text-align:right;">
+						     	   {{retail.noOfShops|currency:''}}
+						     	</td>
+					      	</tr>
+					    </tbody>
+					    <tr>
+						    <td class="headRow">Subtotals </td>
+						    <td class="headRow" ng-repeat="subTotal in subTotals track by $index" style="text-align:right;">{{subTotal|currency:''}}</td>
+					    </tr>
+				    	<tr class="blankrow">
+				    		<td> </td>
+				    	</tr>
+
+					    <thead>
+					      <tr class="head">
+					        <th>Additional Price</th>
+					       	<th ng-repeat="x in numberArr track by $index" style="text-align:right;">Year {{$index+1}}</th>
+					      </tr>
+					    </thead>
+
+					    <tbody>
+				      		<tr>
+						        <td>Service Governance ({{serviceGovernance}}%)</td>
+						        <td ng-repeat="gov in serviceGovList track by $index" style="text-align:right;">{{gov|currency:''}}</td>
+					      	</tr>
+					      	<tr>
+						        <td>Transition Fees ({{transitionFees}}%)</td>
+						        <td ng-repeat="fee in transitionFeeList track by $index" style="text-align:right;"><span ng-if="fee>0">{{fee|currency:''}}</span>
+						       <span ng-if="fee==0">-</span>
+						        </td>
+				        	</tr>
+				        	<tr ng-if="!migrationCostApplicable">
+						        <td >Migration Cost</td>
+						        <td ng-repeat="mCost in totalRevenueList track by $index" style="text-align:right;">-</td>
+				        	</tr>
+				        	<tr ng-if="migrationCostApplicable">
+						        <td >Migration Cost</td>
+						        <td ng-repeat="mCost in migrationCost" style="text-align:right;">{{mCost.cost|currency:''}}</td>
+				        	</tr>
+					    </tbody>
+
+					    <tr class="headRow">
+					    	<td class="headRow">Subtotals </td>
+					    	<td class="headRow" ng-repeat="addSubTotal in addSubTotals track by $index" style="text-align:right;">{{addSubTotal|currency:''}}</td>
+					    </tr>
+
+					 	<tr class="blankrow">
+					    	<td> </td>
+					    </tr>
+					    <thead>
+					      <tr class="headlast">
+					        <th>Total Price</th>
+					        <th ng-repeat="total in totalRevenueList track by $index" style="text-align:right;">{{total|currency:''}}</th>
+					      </tr>
+					    </thead>
+				    </table>
+			    	<label id="inKCurrencyLabel">(in k {{dealCurrency}})</label>
+				</div>
+				<div class="row"> </div><br/><div class="col-lg-12 col-md-12 portlets"> </div>
+			</div>
+		</div>
+	</section>
+</section>

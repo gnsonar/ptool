@@ -1,0 +1,280 @@
+/* ---  Home detail   --- */
+
+.center{
+	padding-right: 0px;
+	padding-left: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.admin{
+	margin-top: 3em; 
+	padding-left: 7em;
+}
+
+.finddealbox{
+	box-shadow: 1px 1px 1px 1px grey;
+	background-color: white;
+}
+
+.homesearch p{
+	text-align:center;
+}
+
+.assessment_submissionbox{
+	width: 40em;
+}
+
+.whatsnewdiv{
+	padding-left: 0em;
+	padding-right: 0em;
+	background-color: white;
+	box-shadow: 1px 1px 1px 1px grey;
+	height: 28%;
+}
+
+.whatsnewtable{
+	overflow-y:scroll;
+	height:100%;
+	display:block;
+}
+
+.text3
+{
+      font-size:0.8em;
+      color: #8a8585;
+}
+
+.whatsnew_row_col1{
+	width:10em;
+	border-right: 1px solid;
+	border-right-color: #dddddd;
+}
+
+.whatsnew_row_col2{
+	width:23em;
+}
+
+.badge{
+	background-color: red;
+}
+
+.recentdiv{
+	padding-left: 0em;
+	padding-right: 0em;
+	background-color: white;
+	box-shadow: 1px 1px 1px 1px grey;
+	height: 28%;
+}
+
+.recentdiv_div1{
+	border-right: 1px solid #e4d5d5;border-bottom:1px solid #e4d5d5;height: 3em;padding-left: 0em;padding-right: 0em;
+}
+
+.recent_i{
+	padding-left: 0.6em;font-size: initial;padding-top: 0.6em;
+}
+
+.recentdiv_div2{
+	height: 3em;
+	padding-left: 0em;
+	padding-right: 0em;
+	border-bottom:1px solid #e4d5d5;
+}
+
+.recentdiv2_label{
+	padding-top: 0.5em;
+	padding-left: 1em;
+	font-size: initial;
+}
+
+.recenttable{
+	width:11.1em;
+	border-right: 1px solid;
+	border-right-color: #dddddd;
+}
+
+.dateColumn{
+	border-right: 1px solid;
+	border-right-color: #dddddd;
+}
+.description-column{
+	width:10em;
+	border-right: 1px solid;
+	border-right-color: #dddddd;
+}
+
+
+/*Home Screen*/
+.text1
+{
+      font-size:2em;
+      color: #8a8585;
+}
+.home-text2
+{
+      font-size:1.5em;
+      color: #e60808;
+      font-weight:bold;
+}
+.text3
+{
+      font-size:0.8em;
+      color: #8a8585;
+}
+.text4
+{
+      font-size:0.7em;
+      color: #8a8585;
+}
+.dashboard-icon
+{
+      font-size: 3em;
+}
+.dashboard-table
+{
+      box-shadow: 1px 1px 1px 1px grey;   
+}
+.dashboard-header-date
+{
+      color: #8a8585;
+      width:32%;
+}
+.dashboard-header-desc
+{
+      color: #8a8585;
+      width:50%;
+}
+.dashboard-header-status
+{
+      color: #8a8585;
+      width:18%;
+}
+
+.dashboard-header-description
+{
+      color: #8a8585;
+      width:28em;
+}
+
+.dashboard-btn-role
+{
+     height: 14em;
+      width: 39.8em;
+   	box-shadow: 1px 1px 1px 1px grey;   
+      color: #e60808;
+}
+
+.dashboard-btn
+{
+      height: 14em;
+      width: 19em;
+   	box-shadow: 1px 1px 1px 1px grey;   
+      color: #e60808;
+}
+
+.large-icon
+{
+      font-size: 5em;
+      color: #8a8585;
+}
+.findpanel
+{
+      padding-left:1em;
+}
+
+.dashboard-table{
+	background-color:white;
+	
+}
+
+
+.dashboard-table > tbody {
+   max-height: 14em;
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 7px;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+.Open{
+	background-color: #ff0000;
+}
+
+.Published{
+	background-color: #58D68D;
+}
+.Submitted{
+	background-color: #F5B041;
+}
+.Discarded{
+	background-color: #A6ACAF;
+}
+.Message{
+	background-color: #3498DB;
+}
+.Stored{
+	background-color: #00FFFF;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fbfbfb;
+    cursor: default;
+    background-color: #ff0000;
+    border-color: #ff0000; 
+}
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #ff0000;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 8em;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.dealnames-div{
+	border:1px solid;
+}
+
+.find-deal-result-table  td{
+	font-size:14px;
+}
+
+
+.pagination ul>li{display:inline;}
+.pagination ul>li>a,.pagination ul>li>span{position: relative; float: left; padding: 6px 12px;margin-left: -1px; line-height: 1.42857143; color: #ff0000;text-decoration: none; background-color: #fff;  border: 1px solid #ddd;}
+.pagination ul>li>a:hover,.pagination ul>li>a:focus,.pagination ul>.active>a,.pagination ul>.active>span{color: #fbfbfb; cursor: default; background-color: #ff0000;border-color: #ff0000;}
+.pagination ul>.active>a,.pagination ul>.active>span{color:#ffffff;cursor:default;}
+.pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover,.pagination ul>.disabled>a:focus{color:#999999;background-color:transparent;cursor:default;}
+.pagination ul>li:first-child>a,.pagination ul>li:first-child>span{border-left-width:1px;-webkit-border-top-left-radius:4px;-moz-border-radius-topleft:4px;border-top-left-radius:4px;-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;border-bottom-left-radius:4px;}
+.pagination ul>li:last-child>a,.pagination ul>li:last-child>span{-webkit-border-top-right-radius:4px;-moz-border-radius-topright:4px;border-top-right-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;border-bottom-right-radius:4px;}
+
+.modal{
+	left: 40%;
+    width: 56%;
+}
+.finddeal-header{
+	background-color: #d0d0d0;
+	color: #0e0e0e;
+	font-weight: bold;
+	
+}
+
+
+
+
+

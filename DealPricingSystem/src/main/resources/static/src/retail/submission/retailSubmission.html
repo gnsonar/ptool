@@ -1,0 +1,169 @@
+<head>
+	<link rel="stylesheet" href="/src/retail/retail.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+	    	<div class="retailSubmission">
+			    	<div class="col-lg-12 col-md-12 portlets" >
+				      <h3><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Retail Services </h3>
+				      <h5>To add or update retail details.</h5>
+			    	</div>
+		 		<form  id="retailSubForm" name="retailSubForm" class="form-horizontal">
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="pull-left"> Solution Setting</div>
+				                    <div class="clearfix"></div>
+				                </div>
+				                <div class="panel-body">
+				                    <div class="retailSubForm">
+				                        <div class="first-section">
+				                        	<div class="col-lg-3">
+			                        			<div class="form-group">
+				                                	<label for="offshore">Offshore Allowed</label>
+					                                <select id="offshore" class="form-control retailInputs" ng-model="dealDetails.offshoreSelected" selected="dealDetails.offshoreSelected" name="offshore">
+							                            <option ng-repeat="offshores in genericDealInfoDto.yesNoOptionList">{{offshores}}</option>
+							                       </select>
+				                              	</div>
+		                              		</div>
+			                             	<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="hardwareIncluded">Hardware Included</label>
+					                                <select id="hardwareIncluded" class="form-control retailInputs" ng-model="dealDetails.hardwareIncludedSelected" selected="dealDetails.hardwareIncludedSelected" name="hardwareIncluded" ng-required="true">
+							                            <option ng-repeat="hardwareIncluded in genericDealInfoDto.yesNoOptionList">{{hardwareIncluded}}</option>
+							                       	</select>
+				                              	</div>
+	                               			</div>
+											<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="ageList">Age of the Equipment</label>
+					                                <select id="ageList" class="form-control retailInputs" ng-model="retailInfo.ageList" selected="retailInfo.ageList" name="ageList" ng-required="true">
+							                       		<option ng-repeat="Agelist in genericDealInfoDto.equipmentAgeList" ng-value="Agelist.age">{{Agelist.age}}{{Agelist.ageDesc}}</option>
+							                        </select>
+				                                </div>
+		                        			</div>
+		                        			<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="setList">Equipment scope</label>
+					                                <select id="setList" class="form-control retailInputs" ng-model="retailInfo.setList" selected="retailInfo.setList" name="setList" ng-required="true">
+							                            <option ng-repeat="Setlist in genericDealInfoDto.equipmentSetList" ng-value="Setlist.name">{{Setlist.name}}</option>
+							                        </select>
+				                                </div>
+		                        			</div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="clearfix">
+				                    	<div class="col-lg-5"><label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label></div>
+				                    	<div class="col-lg-4 tabheader-radio">
+									    <div class="col-lg-6">
+									         <input  id="radioRevenue" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="revenue" ng-click="onchangeprice(viewBy.type)"/>
+									         <label>Annual Price</label>
+									    </div>
+									    <div class="col-lg-6">
+									    	<input  id="radioUnit" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="unit" ng-click="onchangeprice(viewBy.type)"/>
+									       	<label>Unit Price</label>
+									    </div>
+									</div>
+				                    </div>
+				                </div>
+				                <div class="panel-body">
+				                	<div class="tab-content col-lg-12 col-md-12">
+				                		<div id="inputtab" class="tree col-lg-12 col-md-12 scrollbar-danger" >
+			                				<div class="col-lg-12 col-md-12">
+					                			<div class="col-lg-3 col-md-3">
+					                        		<div class="form-group tower-architect">
+					                                	<label for="offshore">Tower Architect<div class="mandatory" style="display:initial;">*</div></label>
+						                                <div class="input-group contactInput">
+													      <input type="text" ng-model="dealDetails.towerArchitect" class="form-control genericInputs" ng-required="true">
+													      <span class="input-group-addon" ng-click="edit(dealDetails.towerArchitect,'towerArchitect')" ><i class="fa fa-search" ></i></span>
+														 </div>
+					                              	</div>
+					                        	</div>
+											</div>
+											<div class="col-lg-12 col-md-12">
+												<br/>
+												<div class="alert alert-danger" ng-if="showErr">
+												<strong>Error!</strong> Sum of percentages should be 100!</div>
+												<div class="alert alert-danger" ng-if="showVolumeErr">
+												<strong>Error!</strong> Sum of all Retail types should be equal to Total in there respective year!</div>
+												<!-- <div class="alert alert-danger" ng-if="showmsg"> -->
+												<!-- <strong>Error!</strong> All fields are required!</div> -->
+											</div>
+											<div class="col-lg-12 col-md-12 retail">
+											<div class="level1_div">
+												<div class="level1">
+													<i class="fa fa-plus-circle level1_i" ng-if="!retailInfo.shops.open" ng-click="togglePanel(retailInfo.shops)" ></i><hr class="iconsideline" ng-if="!retailInfo.shops.open">
+													<i class="fa fa-minus-circle level1_i" ng-if="retailInfo.shops.open" ng-click="togglePanel(retailInfo.shops)"></i><hr class="iconsideline" ng-if="retailInfo.shops.open">
+												</div>
+												<div class="level1_div">
+													<div class="level1_icondiv">
+														<i class="fa fa-database retaillevel1_icon"></i>
+													</div>
+													<div class="level1_labeldiv">
+														<label> {{retailInfo.shops.levelName}}</label>
+													</div>
+													<div class="level1_yearmaindiv11">
+														<div ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" ng-if="retailInfo.shops.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+														</div>
+													</div>
+													<div class="level1_yearmaindiv22">
+														<div ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" ng-if="retailInfo.shops.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="retaillevel1-1_div" ng-if="retailInfo.shops.open">
+												<ul>
+												    <li>
+														<span class="iconbar">
+															<i class="fa fa-bars level1-1_icon"></i>
+														</span>
+														<span class="labelbar">
+															<label class="levelheader retailchild right"> {{retailInfo.shops.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+															<input type="text" ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+																class="form-control input-box retaillevel1-1_input"
+																name="volume{{$index}}" ng-disabled="retailInfo.shops.children[0].open == true" ng-change="calcVolume(retailInfo.shops.children[0])"
+																ng-model="retailInfo.shops.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'RetailVolume')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<label class="levelheader pricing-header"> Retail Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+															<input type="text" ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'revenue'" class="form-control input-box retaillevel1-1_input"
+																ng-model="retailInfo.shops.children[0].distributedVolume[$index].revenue * 12"
+																name="revenue{{$index}}" ng-disabled="retailInfo.shops.children[0].open == true"
+																ng-change="onchangeparentpricing(retailInfo.shops.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'RetailPricingRevenue')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<input type="text" ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'unit'" class="form-control input-box retaillevel1-1_input"
+																name="unit{{$index}}" ng-disabled="retailInfo.shops.children[0].open == true"
+																ng-model="retailInfo.shops.children[0].distributedVolume[$index].unit"
+																ng-change="onchangeparentpricing(retailInfo.shops.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'RetailPricingUnit')" ng-required="true" numbersOnlyDec />
+														</span>
+													</li>
+										         </ul>
+										    </div>
+										</div>
+										<!--End Server Volume -->
+				                		</div>
+									</div>
+									<div class="col-lg-12  col-md-12"> <!-- ng-disabled="(!retailInfo.shops.open && !appInfo.backup.open) || retailSubForm.$invalid" -->
+										<button type="submit" id="retailSubSubmitBtn" class="btn btn-danger genericbtn" ng-disabled="!retailInfo.shops.open || !retailSubForm.$valid || showErr || showVolumeErr" ng-click="saveRetailSubInfo()" style="float:right">Save</button>
+						        	</div>
+				                </div>
+				            </div>
+				        </div>
+		 		</form>
+			</div>
+		</div>
+	</section>
+</section>

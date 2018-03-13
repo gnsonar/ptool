@@ -1,0 +1,205 @@
+ <head>
+	<link rel="stylesheet" href="/modals/dealInformation/dealInfo.css">
+	<style>.modal{
+	left: 40%;
+    width: 56%;
+}
+	</style>
+</head>
+<div class="lds-spinner" ng-show="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+<div class="modal-header">
+  <h3>Information{{infoModel.name}}</h3>
+</div>
+<div class="modal-body" ng-if="dealName=='pastAvg'">
+	<h4><span class="menulabel">Total hit-count  : {{ noOfUsedDeals}}</span></h4>
+	<hr>
+	<button type="button" class="btn btn-danger mainmenuBtn" ng-click="isCollapsed2 = !isCollapsed2">
+	<span class="mainmenulabel"><i class="fa fa-bars barsIcon " aria-hidden="true"></i>Top Deals in Volume<i class="fa fa-sort-desc dropIcon" ng-if="!isCollapsed2"></i><i class="fa fa-sort-asc dropIcon" ng-if="isCollapsed2"></i></span></button>
+	<div uib-collapse="isCollapsed2">
+		<br>
+		<div class="form-group col-lg-12">
+		<div class="form-group col-lg-12 notFound" ng-if="nearestInVolumeDeals==null" >No Deal result Found </div>
+			<div class="form-group col-lg-12" ng-if="nearestInVolumeDeals!=null" ng-repeat="topDeal in nearestInVolumeDeals">
+
+				<button type="button" class="btn btn-info" ng-click="isCollapsed21 = !isCollapsed21">Deal {{$index+1}} <i class="fa fa-hand-o-right" aria-hidden="true"></i> </button>
+				<div uib-collapse="isCollapsed21">
+					<div class="form-group col-lg-12 dealdetails">
+						<div class="col-lg-10">
+							<label for="dealname" class="col-lg-3">Client Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{topDeal.clientName}}</label>
+							<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Deal Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{topDeal.dealName}}</label>
+							<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Deal Status</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4">{{topDeal.dealStatus}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4">{{topDeal.averageVolume}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4">{{topDeal.averagePrice}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3 ">Financial engineer</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+							<label for="coln" class="col-lg-4">{{topDeal.financialEngineer}}</label>
+						</div>
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<button type="button" class="btn btn-danger mainmenuBtn" ng-click="isCollapsed3 = !isCollapsed3">
+		<span class="mainmenulabel"><i class="fa fa-bars barsIcon " aria-hidden="true"></i> Expensive and Cheapest Deal<i class="fa fa-sort-desc dropIcon" ng-if="!isCollapsed3"></i><i class="fa fa-sort-asc dropIcon" ng-if="isCollapsed3"></i></span></button>
+	<div uib-collapse="isCollapsed3">
+		<br/>
+		<div class="form-group col-lg-12">
+			<div class="form-group col-lg-12">
+
+				<div class="form-group col-lg-12 dealdetails notFound" ng-if="expensiveDeal==null">No Expensive Deal Found </div>
+		        <div  ng-if="expensiveDeal!=null">
+					<button type="button" class="btn btn-info" ng-click="isCollapsed31 = !isCollapsed31">Expensive Deal<i class="fa fa-hand-o-right" aria-hidden="true"></i></button>
+					<div uib-collapse="isCollapsed31">
+
+						<div class="form-group col-lg-12 dealdetails">
+							<div class="col-lg-10">
+								<label for="dealname" class="col-lg-3">Client Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{expensiveDeal.clientName}}</label>
+								<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Deal Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{expensiveDeal.dealName}}</label>
+								<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Deal Status</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{expensiveDeal.dealStatus}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{expensiveDeal.averageVolume}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{expensiveDeal.averagePrice}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3 ">Financial engineer</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{expensiveDeal.financialEngineer}}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-lg-12">
+			<div class="form-group col-lg-12 dealdetails notFound" ng-if="cheapestDeal==null">No Cheapest Deal Found </div>
+				<div ng-if="cheapestDeal!=null">
+		   	      	<button type="button" class="btn btn-info" ng-click="isCollapsed32 = !isCollapsed32"> Cheapest Deal <i class="fa fa-hand-o-right" aria-hidden="true"></i></button>
+					<div uib-collapse="isCollapsed32">
+						<div class="form-group col-lg-12 dealdetails" >
+							<div class="col-lg-10">
+								<label for="dealname" class="col-lg-3">Client Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{cheapestDeal.clientName}}</label>
+									<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Deal Name</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4" ng-if="role=='Admin'">{{cheapestDeal.dealName}}</label>
+								<label for="coln" class="col-lg-2"  ng-if="role!='Admin'">***</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Deal Status</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{cheapestDeal.dealStatus}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{cheapestDeal.averageVolume}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{cheapestDeal.averagePrice}}</label>
+							</div>
+					        <div class="col-lg-10">
+					        	<label for="dealname" class="col-lg-3 ">Financial engineer</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+								<label for="coln" class="col-lg-4">{{cheapestDeal.financialEngineer}}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+</div>
+<div class="modal-body" ng-if="dealName!='pastAvg'">
+	<button type="button" class="btn btn-danger mainmenuBtn"><span class="mainmenulabel">Benchmark Deals</span></button>
+	<div>
+		<div class="form-group col-lg-12">
+			<br>
+			<div class="form-group col-lg-12 notFound" ng-if="selectedBenchMarkDeal==null" >No Used Benchmark Found </div>
+			<div class="form-group col-lg-12" ng-if="selectedBenchMarkDeal!=null" >
+				<button type="button" class="btn btn-info" ng-click="isCollapsed41 = !isCollapsed41"> Used Benchmark <i class="fa fa-hand-o-right" aria-hidden="true"></i> </button>
+				<div uib-collapse="isCollapsed41">
+					<div class="form-group col-lg-12 dealdetails">
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{selectedBenchMarkDeal.averageVolume}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{selectedBenchMarkDeal.averagePrice}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group col-lg-12 notFound" ng-if="highBenchMarkDeal==null" >No Nearby Higher Benchmark Found </div>
+			<div class="form-group col-lg-12" ng-if="highBenchMarkDeal!=null">
+				<button type="button" class="btn btn-info" ng-click="isCollapsed42 = !isCollapsed42"> Nearby Higher Benchmark <i class="fa fa-hand-o-right" aria-hidden="true"></i></button>
+				<div uib-collapse="isCollapsed42">
+					<div class="form-group col-lg-12 dealdetails">
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{highBenchMarkDeal.averageVolume}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{highBenchMarkDeal.averagePrice}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group col-lg-12 notFound" ng-if="lowBenchMarkDeal==null" >No Nearby Lower Benchmark Found </div>
+			<div class="form-group col-lg-12" ng-if="lowBenchMarkDeal!=null">
+				<button type="button" class="btn btn-info" ng-click="isCollapsed43 = !isCollapsed43"> Nearby Lower Benchmark <i class="fa fa-hand-o-right" aria-hidden="true"></i></button>
+				<div uib-collapse="isCollapsed43">
+					<div class="form-group col-lg-12 dealdetails">
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average volume</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{lowBenchMarkDeal.averageVolume}}</label>
+						</div>
+				        <div class="col-lg-10">
+				        	<label for="dealname" class="col-lg-3">Average price</label><label for="coln" class="col-lg-1"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></label>
+						<label for="coln" class="col-lg-4">{{lowBenchMarkDeal.averagePrice}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+  <button ng-click="close()" class="btn" >Close</button>
+</div>

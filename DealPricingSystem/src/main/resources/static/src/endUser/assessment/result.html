@@ -1,0 +1,145 @@
+<!--End User result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 endUser">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!endUserInfo.user.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="endUserInfo.user.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database endUserlevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{endUserInfo.user.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index" ng-if="endUserInfo.user.open || endUserInfo.userImac.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+      		</div>
+      		<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index" ng-if="endUserInfo.user.open || endUserInfo.userImac.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+      		</div>
+		</div>
+	</div>
+	<div class="endUserlevel1-1_div" ng-if="endUserInfo.user.open">
+			<ul>
+		       <li>
+		        <i class="fa fa-plus-circle endUserlevel1-1_expandcollapse"   ng-if="!endUserInfo.user.children[0].open" ></i>
+				<i class="fa fa-minus-circle endUserlevel1-1_expandcollapse"  ng-if="endUserInfo.user.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader" style="width:14em;"> {{endUserInfo.user.children[0].levelName}}</label>
+					<input ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+						class="form-control input-box endUserlevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true
+						ng-model="endUserInfo.user.children[0].distributedVolume[$index].volume"/>
+
+					<label class="levelheader pricing-header"> End User Pricing </label>
+					<input ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input"
+						ng-model="endUserInfo.user.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+
+					<input ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"
+						ng-model="endUserInfo.user.children[0].distributedVolume[$index].unit" />
+				</span>
+				<ul ng-if="endUserInfo.user.children[0].open">
+					<li ng-repeat="child in endUserInfo.user.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader" style="width: 11em;">{{child.levelName}}</label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em"
+						   		ng-model="dv.volume" ng-readonly="true" />
+
+					   		<label class="levelheader pricing-header"> End User  Pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+								name="unit{{$index}}" ng-readonly="true"
+								ng-model="child.distributedVolume[$index].unit"/>
+						</span>
+						<ul ng-if="endUserInfo.user.children[0].children[0].open && child.children[0]">
+							<li ng-repeat="grandchild in endUserInfo.user.children[0].children[0].children" ng-init="grandchildIndex = $index">
+								<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader height">{{grandchild.levelName}}</label>
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index" name="grandchildinput{{$index+1}}"
+										class="form-control input-box" style="margin-top: 0.2em"
+								   		ng-model="dv.volume" ng-readonly="true" />
+
+							   		<label class="levelheader pricing-header"> End User Pricing </label>
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index"
+										ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input"
+										ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index"
+										ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+										name="unit{{$index}}" ng-readonly="true"
+										ng-model="grandchild.distributedVolume[$index].unit"/>
+								</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+      	</ul>
+  	</div>
+  	<!-- IMAC-->
+  	<div class="ImacDiv">
+   		<div class="imac_div">
+			<div class="imaclevel1" style="background-image: url('../images/quater21.png');">
+				<i class="fa fa-plus-circle imaclevel1_i" ng-if="!endUserInfo.userImac.open"  ></i>
+				<i class="fa fa-minus-circle imaclevel1_i" ng-if="endUserInfo.userImac.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database imac_icon"></i>
+				</div>
+				<div class="level1_labeldiv">
+					<label> {{endUserInfo.userImac.levelName}}</label>
+   				</div>
+			</div>
+		</div>
+		<div class="imaclevel1-1_div" ng-if="endUserInfo.userImac.open">
+			<ul>
+				<li>
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i>
+					</span>
+					<span class="labelbar">
+						<label class="levelheader" style="width:14em;"> {{endUserInfo.userImac.children[0].levelName}}</label>
+						<input ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+							class="form-control input-box storagelevel1-1_input"
+							name="imacVolume{{$index}}" ng-readonly="true" style="margin-top: 0.2em"
+							ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].volume" />
+
+						<label class="levelheader pricing-header"> IMAC pricing </label>
+						<input ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box storagelevel1-1_input"
+							ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].revenue * 12"
+							name="imacrevenue{{$index}}" ng-readonly="true" />
+
+						<input ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box storagelevel1-1_input"
+							name="imacunit{{$index}}" ng-readonly="true"
+							ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+</div>

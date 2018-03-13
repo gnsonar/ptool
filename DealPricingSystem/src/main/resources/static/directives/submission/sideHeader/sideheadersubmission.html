@@ -1,0 +1,100 @@
+<style>
+	.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+	    background-color:#f00;
+	    border-color:#e1ebf3;
+	}
+	.dropdown-menu-right {
+	    right: 0;
+	    left: 0;
+	    top: 2.8em;
+    }
+</style>
+
+<!--sidebar for submission start-->
+<aside>
+	<div id="sidebar" class="nav-collapse">
+
+	  <!-- sidebar menu start-->
+	  <ul class="sidebar-menu">
+    	<li>
+	    	<div class="dealtag-submission">
+		    	<ul class="nav">
+			    	<li class="dropdown">
+			    		<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+				    		<i class="fa fa-handshake-o large-icon" aria-hidden="true" style="font-size:20px;color:white"></i>
+				       		<span style="color:white"> &nbsp;&nbsp;Pricing Submission <b class="caret"></b></span>
+		             	</a>
+			    		<ul class="dropdown-menu dropdown-menu-right">
+					        <li  >
+					          <a href="#" ng-click="submitDealFlow('Submitted')"><i class="icon_key_alt"></i> Submit</a>
+					        </li>
+					         <li ng-if="(role=='Admin')">
+					          <a href="#" ng-click="submitDealFlow('Published')"><i class="icon_key_alt"></i> Publish</a>
+					        </li>
+					         <li ng-if="(role=='Admin')">
+					          <a href="#" ng-click="submitDealFlow('Stored')"><i class="icon_key_alt"></i> Store</a>
+					        </li>
+					    </ul>
+			   	 	</li>
+	  			</ul>
+		    </div>
+	    </li>
+	    <li ng-class="activeFor('home.submission.genericSubmission.detail')">
+	      <a ng-click="redirect(0,'home.submission.genericSubmission.detail')" ng-style="isSaveSuccessful(0)">
+	         <i class="fa fa-cog" aria-hidden="true" style="font-size:20px"></i>
+	         <span> Generic Deal Settings </span>
+	      </a>
+	    </li>
+	   <li ng-class="activeFor('home.submission.genericSubmission.hostingSubmission')">
+	       <a ng-click="redirect(1,'home.submission.genericSubmission.hostingSubmission',$event)" ng-style="isSaveSuccessful(1)">
+		       	<i class="fa fa-cloud" aria-hidden="true" style="font-size:20px"></i>
+		       	<span> Infrastructure & Hosting &nbsp;&nbsp;</span>
+	   		</a>
+	    </li>
+	    <li ng-class="activeFor('home.submission.genericSubmission.storageSubmission')">
+	      <a ng-click="redirect(2,'home.submission.genericSubmission.storageSubmission',$event)" ng-style="isSaveSuccessful(2)">
+	        <i class="fa fa-database" aria-hidden="true" style="font-size:20px"></i>
+	        <span> Storage and Backup </span>
+	      </a>
+	    </li>
+	    <li ng-class="activeFor('home.submission.genericSubmission.endUserSubmission')">
+	      <a ng-click="redirect(3,'home.submission.genericSubmission.endUserSubmission',$event)" ng-style="isSaveSuccessful(3)">
+	          <i class="fa fa-users" aria-hidden="true" style="font-size:20px"></i>
+	          <span> End Users </span>
+	      </a>
+	    </li>
+	    <li ng-class="activeFor('home.submission.genericSubmission.networkSubmission')">
+	      <a ng-click="redirect(4,'home.submission.genericSubmission.networkSubmission',$event)" ng-style="isSaveSuccessful(4)">
+	         <i class="fa fa-sitemap" aria-hidden="true" style="font-size:20px"></i>
+	         <span> Network </span>
+	     </a>
+	    </li>
+		<li ng-class="activeFor('home.submission.genericSubmission.serviceDeskSubmission')">
+	      <a ng-click="redirect(5,'home.submission.genericSubmission.serviceDeskSubmission',$event)" ng-style="isSaveSuccessful(5)">
+	         <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:20px"></i>
+	         <span> Service Desk </span>
+	     </a>
+	    </li>
+	   <li ng-class="activeFor('home.submission.genericSubmission.appsSubmission')">
+	      <a ng-click="redirect(6,'home.submission.genericSubmission.appsSubmission',$event)" ng-style="isSaveSuccessful(6)">
+	          <i class="fa fa-buysellads" aria-hidden="true" style="font-size:20px"></i>
+	          <span> Application Services </span>
+	      </a>
+	    </li>
+	     <li ng-class="activeFor('home.submission.genericSubmission.retailSubmission')">
+	      <a ng-click="redirect(7,'home.submission.genericSubmission.retailSubmission',$event)" ng-style="isSaveSuccessful(7)">
+	          <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i>
+	          <span> Retail Services </span>
+	      </a>
+	    </li>
+	    <li ng-class="activeFor('home.submission.genericSubmission.totalsSubmission')">
+			<a ng-click="redirect(8,'home.submission.genericSubmission.totalsSubmission',$event)" ng-style="isSaveSuccessful(8)">
+				<i class="fa fa-tumblr-square" aria-hidden="true" style="font-size:20px"></i>
+				<span> Totals </span>
+			</a>
+		</li>
+	  </ul>
+	  <!-- sidebar menu end-->
+	</div>
+</aside>
+<!--sidebar end-->

@@ -1,0 +1,199 @@
+<!--Hosting result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 hosting">
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!hostingInfo.serverHosting.open"></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="hostingInfo.serverHosting.open"></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database hostinglevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label>{{hostingInfo.serverHosting.levelName}}</label> 
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in hostingInfo.serverHosting.children[0].distributedVolume track by $index" ng-if="hostingInfo.serverHosting.open || hostingInfo.platformHosting.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+      		</div>
+      		<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in hostingInfo.serverHosting.children[0].distributedVolume track by $index" ng-if="hostingInfo.serverHosting.open || hostingInfo.platformHosting.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+		        </div>
+      		</div>
+		</div>
+	</div>
+  	<div class="hostinglevel1-1_div" ng-if="hostingInfo.serverHosting.open">
+		<ul>
+		    <li>
+	        	<i class="fa fa-plus-circle hostinglevel1-1_expandcollapse" ng-if="!hostingInfo.serverHosting.children[0].open" ></i>
+				<i class="fa fa-minus-circle hostinglevel1-1_expandcollapse" ng-if="hostingInfo.serverHosting.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i> 
+				</span>
+				
+				<span class="labelbar">
+					<label class="levelheader" style="width: 20em;">{{hostingInfo.serverHosting.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+						<input ng-repeat="dv in hostingInfo.serverHosting.children[0].distributedVolume track by $index"
+							class="form-control input-box hostinglevel1-1_input"
+							name="volume" ng-change="calcVolume(hostingInfo.serverHosting.children[0])" 								
+							ng-model="hostingInfo.serverHosting.children[0].distributedVolume[$index].volume" ng-readonly="true"/>
+                    	
+                    	<label class="levelheader pricing-header">Server Pricing</label>
+						<input ng-repeat="dv in hostingInfo.serverHosting.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+							ng-model="hostingInfo.serverHosting.children[0].distributedVolume[$index].revenue * 12"
+							name="revenue{{$index}}" ng-readonly="true"	/>
+	
+						<input ng-repeat="dv in hostingInfo.serverHosting.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+							name="unit{{$index}}" ng-readonly="true"
+							ng-model="hostingInfo.serverHosting.children[0].distributedVolume[$index].unit" />
+			  	</span>
+				<ul ng-if="hostingInfo.serverHosting.children[0].open"> 
+					<li ng-repeat="child in hostingInfo.serverHosting.children[0].children track by $index" ng-init="childIndex = $index">
+						<i class="fa fa-plus-circle hostinglevel1-1_expandcollapse" ng-if="!child.open"></i>
+						<i class="fa fa-minus-circle hostinglevel1-1_expandcollapse" ng-if="child.open"></i>
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader laptop" style="width: 17em;">{{child.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em" 
+								name="childVolume{{childIndex}}{{$index}}" 
+						   		ng-model="dv.volume"  ng-readonly="true"/>
+						   		
+						   	<label class="levelheader pricing-header">Server Pricing</label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+								name="unit{{$index}}" ng-readonly="true"
+								ng-model="dv.unit"/>
+						</span>
+						
+						<ul ng-if="child.open"> 
+							<li ng-repeat="grandchild in child.children track by $index" ng-init="grandchildIndex = $index">
+								<i class="fa fa-plus-circle hostinglevel1-1_expandcollapse" ng-if="!grandchild.open"></i>
+								<i class="fa fa-minus-circle hostinglevel1-1_expandcollapse" ng-if="grandchild.open"></i>
+								<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+								<span class="labelbar">
+									<label class="levelheader virtualchild" style="width: 14em;" >{{grandchild.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+								  	
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index" name="grandchildinput{{$index+1}}"
+										class="form-control input-box" style="margin-top: 0.2em" 
+										name="grandchildVolume{{grandchildIndex}}{{$index}}" 
+								   		ng-model="dv.volume" ng-readonly="true"/>
+								   		
+							   		<label class="levelheader pricing-header">Server Pricing</label>
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index"
+										ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+										ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+		
+									<input ng-repeat="dv in grandchild.distributedVolume track by $index"
+										ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+										name="unit{{$index}}" ng-readonly="true" ng-model="dv.unit"/>
+								</span>
+								
+								<ul ng-if="grandchild.open "> 
+									<li ng-repeat="ggc in grandchild.children track by $index" ng-init="ggcIndex = $index">
+										<i class="fa fa-plus-circle hostinglevel1-1_expandcollapse"  ng-if="!ggc.open && ggc.children.length" ></i>
+										<i class="fa fa-minus-circle hostinglevel1-1_expandcollapse" ng-if="ggc.open && ggc.children.length" ></i>
+										<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+										<span class="labelbar">
+											<label class="levelheader laptop" style="width: 11em;">{{ggc.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+											<input ng-repeat="dv in ggc.distributedVolume track by $index" name="ggcinput{{$index+1}}"
+												class="form-control input-box" style="margin-top: 0.2em" 
+												name="ggcVolume{{ggcIndex}}{{$index}}" ng-readonly="true"
+										   		ng-model="dv.volume" />
+									   		
+									   		<label class="levelheader pricing-header"> Server Pricing </label>
+											<input ng-repeat="dv in ggc.distributedVolume track by $index"
+												ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+												ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+				
+											<input ng-repeat="dv in ggc.distributedVolume track by $index"
+												ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+												name="unit{{$index}}" ng-readonly="true"
+												ng-model="dv.unit"/>
+										</span>
+										
+										<ul ng-if="ggc.open && ggc.children"> 
+											<li ng-repeat="sgc in ggc.children track by $index" ng-init="sgcIndex = $index">
+												<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+												<span class="labelbar">
+													<label class="levelheader laptop">{{sgc.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+												  	
+													<input ng-repeat="dv in sgc.distributedVolume track by $index" name="sgcinput{{$index+1}}" type="text"
+														class="form-control input-box" style="margin-top: 0.2em" 
+														name="sgcVolume{{sgcIndex}}{{$index}}"  ng-readonly="true"
+												   		ng-model="dv.volume" ng-required="true" numbers-only/>
+												   		
+											   		<label class="levelheader pricing-header"> Server Pricing </label>
+													<input ng-repeat="dv in sgc.distributedVolume track by $index"
+														ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+														ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+							
+													<input ng-repeat="dv in sgc.distributedVolume track by $index"
+														ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+														name="unit{{$index}}" ng-readonly="true"
+														ng-model="dv.unit"/>
+												</span>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+         </ul>
+      </div>
+  	<!--Platform-->
+  	<div class="platformDiv">
+		   <div class="platform_div">
+				<div class="platformlevel1" style="background-image: url('../images/quater21.png');">
+					<i class="fa fa-plus-circle platformlevel1_i" ng-if="!hostingInfo.platformHosting.open"></i>
+					<i class="fa fa-minus-circle platformlevel1_i" ng-if="hostingInfo.platformHosting.open"></i>
+				</div>
+				<div class="level1_div">
+       				<div class="level1_icondiv">
+						<i class="fa fa-database platform_icon"></i> 
+					</div>
+					<div class="level1_labeldiv">
+						<label> {{hostingInfo.platformHosting.levelName}} </label> 
+       				</div>
+				</div>
+			</div>
+			<div class="platformlevel1-1_div" ng-if="hostingInfo.platformHosting.open">
+   				<ul>
+					<li ng-repeat="child in hostingInfo.platformHosting.children track by $index" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader database" style="width:19.8em;">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" 
+								class="form-control input-box storagelevel1-1_input" name="platformVolume{{$index}}" ng-readonly="true"					
+								ng-model="child.distributedVolume[$index].volume"/>
+							
+							<label class="levelheader pricing-header"> Platform Pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box hostinglevel1-1_input"
+								ng-model="child.distributedVolume[$index].revenue * 12"
+								name="platformrevenue{{$index}}" ng-readonly="true" />
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box hostinglevel1-1_input"
+								name="platformunit{{$index}}" ng-readonly="true"
+								ng-model="child.distributedVolume[$index].unit" />
+						</span>
+					</li>
+				</ul>
+			</div>
+	  </div>
+</div>

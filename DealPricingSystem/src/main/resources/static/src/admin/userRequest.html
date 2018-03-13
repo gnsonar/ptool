@@ -1,0 +1,50 @@
+<head>
+	<link rel="stylesheet" href="/src/admin/admin.css">
+</head>
+<div class="row">
+	<div class="col-lg-10" style="padding-left: 3em;">
+	<br/>
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"  ng-show="spinner"></i>
+		<span class="sr-only">Loading...</span>
+		<h4>
+			Pending Requests:
+		</h4>
+	</div>
+</div>
+<br/>
+<div class="alert alert-info alertInformation" ng-if="userInfoDtos.length==0">
+	<strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong> There is no pending request.
+</div>
+<div class="pending">
+	<div class="row">
+		<table class="table totals-table requesttable" ng-if="userInfoDtos.length!=0">
+			<thead>
+		  		<tr>
+		  			<th class="request-header"> Name </th>
+		      		<th class="request-header" >Email</th>
+		      		<th class="request-header" >Access Reason</th>
+		      		<th class="request-header" >Role</th>
+		      		<th class="request-header" >Action</th>
+		    	</tr>
+		 	</thead>
+		 	<tbody>
+		 		<tr ng-repeat="user in userInfoDtos track by $index">
+					<td class="request-header-name">{{user.fullName}} </td>
+					<td class="request-header-email">{{user.emailId}}</td>
+					<td class="request-header-reason">{{user.reasonForAccess}}</td>
+					<td class="request-header-role">
+						<select id="role" class="form-control role-select" ng-model="user[$index].selected" selected="roleSelected">
+		                          <option value="">Select</option>
+		                          <option ng-repeat="role in roles track by $index">{{role.roleName}}</option>
+		                  	</select>
+		            </td>
+					<td class="request-header-action">
+						<button type="button" class="btn btn-danger genericbtn"
+						ng-click="updateUserRequest(user.userId ,'Approved',user[$index].selected)"
+							 ng-disabled="user[$index].selected =='' || user[$index].selected ==undefined"> Approve </button>
+					<button type="button" class="btn btn-default genericbtn1" ng-click="updateUserRequest(user.userId ,'Rejected',user[$index].selected)"> Reject </button></td>
+		    	</tr>
+		 	</tbody>
+		</table>
+	</div>
+</div>

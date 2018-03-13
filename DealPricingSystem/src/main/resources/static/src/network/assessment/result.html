@@ -1,0 +1,475 @@
+<!--Network result -->
+<div class="col-lg-3 col-md-3">
+</div> 
+
+
+
+<div class="col-lg-12 col-md-12 network">
+	
+	<!--WAN -->
+	<div class="level1_div">
+		<div class="level1" style="background-image: url('../images/quater4.png');">
+			<i class="fa fa-plus-circle level1_i" ng-if="!networkInfo.wanDevice.open"  ></i>
+			<i class="fa fa-minus-circle level1_i" ng-if="networkInfo.wanDevice.open" ></i>
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database networklevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{networkInfo.wanDevice.levelName}}</label> 
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index" 
+					ng-if="networkInfo.wanDevice.open || networkInfo.lanDevice.open || networkInfo.wlanCon.open || networkInfo.wlanAccess.open || networkInfo.loadBalance.open || networkInfo.vpnIp.open || networkInfo.dnsService.open || networkInfo.firewalls.open || networkInfo.reservePro.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+			<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index" 
+					ng-if="networkInfo.wanDevice.open || networkInfo.lanDevice.open || networkInfo.wlanCon.open || networkInfo.wlanAccess.open || networkInfo.loadBalance.open || networkInfo.vpnIp.open || networkInfo.dnsService.open || networkInfo.firewalls.open || networkInfo.reservePro.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="networklevel1-1_div" ng-if="networkInfo.wanDevice.open">
+		<ul>
+		    <li>
+		        <i class="fa fa-plus-circle networklevel1-1_expandcollapse"   ng-if="!networkInfo.wanDevice.children[0].open" ></i>
+				<i class="fa fa-minus-circle networklevel1-1_expandcollapse"  ng-if="networkInfo.wanDevice.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i> 
+				</span>
+				<span class="labelbar">
+					<label class="levelheader security" style="width:15em;"> {{networkInfo.wanDevice.children[0].levelName}}</label> 
+					<input ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index"
+						class="form-control input-box networklevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true							
+						ng-model="networkInfo.wanDevice.children[0].distributedVolume[$index].volume"/>
+					
+					<label class="levelheader pricing-header"> Network Pricing </label>
+					<input ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+						ng-model="networkInfo.wanDevice.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+					
+					<input ng-repeat="dv in networkInfo.wanDevice.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"				
+						ng-model="networkInfo.wanDevice.children[0].distributedVolume[$index].unit" />
+				</span>
+				<ul ng-if="networkInfo.wanDevice.children[0].open">
+					<li ng-repeat="child in networkInfo.wanDevice.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader security">{{child.levelName}}</label>	
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em"
+						   		ng-model="dv.volume" ng-readonly="true" />
+					   		
+					   		<label class="levelheader pricing-header"> Network Pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+							
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+								name="unit{{$index}}"" ng-readonly="true"				
+								ng-model="child.distributedVolume[$index].unit"/>
+						</span>
+					</li>
+				</ul>
+			</li>
+      	</ul>
+  	</div>
+  	
+	<!--LAN -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.lanDevice.open" style="margin-top:1.5em"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.lanDevice.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label> {{networkInfo.lanDevice.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.lanDevice.open">
+			<ul>
+				<li>
+					<i class="fa fa-plus-circle networklevel1-1_expandcollapse"  ng-if="!networkInfo.lanDevice.children[0].open" ></i>
+					<i class="fa fa-minus-circle networklevel1-1_expandcollapse"  ng-if="networkInfo.lanDevice.children[0].open" ></i>
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{networkInfo.lanDevice.children[0].levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.lanDevice.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.lanDevice.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.lanDevice.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.lanDevice.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.lanDevice.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.lanDevice.children[0].distributedVolume[$index].unit" />
+					</span>
+					<ul ng-if="networkInfo.lanDevice.children[0].open">
+						<li ng-repeat="child in networkInfo.lanDevice.children[0].children" ng-init="childIndex = $index">
+							<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+							<span class="labelbar">
+								<label class="levelheader security">{{child.levelName}}</label>	
+								<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+									class="form-control input-box" style="margin-top: 0.2em"
+							   		ng-model="dv.volume" ng-readonly="true" />
+						   		
+						   		<label class="levelheader pricing-header"> Network Pricing </label>
+								<input ng-repeat="dv in child.distributedVolume track by $index"
+									ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+									ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true" />
+								
+								<input ng-repeat="dv in child.distributedVolume track by $index"
+									ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+									name="unit{{$index}}" ng-readonly="true"				
+									ng-model="child.distributedVolume[$index].unit"/>
+							</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--WLAN Controller -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanCon.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanCon.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.wlanCon.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.wlanCon.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.wlanCon.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.wlanCon.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.wlanCon.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.wlanCon.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.wlanCon.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.wlanCon.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.wlanCon.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--Access Point -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.wlanAccess.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.wlanAccess.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.wlanAccess.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.wlanAccess.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.wlanAccess.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.wlanAccess.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.wlanAccess.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.wlanAccess.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.wlanAccess.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.wlanAccess.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.wlanAccess.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--Load Balancer -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.loadBalance.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.loadBalance.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.loadBalance.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.loadBalance.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.loadBalance.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.loadBalance.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.loadBalance.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.loadBalance.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.loadBalance.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.loadBalance.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.loadBalance.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--VPN/IP -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.vpnIp.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.vpnIp.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.vpnIp.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.vpnIp.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.vpnIp.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.vpnIp.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.vpnIp.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.vpnIp.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.vpnIp.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.vpnIp.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.vpnIp.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--DNS -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.dnsService.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.dnsService.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.dnsService.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.dnsService.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.dnsService.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.dnsService.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.dnsService.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.dnsService.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.dnsService.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.dnsService.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.dnsService.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--Firewall -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater22.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.firewalls.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.firewalls.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.firewalls.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="networklevel1-1_div" ng-if="networkInfo.firewalls.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.firewalls.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.firewalls.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.firewalls.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.firewalls.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.firewalls.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.firewalls.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.firewalls.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+  	<!--Reserve Proxy -->
+  	<div>
+   		<div class="lan_div">
+			<div class="lanlevel1" style="background-image: url('../images/quater21.png');">
+				<i class="fa fa-plus-circle lanlevel1_i" ng-if="!networkInfo.reservePro.open"  ></i>
+				<i class="fa fa-minus-circle lanlevel1_i" ng-if="networkInfo.reservePro.open" ></i>
+			</div>
+			<div class="level1_div">
+   				<div class="level1_icondiv">
+					<i class="fa fa-database lan_icon"></i> 
+				</div>
+				<div class="level1_labeldiv">
+					<label class="security"> {{networkInfo.reservePro.levelName}}</label> 
+   				</div>
+			</div>
+		</div>
+		<div class="lanlevel1-1_div" ng-if="networkInfo.reservePro.open">
+			<ul>
+				<li ng-repeat="child in networkInfo.reservePro.children track by $index" ng-init="childIndex = $index">
+					<span class="iconbar">
+						<i class="fa fa-bars level1-1_icon" ></i> 
+					</span>
+					<span class="labelbar">
+						<label class="levelheader security" style="width:15em;"> {{child.levelName}}</label> 
+						<input ng-repeat="dv in networkInfo.reservePro.children[0].distributedVolume track by $index"
+							class="form-control input-box networklevel1-1_input"
+							name="lanVolume{{$index}}" ng-readonly="true"						
+							ng-model="networkInfo.reservePro.children[0].distributedVolume[$index].volume" />
+								
+						<label class="levelheader pricing-header"> Network Pricing </label>
+						<input ng-repeat="dv in networkInfo.reservePro.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'revenue'" class="form-control input-box networklevel1-1_input"
+							ng-model="networkInfo.reservePro.children[0].distributedVolume[$index].revenue * 12"
+							name="lanrevenue{{$index}}" ng-readonly="true" />
+						
+						<input ng-repeat="dv in networkInfo.reservePro.children[0].distributedVolume track by $index"
+							ng-if="viewBy.type == 'unit'" class="form-control input-box networklevel1-1_input"
+							name="lanunit{{$index}}" ng-readonly="true"				
+							ng-model="networkInfo.reservePro.children[0].distributedVolume[$index].unit" />
+					</span>
+				</li>
+			</ul>
+		</div>
+  	</div>
+  	
+</div>
+<!--End-->
+
+<!-- <div class="col-lg-offset-11  col-md-offset-11 col-lg-2 col-md-2"><br/>
+	<button type="button" class="btn btn-danger genericbtn"  ng-click="goToCal()"> Back </button>
+</div> -->

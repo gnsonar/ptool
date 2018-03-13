@@ -1,0 +1,63 @@
+/* ***********--------   Home Message  -------**************** */
+
+.homediv{
+	padding-left: 3em;
+}
+
+.textarea{
+	resize:none;
+}
+
+
+/* ***********--------   Currency Exchange   -------**************** */
+.currencydiv{
+	padding-left:3em;
+}
+
+.currencytable{
+	width:80%;
+}
+
+.savebutton {
+	padding-left: 2em;
+}
+
+
+.tablerow{
+	width: 6em;
+}
+
+.alertInformation{
+    margin-left: 2em;
+    width: 65em;
+}
+
+.requesttable{
+	width:100%;
+	margin-left:2.8em;
+	font-size:14px;
+}
+.request-header{
+	background-color: #d0d0d0;
+	color: #0e0e0e;
+	font-weight: bold;
+	text-align: center;
+}
+.role-select{
+	border-radius: 0px;
+}
+.request-header-name{
+	width:15%;
+}
+.request-header-email{
+	width:30%;
+}
+.request-header-reason{
+	width:30%;
+}
+.request-header-role{
+	width:10%;
+}
+.request-header-action{
+	width:20%;
+}

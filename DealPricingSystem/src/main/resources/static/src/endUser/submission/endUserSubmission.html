@@ -1,0 +1,290 @@
+<head>
+	<link rel="stylesheet" href="/src/endUser/endUser.css">
+</head>
+
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+	    <div class="container">
+	    	<div class="endUserSubmission">
+			    	<div class="col-lg-12 col-md-12 portlets" >
+				      <h3><i class="fa fa-users" aria-hidden="true"></i> End Users</h3>
+				      <h5>To add or update end user details.</h5>
+			    	</div>
+		 		<form  id="endUserSubForm" name="endUserSubForm" class="form-horizontal">
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="pull-left"> Solution Setting</div>
+				                    <div class="clearfix"></div>
+				                </div>
+				                <div class="panel-body">
+				                    <div class="endUserSubForm">
+				                        <div class="first-section">
+				                        	<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group">
+				                                	<label for="dealtype"> Offshore Allowed</label>
+			                                    	<select id="offshoreAllowedMenu" class="form-control endUserSubInputs" ng-model="dealDetails.offshoreSelected" selected="dealDetails.offshoreSelected" name="offshoreAllowedMenu" ng-required="true">
+						                            	<option ng-repeat="offshores in genericDealInfoDto.yesNoOptionList">{{offshores}}</option>
+													</select>
+				                              	</div>
+			                              	</div>
+				                             <div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="hardwareIncluded"> Hardware Included</label>
+					                                <select id="hardwareIncluded" class="form-control endUserInputs" ng-model="dealDetails.hardwareIncludedSelected" selected="dealDetails.hardwareIncludedSelected" name="hardwareIncluded" ng-required="true">
+							                            <option ng-repeat="hardwareIncluded in genericDealInfoDto.yesNoOptionList">{{hardwareIncluded}}</option>
+							                       </select>
+				                                </div>
+		                        			</div>
+			                             	<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="breakfix"> Break-fix Included</label>
+					                                <select id="breakfix" class="form-control endUserInputs" ng-model="dealDetails.breakfixSelected" selected="dealDetails.breakfixSelected" name="breakfix" ng-required="true">
+							                            <option ng-repeat="breakfix in genericDealInfoDto.yesNoOptionList">{{breakfix}}</option>
+							                       </select>
+				                              	</div>
+	                               			</div>
+											<div class="col-lg-3">
+			                              		<div class="form-group">
+				                                	<label for="resolutionTime"> Resolution Time</label>
+					                                <select id="resolutionTime" class="form-control endUserInputs" ng-model="dealDetails.resolutionTimeSelected" selected="dealDetails.resolutionTimeSelected" name="resolutionTime" ng-required="true">
+							                            <option ng-repeat="resolutionTime in genericDealInfoDto.resolutionTimeDtoList" ng-value="resolutionTime.resolutionName">{{resolutionTime.resolutionName}} {{resolutionTime.resolutionRange}}</option>
+							                       </select>
+				                                </div>
+	                        				</div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="col-lg-12 col-md-12 portlets">
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <div class="clearfix">
+				                    	<div class="col-lg-5"><label for="title"><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label></div>
+				                    	<div class="col-lg-4 tabheader-radio">
+									    <div class="col-lg-6">
+									         <input  id="radioRevenue" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="revenue" ng-click="onchangeprice(viewBy.type)"/>
+									         <label>Annual Price</label>
+									    </div>
+									    <div class="col-lg-6">
+									    	<input  id="radioUnit" name="rdbRevenueUnit" type="radio" ng-model="viewBy.type" value="unit" ng-click="onchangeprice(viewBy.type)"/>
+									       	<label>Unit Price</label>
+									    </div>
+									</div>
+				                    </div>
+				                </div>
+				                <div class="panel-body">
+				                	<div class="tab-content col-lg-12 col-md-12">
+				                		<div id="subtab" class="tree col-lg-12 col-md-12 scrollbar-danger" >
+		                				<div class="col-lg-12 col-md-12">
+				                			<div class="col-lg-3 col-md-3">
+				                        		<div class="form-group tower-architect">
+				                                	<label for="offshore">Tower Architect<div class="mandatory" style="display:initial;">*</div></label>
+					                                <div class="input-group contactInput">
+												      <input type="text" ng-model="dealDetails.towerArchitect" class="form-control genericInputs" ng-required="true">
+												      <span class="input-group-addon" ng-click="edit(dealDetails.towerArchitect,'towerArchitect')" ><i class="fa fa-search" ></i></span>
+													 </div>
+				                              	</div>
+				                        	</div>
+										</div>
+										<div class="col-lg-12 col-md-12">
+											<br/>
+											<div class="alert alert-danger" ng-if="showErr">
+											<strong>Error!</strong> Sum of percentages should be 100!</div>
+											<div class="alert alert-danger" ng-if="showVolumeErr">
+											<strong>Error!</strong> Sum of all devices should be equal to Total End User devices in there respective year!</div>
+											<div class="alert alert-danger" ng-if="showErrpercentage">
+											<strong>Error!</strong> percentage should be less than 100</div>
+											<div class="alert alert-danger" ng-if="showchildVolumeErr">
+											<strong>Error!</strong> Sum of all type of Laptops should be equal to Total Laptop in there respective year!</div>
+										</div>
+										<div class="col-lg-12 col-md-12 endUser">
+											<div class="level1_div">
+												<div class="level1" style="background-image: url('../images/quater4.png');">
+													<i class="fa fa-plus-circle level1_i" ng-if="!endUserInfo.user.open" ng-click="togglePanel(endUserInfo.user)" ></i>
+													<i class="fa fa-minus-circle level1_i" ng-if="endUserInfo.user.open" ng-click="togglePanel(endUserInfo.user)"></i>
+												</div>
+												<div class="level1_div">
+													<div class="level1_icondiv">
+														<i class="fa fa-database endUserlevel1_icon"></i>
+													</div>
+													<div class="level1_labeldiv">
+														<label> {{endUserInfo.user.levelName}}</label>
+													</div>
+													<div class="level1_yearmaindiv11">
+														<div ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index" ng-if="endUserInfo.user.open || endUserInfo.userImac.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+												        </div>
+										      		</div>
+										      		<div class="level1_yearmaindiv22">
+														<div ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index" ng-if="endUserInfo.user.open || endUserInfo.userImac.open">
+															<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+												        </div>
+										      		</div>
+												</div>
+											</div>
+											<div class="endUserlevel1-1_div" ng-if="endUserInfo.user.open">
+												<ul>
+												    <li>
+												        <div class="level1_div">
+															<label for="clientIndustry" class="distributionsetting">Distribution Settings<div class="mandatory" style="display:initial;">*</div></label>
+															<select ng-if="customSol==false" class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+																<option value="" disabled selected hidden>Please Select...</option>
+															</select>
+															<select ng-if="customSol==true"  class="form-control selectDistributionlist" ng-model="selectedSolutionId" ng-options="sol.solutionId as sol.solutionName disable when sol.solutionName=='Custom' for sol in solList" ng-change="onChangeDistSetting(selectedSolutionId)" ng-required="true">
+																<option value="" disabled selected hidden>Please Select...</option>
+															</select>
+														</div>
+												    </li>
+												    <li>
+												        <i class="fa fa-plus-circle endUserlevel1-1_expandcollapse"  ng-click="togglePanel(endUserInfo.user.children[0])" ng-if="!endUserInfo.user.children[0].open" ></i>
+														<i class="fa fa-minus-circle endUserlevel1-1_expandcollapse" ng-click="togglePanel(endUserInfo.user.children[0])" ng-if="endUserInfo.user.children[0].open" ></i>
+														<span class="iconbar">
+															<i class="fa fa-bars level1-1_icon"></i>
+														</span>
+														<span class="labelbar">
+															<label class="levelheader laptop" style="width: 21em;"> {{endUserInfo.user.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+															<input type="text" ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+																class="form-control input-box endUserlevel1-1_input"
+																name="volume{{$index}}" ng-disabled="endUserInfo.user.children[0].open == true" ng-blur="calcVolume()"
+																ng-model="endUserInfo.user.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'EndUser','','')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<label class="levelheader pricing-header"> End User Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+															<input type="text" ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input"
+																ng-model="endUserInfo.user.children[0].distributedVolume[$index].revenue * 12"
+																name="revenue{{$index}}" ng-disabled="endUserInfo.user.children[0].open == true"
+																ng-change="onchangeparentpricing(endUserInfo.user.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'EndUserPricingRevenue','','')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+															<input type="text" ng-repeat="dv in endUserInfo.user.children[0].distributedVolume track by $index"
+																ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+																name="unit{{$index}}" ng-disabled="endUserInfo.user.children[0].open == true"
+																ng-model="endUserInfo.user.children[0].distributedVolume[$index].unit"
+																ng-change="onchangeparentpricing(endUserInfo.user.children[0],viewBy.type);" ng-keydown="tabEvent($event,$index,'EndUserPricingUnit','','')" ng-required="true" numbersOnlyDec />
+														</span>
+														<ul ng-if="endUserInfo.user.children[0].open">
+															<li ng-repeat="child in endUserInfo.user.children[0].children track by $index" ng-init="childIndex = $index">
+																<i class="fa fa-plus-circle endUserlevel1-1_expandcollapse" ng-click="togglePanel(endUserInfo.user.children[0].children[0])" ng-if="!endUserInfo.user.children[0].children[0].open && child.children.length" ></i>
+																<i class="fa fa-minus-circle endUserlevel1-1_expandcollapse" ng-click="togglePanel(endUserInfo.user.children[0].children[0])" ng-if="endUserInfo.user.children[0].children[0].open && child.children.length" ></i>
+																<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+																<span class="labelbar">
+																	<label class="levelheader laptop input-euro right" style="width: 13em;" ng-if="!child.tooltip">{{child.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+																	<label class="levelheader laptop input-euro right" style="width: 13em;" ng-if="child.tooltip"  title='{{child.tooltip}}'>{{child.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+
+																	<input type="text" class="form-control input-box perInput " name="childinput{{$index}}" style="margin-top: 0.2em"
+																	  	ng-change="onChangePercentage(endUserInfo.user.children[0].children,childIndex)" ng-disabled="child.open == true"
+																	  	ng-model="child.percentage" placeholder="<100" numbers-only/>
+
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+																		class="form-control input-box" style="margin-top: 0.2em" ng-change="onChangevolume(childIndex)"
+																		name="childVolume{{childIndex}}{{$index}}" ng-disabled="child.open == true"
+																   		ng-model="dv.volume" maxlength="6" size="6" ng-required="true" numbers-only/>
+
+															   		<label class="levelheader pricing-header"> End User Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index" ng-disabled="child.open == true"
+																		ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input"
+																		ng-model="dv.revenue * 12" ng-blur="calcServerPrice(endUserInfo.user.children[0]);"
+																		name="revenue{{$index}}" ng-keydown="tabEvent($event,$index,'EndUserChildPricingRevenue',childIndex,'')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+																	<input type="text" ng-repeat="dv in child.distributedVolume track by $index"
+																		ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+																		name="unit{{$index}}" ng-disabled="child.open == true"
+																		ng-model="child.distributedVolume[$index].unit" ng-blur="calcServerPrice(endUserInfo.user.children[0]);"
+																		ng-keydown="tabEvent($event,$index,'EndUserChildPricingUnit',childIndex,'')" maxlength="10" size="10" ng-required="true" numbers-only-dec />
+																</span>
+																<ul ng-if="endUserInfo.user.children[0].children[0].open && child.children[0]">
+																	<li ng-repeat="grandchild in endUserInfo.user.children[0].children[0].children track by $index" ng-init="grandchildIndex = $index">
+																		<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+																		<span class="labelbar">
+																			<label class="levelheader laptop input-euro right" ng-if="!grandchild.tooltip" >{{grandchild.levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+																			<label class="levelheader laptop input-euro right" ng-if="grandchild.tooltip"  title='{{grandchild.tooltip}}'>{{grandchild.levelName}} <div class="mandatory" style="display:initial;">*</div></label>
+
+																			<input type="text" class="form-control input-box perInput " name="grandchildinput{{$index}}" style="margin-top: 0.2em"
+																			  	ng-change="onChangeLaptopChildPercentage(grandchildIndex)" ng-pattern="/^[0-9][0-9]?$|^100$/"
+																			  	ng-model="grandchild.percentage" placeholder="<100" numbers-only/>
+
+																			<input type="text" ng-repeat="dv in grandchild.distributedVolume track by $index" name="grandchildinput{{$index+1}}"
+																				class="form-control input-box" style="margin-top: 0.2em"
+																				name="grandchildVolume{{childIndex}}{{$index}}" ng-change="onChangechildvolume(grandchildIndex)"
+																		   		ng-model="dv.volume" maxlength="6" size="6" ng-required="true" numbers-only/>
+
+																	   		<label class="levelheader pricing-header"> End User Pricing<div class="mandatory" style="display:initial;">*</div> </label>
+																			<input type="text" ng-repeat="dv in grandchild.distributedVolume track by $index"
+																				ng-if="viewBy.type == 'revenue'" class="form-control input-box endUserlevel1-1_input" ng-blur="calcServerPrice(endUserInfo.user.children[0]);"
+																				ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-keydown="tabEvent($event,$index,'LaptopPricingRevenue',childIndex,grandchildIndex)" maxlength="6" size="6" ng-required="true" numbers-only />
+
+
+																			<input type="text" ng-repeat="dv in grandchild.distributedVolume track by $index"
+																				ng-if="viewBy.type == 'unit'" class="form-control input-box endUserlevel1-1_input"
+																				name="unit{{$index}}"" ng-disabled="grandchild.open == true" ng-blur="calcServerPrice(endUserInfo.user.children[0]);"
+																				ng-model="grandchild.distributedVolume[$index].unit" ng-keydown="tabEvent($event,$index,'LaptopPricingUnit',childIndex,grandchildIndex)" maxlength="10" size="10" ng-required="true" numbers-only-dec />
+																		</span>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+										         </ul>
+										    </div>
+										    <div class="ImacDiv">
+											   <div class="imac_div">
+													<div class="imaclevel1" style="background-image: url('../images/quater21.png');">
+														<i class="fa fa-plus-circle imaclevel1_i" ng-if="!endUserInfo.userImac.open" ng-click="togglePanel(endUserInfo.userImac)" ></i>
+														<i class="fa fa-minus-circle imaclevel1_i" ng-if="endUserInfo.userImac.open" ng-click="togglePanel(endUserInfo.userImac)" ></i>
+													</div>
+													<div class="level1_div">
+										      				<div class="level1_icondiv">
+															<i class="fa fa-database imac_icon"></i>
+														</div>
+														<div class="level1_labeldiv">
+															<label> {{endUserInfo.userImac.levelName}}</label>
+										      				</div>
+													</div>
+												</div>
+												<div class="imaclevel1-1_div" ng-if="endUserInfo.userImac.open">
+										  				<ul>
+															<li>
+																<span class="iconbar">
+																	<i class="fa fa-bars level1-1_icon" ></i>
+																</span>
+																<span class="labelbar">
+																	<label class="levelheader laptop" style="width:21em;"> {{endUserInfo.userImac.children[0].levelName}}<div class="mandatory" style="display:initial;">*</div></label>
+																	<input type="text" ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+																			class="form-control input-box storagelevel1-1_input"
+																			name="imacVolume{{$index}}" ng-change="setImacCustom();"
+																			ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].volume" ng-keydown="tabEvent($event,$index,'ImacVolume','','')" maxlength="6" size="6" ng-required="true" numbers-only/>
+
+																	<label class="levelheader pricing-header"> IMAC pricing<div class="mandatory" style="display:initial;">*</div> </label>
+																	<input type="text" ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+																		ng-if="viewBy.type == 'revenue'" class="form-control input-box storagelevel1-1_input"
+																		ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].revenue * 12"
+																		name="imacrevenue{{$index}}" ng-disabled="endUserInfo.userImac.children[0].open == true"
+																		ng-keydown="tabEvent($event,$index,'ImacPricingRevenue','','')" maxlength="6" size="6" ng-required="true" numbers-only />
+
+																	<input type="text" ng-repeat="dv in endUserInfo.userImac.children[0].distributedVolume track by $index"
+																		ng-if="viewBy.type == 'unit'" class="form-control input-box storagelevel1-1_input"
+																		name="imacunit{{$index}}"" ng-disabled="endUserInfo.userImac.children[0].open == true"
+																		ng-model="endUserInfo.userImac.children[0].distributedVolume[$index].unit"
+																		ng-keydown="tabEvent($event,$index,'ImacPricingUnit','','')" maxlength="10" size="10" ng-required="true" numbers-only-dec />
+																</span>
+															</li>
+														</ul>
+													</div>
+											  	</div>
+											</div>
+											<!--End-->
+				                		</div>
+									</div>
+									<div class="col-lg-12  col-md-12 portlets"> <!-- ng-disabled="(!endUserInfo.user.open && !appInfo.imac.open) || endUserSubForm.$invalid" -->
+										<button type="submit" id="endUserSubSubmitBtn" class="btn btn-danger genericbtn" ng-disabled="(!endUserInfo.user.open && !endUserInfo.userImac.open) || !endUserSubForm.$valid || showErr || showVolumeErr || showErrpercentage" ng-click="saveEndUserSubInfo()" style="float:right">Save</button>
+						        	</div>
+				                </div>
+				            </div>
+				        </div>
+		 		</form>
+			</div>
+		</div>
+	</section>
+</section>

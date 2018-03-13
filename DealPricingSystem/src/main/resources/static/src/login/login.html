@@ -1,0 +1,70 @@
+<div class="container-fluid">
+	<div class="row loginBody">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"  ></div>
+	     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-pane">
+	     	<p class="heading">Login to your account</p>
+	         <div class="well login-well">
+	          <div class="alert alert-danger" ng-show="error" style="font-size: smaller;"><strong>Error!</strong> Please check your username and password. If you still can't log in, contact your administrator.</div>
+	             <form id="loginForm"  name="loginForm">
+	                 <div class="form-group">
+	                    <label for="usrname" class="control-label accessform"> Username: </label>
+ 	                 	<input type="text" class="form-control" id="username" ng-model="username" required="required" maxlength="15" placeholder="Enter user name" />
+	                 </div>
+	                 <div class="form-group">
+	                   	<label for="psw" class="control-label accessform"> Password: </label>
+	                    <input type="password" class="form-control" id="password" ng-model="password" required="required" maxlength="15" placeholder="Enter password" autocomplete="off"/>
+	                 </div>
+	                 <!-- <div class="form-group">
+	                   	<label for="startwith" class="control-label accessform"> Start With: </label>
+	                    <select id="startwith" name="startwith" class="form-control" ng-model="startwith">
+							<option value="">Select</option>
+							<option value="sub">Deal Submission</option>
+							<option value="ass">Deal Assessment</option>
+						</select>
+	                 </div> -->
+	                 <div class="form-group">
+
+		                 <button id="loginBtn" type="submit" class="btn btn-block" ng-click="loginForm.$valid && login()">Log In</button>
+	                 </div>
+	             </form>
+					<div class="form-group">
+						<div class="row" >
+		                 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size: 12px;">
+		                 		<input type="checkbox" ng-model="rememberMe" style="margin: 0px 0 0;""> Remember Me
+		                 		<a href="#" style="float:right;" >Forgot password</a>
+	                 		</div>
+                 		</div>
+                 	</div>
+	         </div>
+	     </div>
+	     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right-pane">
+	     	<br/>
+	     	<!-- <div style="height:50%"> -->
+	     		<img id="fujitsulogo" src="../images/fujitsu-logo.png" alt="Fujitsu"></img>
+	     		<br/><br/>
+	     		<div class="row">
+					<div class="pricing pricinglogo">
+		     			<img id="qlogo" src="../images/Q.png"></img>
+		     		</div>
+		     		<div class="pricing pricingheading">
+		     			<p class="login-text1">Fujitsu Pricing Tool</p>
+		     		</div>
+		     		<div class="pricing pricingcontent">
+			        	<p class="login-text2">This model consists of an online database which is linked to a light-weight web based front end. Once a deal starts, the Q-model can be accessed to assess the target price of the pursuit. The data used relies on benchmark data, past deal data and competitive data. And if a deal is submitted the Q-model is used to normalize and submit the data sent to the client.
+			        </div>
+			        <div class="accessBlock">
+				        <p class="login-text1">New user</p>
+				        <p class="login-text2">If you do not have access to this site, please fill out the underlying form to request access.</p>
+			        	<a ng-href="/accessRequest"><button id="submitBtn" type="submit" class="btn btn-default">Request access</button></a>
+			        	<!-- Trigger the modal with a button -->
+
+		        	</div>
+	        	</div>
+	     	<!-- </div>
+
+	     	<div style="height:60%" class="right-pane"></div> -->
+
+	     </div>
+	 </div>
+</div>

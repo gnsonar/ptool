@@ -1,0 +1,70 @@
+ <head>
+	<link rel="stylesheet" href="/src/storage/storage.css">
+	<style>.modal{
+	left: 18%;
+   	width: 100%;
+}
+	</style>
+</head>
+
+<!-- <table id="tabAutoPaging" class="tabCool">
+  <thead>
+    <tr>
+      <th data-pptx-min-width="0.6" style="width: 5%">Row</th>
+      <th data-pptx-min-width="0.8" style="width:10%">Last Name</th>
+      <th data-pptx-min-width="0.8" style="width:10%">First Name</th>
+      <th data-pptx-width="8.5"     style="width:75%">Description</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table> -->
+
+<div class="modal-header">
+  <h3>Graph</h3> 
+</div>
+<!--  <div>
+	<div >
+	<nvd3-pie-chart
+    	data="exampleData"
+        id="exampleId"
+        width="550"
+        height="350"
+        x="xFunction()"
+        y="yFunction()"
+        showLabels="true">
+       
+    </nvd3-pie-chart> 
+</div>
+</div> -->
+
+<div class="modal-body" style="width: 100%;height: 450px">
+
+	<table style="width: 100%;">
+	 <thead>
+	 <tr class="head">
+	<th style="float:left;width: 33%" >Offshore({{graphinfo.offshoreAllowed}}) Service({{graphinfo.serviceWindowSla}}) Hardware({{graphinfo.includeHardware}})</th>
+	<th style="float:left;width: 33%">Offshore({{graphinfo.offshoreAllowed}}) Service({{graphinfo.serviceWindowSla}}) Hardware({{graphinfo.includeHardware}})</th>
+<!-- 	<th style="float:left;width: 33%">Offshore({{graphinfo.offshoreAllowed}}) Service({{graphinfo.serviceWindowSla}}) Hardware({{graphinfo.includeHardware}})</th> -->
+	 </tr> 
+	 <thead>
+	<tr>
+    	<td  id="piechart" style="height: 420px;float:left;width: 33%"></td>
+       <!--  <td id="piechart1" style= "height: 420px;float:left;width: 33%"></td> -->
+        <td   style="float:left;width: 63%"> 
+        <canvas id="bar" class="chart chart-bar"
+  chart-data="data" chart-labels="labels" chart-series="series" 
+   chart-colors="colors"> 
+</canvas>
+</td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal-footer">
+<p style="text-align:center;float:left;" >
+<span style="color:red;">Note:</span> If tower volume percentage is very low to view the percentage mouse over on the color area on the graph.
+ click on the color indicator to highlight the tower you want to view.
+</p>
+  <button ng-click="close()" class="btn" >Close</button>
+</div>
+

@@ -1,0 +1,80 @@
+<!--ServiceDesk Result -->
+<div class="col-lg-3 col-md-3">
+</div>
+
+<div class="col-lg-12 col-md-12 serviceDesk">
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!serviceDeskInfo.contact.open"></i><hr class="iconsideline" ng-if="!serviceDeskInfo.contact.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="serviceDeskInfo.contact.open"></i><hr class="iconsideline" ng-if="serviceDeskInfo.contact.open">
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database serviceDesklevel1_icon"></i>
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{serviceDeskInfo.contact.levelName}}</label>
+			</div>
+			<div class="level1_yearmaindiv1">
+				<div ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index" ng-if="serviceDeskInfo.contact.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+			<div class="level1_yearmaindiv2">
+				<div ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index" ng-if="serviceDeskInfo.contact.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="serviceDesklevel1-1_div" ng-if="serviceDeskInfo.contact.open">
+		<ul>
+		       <li>
+		        <i class="fa fa-plus-circle serviceDesklevel1-1_expandcollapse"   ng-if="!serviceDeskInfo.contact.children[0].open" ></i>
+				<i class="fa fa-minus-circle serviceDesklevel1-1_expandcollapse"  ng-if="serviceDeskInfo.contact.children[0].open" ></i>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon"></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader" style="width:11em;"> {{serviceDeskInfo.contact.children[0].levelName}}</label>
+					<input ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+						class="form-control input-box serviceDesklevel1-1_input"
+						name="volume{{$index}}" ng-readonly=true
+						ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].volume"/>
+
+					<label class="levelheader pricing-header"> Service Desk Pricing </label>
+					<input ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'revenue'" class="form-control input-box serviceDesklevel1-1_input"
+						ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].revenue * 12"
+						name="revenue{{$index}}" ng-readonly="true"	/>
+
+					<input ng-repeat="dv in serviceDeskInfo.contact.children[0].distributedVolume track by $index"
+						ng-if="viewBy.type == 'unit'" class="form-control input-box serviceDesklevel1-1_input"
+						name="unit{{$index}}" ng-readonly="true"
+						ng-model="serviceDeskInfo.contact.children[0].distributedVolume[$index].unit" />
+				</span>
+				<ul ng-if="serviceDeskInfo.contact.children[0].open">
+					<li ng-repeat="child in serviceDeskInfo.contact.children[0].children" ng-init="childIndex = $index">
+						<span class="iconbar" style="padding-top:1em; padding-bottom:1.1em;"><i class="fa fa-bars"></i></span>
+						<span class="labelbar">
+							<label class="levelheader height">{{child.levelName}}</label>
+							<input ng-repeat="dv in child.distributedVolume track by $index" name="childinput{{$index+1}}"
+								class="form-control input-box" style="margin-top: 0.2em"
+						   		ng-model="dv.volume" ng-readonly="true" />
+
+					   		<label class="levelheader pricing-header"> Service Desk Pricing </label>
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'revenue'" class="form-control input-box serviceDesklevel1-1_input"
+								ng-model="dv.revenue * 12" name="revenue{{$index}}" ng-readonly="true"/>
+
+							<input ng-repeat="dv in child.distributedVolume track by $index"
+								ng-if="viewBy.type == 'unit'" class="form-control input-box serviceDesklevel1-1_input"
+								name="unit{{$index}}"" ng-readonly="true" ng-model="child.distributedVolume[$index].unit"/>
+						</span>
+					</li>
+				</ul>
+			</li>
+      	</ul>
+  	</div>
+</div>
+<!--End contact -->

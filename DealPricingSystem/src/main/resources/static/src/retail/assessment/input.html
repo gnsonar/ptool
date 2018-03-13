@@ -1,0 +1,64 @@
+<!--Retail input -->
+<div class="col-lg-12 assessment-tabheader">
+    <div class="col-lg-12">
+       	<div class="form-group">
+       		<label class="col-lg-2 col-md-2 tabheader-label"><input type="checkbox" ng-model="shops" ng-click="shopsChecked(shops)"> Number of Shops &nbsp;
+       		<a ng-if="dynamicTooltipTextUser" href="#" uib-tooltip-html="'{{dynamicTooltipTextUser}}'"  tooltip-placement="bottom" tooltip-class="customClass" style="display:inline;z-index: 0;position: absolute; margin-top: .6em;">
+       		<i class="fa fa-info-circle"></i>
+       		</a>
+       		</label>
+       		<div class="col-lg-1 col-md-1 inputDiv" ng-repeat="dealYearlyDataInfo in dealYearlyDataInfoDtoList">
+        		<input class="form-control input-box smallBox" disabled name="shops{{$index}}" ng-model="dealYearlyDataInfo.noOfSites"/>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+<div class="col-lg-12" style="margin-top:1em;">
+<label><i class="fa fa-tags" aria-hidden="true"></i> Field Marked with <span class="mandatory">*</span> are mandatory. </label>
+</div>
+
+<div class="col-lg-12 retail">
+	<br/>
+	<div class="alert alert-danger" ng-if="showErr">
+		<strong>Error!</strong> Sum of percentages should be 100!
+	</div>
+	<div class="alert alert-danger" ng-if="showVolumeErr">
+		<strong>Error!</strong> Sum of all App types should be equal to Total in there respective year!
+	</div>
+	
+	<div class="level1_div">
+		<div class="level1">
+			<i class="fa fa-plus-circle level1_i" ng-if="!retailInfo.shops.open" ng-click="togglePanel(retailInfo.shops)" ></i><hr class="iconsideline" ng-if="!retailInfo.shops.open">
+			<i class="fa fa-minus-circle level1_i" ng-if="retailInfo.shops.open" ng-click="togglePanel(retailInfo.shops)"></i><hr class="iconsideline" ng-if="retailInfo.shops.open" >
+		</div>
+		<div class="level1_div">
+			<div class="level1_icondiv">
+				<i class="fa fa-database retaillevel1_icon"></i> 
+			</div>
+			<div class="level1_labeldiv">
+				<label> {{retailInfo.shops.levelName}}</label> 
+			</div>
+			<div class="level1_yearmaindiv">
+				<div ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" ng-if="retailInfo.shops.open">
+					<label class="input-box level1_yearlabel">Year {{$index+1}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="retaillevel1-1_div" ng-if="retailInfo.shops.open">
+		<ul>
+		    <li>
+				<span class="iconbar">
+					<i class="fa fa-bars level1-1_icon" ></i>
+				</span>
+				<span class="labelbar">
+					<label class="levelheader retailchild right"> {{retailInfo.shops.children[0].levelName}}<em class="mandatory" style="display:initial;">*</em></label>
+					<input ng-repeat="dv in retailInfo.shops.children[0].distributedVolume track by $index" name="input{{$index+1}}" type="text" style="margin-top: 0.2em"
+						class="form-control input-box" name="Volume{{$index}}" ng-change="changeVolume()" ng-model="dv.volume"
+						ng-keydown="tabEvent($event,$index)" ng-required="true" numbers-only/>
+			  </span>
+			</li>
+        </ul>
+     </div>
+</div>

@@ -1,0 +1,76 @@
+<!--sidebar start-->
+<aside>
+<div id="sidebar" class="nav-collapse">
+  <!-- sidebar menu start-->
+  <ul class="sidebar-menu">
+    <li>
+    <div class="dealtag">
+    	<i class="fa fa-ticket" aria-hidden="true" style="font-size:20px"></i>
+       <span>&nbsp;&nbsp;Pricing Assessment</span>
+    </div>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.detail')">
+      <a ng-click="redirect(0,'home.assessment.generic.detail')" ng-style="isSaveSuccessful(0)">
+         <i class="fa fa-cog" aria-hidden="true" style="font-size:20px"></i>
+         <span> Generic Deal Settings </span>
+      </a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.hosting')">
+      	 <a ng-click="redirect(1,'home.assessment.generic.hosting',$event)" ng-style="isSaveSuccessful(1)">
+	       	<i class="fa fa-cloud" aria-hidden="true" style="font-size:20px"></i>
+	       	<span> Infrastructure & Hosting &nbsp;&nbsp;</span>
+   		</a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.storage')">
+      <a ng-click="redirect(2,'home.assessment.generic.storage',$event)" ng-style="isSaveSuccessful(2)">
+        <i class="fa fa-database" aria-hidden="true" style="font-size:20px"></i>
+        <span> Storage and Backup </span>
+      </a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.endUser')">
+      <a ng-click="redirect(3,'home.assessment.generic.endUser',$event)" ng-style="isSaveSuccessful(3)">
+          <i class="fa fa-users" aria-hidden="true" style="font-size:20px"></i>
+          <span> End Users </span>
+      </a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.network')">
+     <a ng-click="redirect(4,'home.assessment.generic.network',$event)" ng-style="isSaveSuccessful(4)">
+         <i class="fa fa-sitemap" aria-hidden="true" style="font-size:20px"></i>
+         <span> Network </span>
+     </a>
+    </li>
+	<li ng-class="activeFor('home.assessment.generic.serviceDesk')">
+      <a ng-click="redirect(5,'home.assessment.generic.serviceDesk',$event)" ng-style="isSaveSuccessful(5)">
+         <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:20px"></i>
+         <span> Service Desk </span>
+     </a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.apps')">
+    	<a ng-click="redirect(6,'home.assessment.generic.apps',$event)" ng-style="isSaveSuccessful(6)">
+          <i class="fa fa-buysellads" aria-hidden="true" style="font-size:20px"></i>
+          <span> Application Services </span>
+    	</a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.retail')">
+    	<a ng-click="redirect(7,'home.assessment.generic.retail',$event)" ng-style="isSaveSuccessful(7)">
+          <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i>
+          <span> Retail Services </span>
+    	</a>
+    </li>
+    <li ng-class="activeFor('home.assessment.generic.totals')">
+		<a ng-click="redirect(8,'home.assessment.generic.totals',$event)" >
+			<i class="fa fa-tumblr-square" aria-hidden="true" style="font-size:20px"></i>
+			<span> Totals </span>
+		</a>
+	</li>
+	<li  ng-if="(role=='Admin'|| role=='Finance')" ng-class="activeFor('home.submission.genericSubmission')">
+		<a ng-click="redirect(9,'home.submission.genericSubmission',$event)">
+			<i class="fa fa-exchange" aria-hidden="true"  style="font-size:20px"></i>
+			<span> Switch to Submission &nbsp;&nbsp; </span>
+		</a>
+	</li>
+  </ul>
+  <!-- sidebar menu end-->
+</div>
+</aside>
+<!--sidebar end-->

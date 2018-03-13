@@ -1,0 +1,54 @@
+<div topheader></div>
+<div class="lds-spinner" ng-show="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<!--sidebar start-->
+<aside  ng-if="role=='Admin'">
+	<div id="sidebar" class="nav-collapse">
+ 		<!-- sidebar menu start-->
+	  	<ul class="sidebar-menu">
+	    	<li ng-if="role=='Admin'" style="background-color:#52c352;">
+			    <div class="dealtag">
+			    	<i class="fa fa-user" aria-hidden="true" style="font-size:20px"></i>
+			       <span> &nbsp;&nbsp;&nbsp; Admin</span>
+			    </div>
+		    </li>
+		    <li  ng-if="role=='Admin'"ng-class="activeFor('admin/userRequest')">
+		      <a ui-sref="admin.userRequest">
+		         <i class="fa fa-user-plus" aria-hidden="true"  style="font-size:20px"></i>
+		         <span> User Request &nbsp;&nbsp;</span>
+		      </a>
+		    </li>
+		    <li ng-if="role=='Admin'" ng-class="activeFor('admin/homeMessage')">
+	      		<a ui-sref="admin.homeMessage">
+			       	<i class="fa fa-commenting" aria-hidden="true" style="font-size:20px"></i>
+			       	<span> Home Message &nbsp;&nbsp;</span>
+		   		</a>
+		    </li>
+		    <li ng-if="role=='Admin'" ng-class="activeFor('admin/currencyExchange')">
+		      <a ng-if="role=='Admin'" ui-sref="admin.currencyExchange">
+		        <i class="fa fa-money" aria-hidden="true" style="font-size:20px"></i>
+		        <span> Currency Exchange &nbsp;&nbsp;</span>
+		      </a>
+		    </li>
+		</ul>
+ 	 	<!-- sidebar menu end-->
+	</div>
+</aside>
+<!--sidebar end-->
+
+<!--main content start-->
+<section id="main-content" ng-if="role=='Admin'">
+	<section class="wrapper">
+	    <div class="container">
+		    <div>
+			  	<div class="row">
+			    	<div class="col-lg-10" >
+				      <h3><i class="fa fa-cogs" aria-hidden="true"></i> &nbsp; Administrator Settings</h3>
+				      <h5></h5>
+				      <h5></h5>
+			    	</div>
+			  	</div>
+			  	<ui-view/>
+			</div>
+		</div>
+	</section>
+</section>
